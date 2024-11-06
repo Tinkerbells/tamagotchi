@@ -1,0 +1,22 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  body,
+  .vkuiAppRoot {
+    background: linear-gradient(0deg, #ffffff, #ffffff),
+      linear-gradient(0deg, #f2f3f5, #f2f3f5);
+  }
+
+  /* For Webkit-based browsers (Chrome, Safari and Opera) */
+  .no-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+
+  /* For IE, Edge and Firefox */
+  .no-scrollbar {
+    -ms-overflow-style: none; /* IE and Edge */
+    scrollbar-width: none; /* Firefox */
+  }
+}

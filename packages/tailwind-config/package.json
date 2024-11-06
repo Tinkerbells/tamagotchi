@@ -1,0 +1,10 @@
+{
+  "name": "@tamagotchi/tailwind-config",
+  "version": "0.0.0",
+  "private": true,
+  "main": "./taliwind.config.ts",
+  "devDependencies": {
+    "@tamagotchi/typescript-config": "workspace:*",
+    "tailwindcss": "^3.4.14"
+  }
+}
