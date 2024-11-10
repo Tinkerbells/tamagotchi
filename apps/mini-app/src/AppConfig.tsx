@@ -1,6 +1,7 @@
 import { App } from './App'
 import { router } from './routes'
 import { transformVKBridgeAdaptivity } from './utils'
+import '@/assets/fonts.css'
 import '@/assets/index.css'
 import vkBridge, {
   parseURLSearchParamsForGetLaunchParams,

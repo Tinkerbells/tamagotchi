@@ -12,17 +12,23 @@
     "deploy": "vite build && vk-miniapps-deploy"
   },
   "dependencies": {
+    "@cloudinary/react": "^1.13.1",
+    "@cloudinary/url-gen": "^1.21.0",
+    "@tamagotchi/ui": "workspace:*",
+    "@tamagotchi/utils": "workspace:*",
     "@vkontakte/icons": "^2.92.0",
     "@vkontakte/vk-bridge": "^2.13.0",
     "@vkontakte/vk-bridge-react": "^1.0.1",
     "@vkontakte/vk-mini-apps-router": "^1.4.2",
     "@vkontakte/vkui": "^6.0.0",
-    "@tamagotchi/utils": "workspace:*",
     "framer-motion": "^11.11.11",
     "react": "^18.2.0",
-    "react-dom": "^18.2.0"
+    "react-blurhash": "^0.3.0",
+    "react-dom": "^18.2.0",
+    "thumbhash": "^0.1.1"
   },
   "devDependencies": {
+    "@julr/vite-plugin-validate-env": "^1.1.1",
     "@tamagotchi/eslint-config": "workspace:*",
     "@tamagotchi/tailwind-config": "workspace:*",
     "@tamagotchi/typescript-config": "workspace:*",
@@ -38,14 +44,17 @@
     "eruda": "^3.0.1",
     "esbuild": "~0.20.0",
     "eslint": "^8.55.0",
-    "globals": "^15.11.0",
     "eslint-plugin-react-hooks": "^4.6.0",
     "eslint-plugin-react-refresh": "^0.4.5",
+    "globals": "^15.11.0",
     "postcss": "^8.4.47",
+    "sharp": "^0.33.5",
     "tailwindcss": "^3.4.14",
     "terser": "^5.4.0",
     "typescript": "^5.2.2",
     "vite": "^5.0.8",
-    "vite-tsconfig-paths": "^5.1.0"
+    "vite-plugin-image-optimizer": "^1.1.8",
+    "vite-tsconfig-paths": "^5.1.0",
+    "zod": "^3.23.8"
   }
 }

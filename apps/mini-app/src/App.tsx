@@ -1,13 +1,11 @@
-import { Persik, Home } from './panels'
+import { Home, Onboarding } from './panels'
 import { DEFAULT_VIEW_PANELS } from './routes'
-import bridge, { UserInfo } from '@vkontakte/vk-bridge'
 import { useActiveVkuiLocation } from '@vkontakte/vk-mini-apps-router'
 import { View, SplitLayout, SplitCol, ScreenSpinner } from '@vkontakte/vkui'
-import * as React from 'react'
 import { useState, useEffect, ReactNode } from 'react'
 
 export const App = () => {
-  const { panel: activePanel = DEFAULT_VIEW_PANELS.HOME } =
+  const { panel: activePanel = DEFAULT_VIEW_PANELS.ONBOARDING } =
     useActiveVkuiLocation()
   // const [fetchedUser, setUser] = useState<UserInfo | undefined>();
   const [popout, setPopout] = useState<ReactNode | null>(
@@ -28,7 +26,7 @@ export const App = () => {
       <SplitCol>
         <View activePanel={activePanel}>
           <Home id="home" />
-          <Persik id="persik" />
+          <Onboarding id="onboarding" />
         </View>
       </SplitCol>
     </SplitLayout>

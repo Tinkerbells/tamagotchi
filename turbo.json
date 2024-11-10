@@ -1,7 +1,9 @@
 {
   "$schema": "https://turbo.build/schema.json",
+  "globalDependencies": [".env"],
   "tasks": {
     "build": {
+      "env": ["VITE_CLOUDINARY_CLOUD_NAME"],
       "dependsOn": ["^build"],
       "outputs": ["dist/**", "build/**", "public/build/**"]
     },
@@ -9,6 +11,7 @@
       "dependsOn": ["^lint"]
     },
     "dev": {
+      "env": ["VITE_CLOUDINARY_CLOUD_NAME"],
       "cache": false,
       "persistent": true
     }
