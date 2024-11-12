@@ -76,7 +76,7 @@ export const StepTwo: React.FC<StepProps> = () => {
           />
         </picture>
       </StepCard>
-      <div className="flex flex-col gap-4 text-center">
+      <div className="font-vk flex flex-col gap-4 text-center">
         <h2>Заботьтесь о себе и питомце</h2>
         <p className="text-gray text-lg">
           Медитируйте, гуляйте, высыпайтесь и заботьтесь о питании вместе с

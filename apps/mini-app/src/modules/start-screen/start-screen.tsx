@@ -22,7 +22,7 @@ export const StartScreen = () => {
   }, [setStep, step, navigator])
 
   return (
-    <div className="bg-main relative flex h-screen w-full flex-col items-center overflow-hidden px-4 bg-blend-multiply">
+    <section className="bg-main relative flex h-screen w-full flex-col items-center overflow-hidden px-4 bg-blend-multiply">
       <svg
         width="345"
         height="505"
@@ -121,6 +121,6 @@ export const StartScreen = () => {
           </filter>
         </defs>
       </svg>
-    </div>
+    </section>
   )
 }
