@@ -1,0 +1,19 @@
+{
+  "name": "@tamagotchi/logger",
+  "version": "0.0.0",
+  "private": true,
+  "main": "./src/index.ts",
+  "types": "./src/index.ts",
+  "publishConfig": {
+    "access": "public"
+  },
+  "type": "module",
+  "devDependencies": {
+    "@tamagotchi/typescript-config": "workspace:*"
+  },
+  "dependencies": {
+    "@t3-oss/env-core": "^0.11.1",
+    "pino": "^9.4.0",
+    "zod": "^3.23.8"
+  }
+}

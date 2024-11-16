@@ -1,4 +1,5 @@
 import { StatusModal } from '@/modules'
+import { client } from '@/shared/lib/api'
 import { useRouteNavigator } from '@vkontakte/vk-mini-apps-router'
 import {
   NavIdProps,
@@ -8,10 +9,16 @@ import {
   Tabbar,
   TabsItem,
 } from '@vkontakte/vkui'
-import { FC } from 'react'
+import { FC, useEffect } from 'react'
 
 export const Home: FC<NavIdProps> = ({ id }) => {
   const routeNavigator = useRouteNavigator()
+
+  useEffect(() => {
+    const fetchA = async () => {
+      // const res = await client.
+    }
+  })
 
   return (
     <Panel id={id}>

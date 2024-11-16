@@ -1,0 +1,33 @@
+{
+  "name": "@tamagotchi/server",
+  "version": "0.0.0",
+  "private": true,
+  "main": "./dist/index.js",
+  "module": "./dist/index.mjs",
+  "types": "./dist/index.d.ts",
+  "publishConfig": {
+    "access": "public"
+  },
+  "scripts": {
+    "dev": "tsup --watch | pino-pretty",
+    "build": "tsup"
+  },
+  "type": "module",
+  "dependencies": {
+    "@hono/node-server": "^1.13.2",
+    "@hono/swagger-ui": "^0.4.1",
+    "@t3-oss/env-core": "^0.11.1",
+    "@tamagotchi/api": "workspace:*",
+    "@tamagotchi/drizzle": "workspace:*",
+    "@tamagotchi/eslint-config": "workspace:*",
+    "@tamagotchi/logger": "workspace:*",
+    "bun-compression": "^0.0.4",
+    "drizzle-orm": "0.36.1",
+    "hono": "^4.6.4",
+    "zod": "^3.23.8"
+  },
+  "devDependencies": {
+    "@types/bun": "latest",
+    "tsup": "^8.3.5"
+  }
+}

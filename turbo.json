@@ -3,7 +3,14 @@
   "globalDependencies": [".env"],
   "tasks": {
     "build": {
-      "env": ["VITE_CLOUDINARY_CLOUD_NAME"],
+      "env": [
+        "DATABASE_URL",
+        "SECRET_KEY",
+        "NODE_ENV",
+        "BACKEND_PORT",
+        "REDIS_HOST",
+        "REDIS_PORT"
+      ],
       "dependsOn": ["^build"],
       "outputs": ["dist/**", "build/**", "public/build/**"]
     },
@@ -11,7 +18,14 @@
       "dependsOn": ["^lint"]
     },
     "dev": {
-      "env": ["VITE_CLOUDINARY_CLOUD_NAME"],
+      "env": [
+        "DATABASE_URL",
+        "SECRET_KEY",
+        "NODE_ENV",
+        "BACKEND_PORT",
+        "REDIS_HOST",
+        "REDIS_PORT"
+      ],
       "cache": false,
       "persistent": true
     }
