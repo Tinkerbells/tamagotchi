@@ -13,6 +13,7 @@ export const DEFAULT_VIEW = 'default_view'
 export const DEFAULT_VIEW_PANELS = {
   HOME: 'home',
   ONBOARDING: 'onboarding',
+  PET_CREATION: 'pet-creation',
 } as const
 
 export const routes = RoutesConfig.create([
@@ -20,6 +21,11 @@ export const routes = RoutesConfig.create([
     createView(DEFAULT_VIEW, [
       createPanel(DEFAULT_VIEW_PANELS.ONBOARDING, '/', []),
       createPanel(DEFAULT_VIEW_PANELS.HOME, `/${DEFAULT_VIEW_PANELS.HOME}`, []),
+      createPanel(
+        DEFAULT_VIEW_PANELS.PET_CREATION,
+        `/${DEFAULT_VIEW_PANELS.PET_CREATION}`,
+        []
+      ),
     ]),
   ]),
 ])

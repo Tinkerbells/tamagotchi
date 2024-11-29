@@ -1,8 +1,8 @@
-import { ValidateEnv } from '@julr/vite-plugin-validate-env'
 import legacy from '@vitejs/plugin-legacy'
 import react from '@vitejs/plugin-react'
 import { defineConfig } from 'vite'
 import { ViteImageOptimizer } from 'vite-plugin-image-optimizer'
+import { nodePolyfills } from 'vite-plugin-node-polyfills'
 import tsconfigPaths from 'vite-tsconfig-paths'
 
 function handleModuleDirectivesPlugin() {
@@ -34,8 +34,8 @@ export default defineConfig({
       targets: ['defaults', 'not IE 11'],
     }),
     tsconfigPaths(),
-    ValidateEnv({}),
     ViteImageOptimizer(),
+    nodePolyfills(),
   ],
 
   server: {

@@ -40,7 +40,7 @@ export const Image = React.forwardRef<HTMLImageElement, ImageProps>(
     return (
       <picture
         className={cn('overflow-hidden', className)}
-        style={{ aspectRatio: `${aspectRatio}` }}
+        style={{ aspectRatio: `${aspectRatio}`, width: width, height: height }}
       >
         <source type="image/webp" />
         {isLoading ? (

@@ -17,7 +17,3 @@ if (!parsedEnv.success) {
 }
 
 export const env = parsedEnv.data
-
-declare global {
-  type ProcessEnv = z.infer<typeof envSchema>
-}
