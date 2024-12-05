@@ -1,6 +1,6 @@
 {
-  "id": "b25f79ab-fc62-4779-902d-2c8f8c259278",
-  "prevId": "00000000-0000-0000-0000-000000000000",
+  "id": "fcb09f77-1c97-4d3b-b00a-996f24c57597",
+  "prevId": "d1393a8c-8eb4-405c-8f23-24b6e84ffe16",
   "version": "7",
   "dialect": "postgresql",
   "tables": {
@@ -248,8 +248,8 @@
           "primaryKey": true,
           "notNull": true
         },
-        "pet_id": {
-          "name": "pet_id",
+        "user_id": {
+          "name": "user_id",
           "type": "integer",
           "primaryKey": false,
           "notNull": true
@@ -270,12 +270,12 @@
       },
       "indexes": {},
       "foreignKeys": {
-        "pet_accessories_pet_id_pet_id_fk": {
-          "name": "pet_accessories_pet_id_pet_id_fk",
+        "pet_accessories_user_id_user_id_fk": {
+          "name": "pet_accessories_user_id_user_id_fk",
           "tableFrom": "pet_accessories",
-          "tableTo": "pet",
+          "tableTo": "user",
           "columnsFrom": [
-            "pet_id"
+            "user_id"
           ],
           "columnsTo": [
             "id"
@@ -332,10 +332,10 @@
       },
       "indexes": {},
       "foreignKeys": {
-        "pet_interior_items_user_id_pet_id_fk": {
-          "name": "pet_interior_items_user_id_pet_id_fk",
+        "pet_interior_items_user_id_user_id_fk": {
+          "name": "pet_interior_items_user_id_user_id_fk",
           "tableFrom": "pet_interior_items",
-          "tableTo": "pet",
+          "tableTo": "user",
           "columnsFrom": [
             "user_id"
           ],

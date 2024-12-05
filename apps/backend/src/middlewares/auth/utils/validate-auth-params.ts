@@ -1,4 +1,5 @@
 import { type LaunchParamsDto } from '../dto'
+import env from '@/env'
 import crypto from 'crypto'
 
 const ONE_HOUR_IN_SECONDS = 3600
@@ -22,7 +23,7 @@ export const validateAuthParams = (authorization: string): boolean => {
     .join('&')
 
   const hash = crypto
-    .createHmac('sha256', 'ZON7hTBZiO0St7rTZjgp')
+    .createHmac('sha256', env.SECRET_KEY)
     .update(sortedParams)
     .digest('base64')
     .replace(/\+/g, '-')
@@ -34,6 +35,5 @@ export const validateAuthParams = (authorization: string): boolean => {
 
 const areParamsFresh = (vkTs: number): boolean => {
   const currentTimeInSeconds = Math.floor(Date.now() / 1000)
-  console.log(currentTimeInSeconds - vkTs <= ONE_HOUR_IN_SECONDS)
   return currentTimeInSeconds - vkTs <= ONE_HOUR_IN_SECONDS
 }

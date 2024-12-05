@@ -1,6 +1,6 @@
 import type { CreateRoute, ListRoute, GetOneRoute } from './user.routes'
 import { db } from '@/db'
-import { user } from '@/db/schema'
+import { resources, user } from '@/db/schema'
 import type { AppRouteHandler } from '@/lib/types'
 import * as HttpStatusCodes from 'stoker/http-status-codes'
 import * as HttpStatusPhrases from 'stoker/http-status-phrases'
@@ -12,8 +12,9 @@ export const list: AppRouteHandler<ListRoute> = async (c) => {
 
 export const create: AppRouteHandler<CreateRoute> = async (c) => {
   const newUser = c.req.valid('json')
-  const [inserted] = await db.insert(user).values(newUser).returning()
-  return c.json(inserted, HttpStatusCodes.OK)
+  const [insertedUser] = await db.insert(user).values(newUser).returning()
+  await db.insert(resources).values({ userId: insertedUser.id }) // insert resources to created user
+  return c.json(insertedUser, HttpStatusCodes.OK)
 }
 
 export const getOne: AppRouteHandler<GetOneRoute> = async (c) => {

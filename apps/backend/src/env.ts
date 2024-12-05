@@ -11,6 +11,7 @@ const env = createEnv({
       .default('development'),
     DATABASE_URL: z.string().url(),
     PORT: z.coerce.number().default(9999),
+    SECRET_KEY: z.string(),
     LOG_LEVEL: z.enum([
       'fatal',
       'error',

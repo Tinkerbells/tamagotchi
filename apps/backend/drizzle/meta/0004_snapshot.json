@@ -1,6 +1,6 @@
 {
-  "id": "b25f79ab-fc62-4779-902d-2c8f8c259278",
-  "prevId": "00000000-0000-0000-0000-000000000000",
+  "id": "3d920aa1-9d0f-48f5-9037-4bf4358b3bcb",
+  "prevId": "98a05029-aa3e-43b5-b7cc-cf52796562fe",
   "version": "7",
   "dialect": "postgresql",
   "tables": {
@@ -36,21 +36,21 @@
           "name": "gems",
           "type": "integer",
           "primaryKey": false,
-          "notNull": false,
+          "notNull": true,
           "default": 0
         },
         "created_at": {
           "name": "created_at",
           "type": "timestamp",
           "primaryKey": false,
-          "notNull": false,
+          "notNull": true,
           "default": "now()"
         },
         "updated_at": {
           "name": "updated_at",
           "type": "timestamp",
           "primaryKey": false,
-          "notNull": false,
+          "notNull": true,
           "default": "now()"
         }
       },
@@ -236,7 +236,15 @@
         }
       },
       "compositePrimaryKeys": {},
-      "uniqueConstraints": {}
+      "uniqueConstraints": {
+        "pet_user_id_unique": {
+          "name": "pet_user_id_unique",
+          "nullsNotDistinct": false,
+          "columns": [
+            "user_id"
+          ]
+        }
+      }
     },
     "public.pet_accessories": {
       "name": "pet_accessories",
@@ -248,8 +256,8 @@
           "primaryKey": true,
           "notNull": true
         },
-        "pet_id": {
-          "name": "pet_id",
+        "user_id": {
+          "name": "user_id",
           "type": "integer",
           "primaryKey": false,
           "notNull": true
@@ -270,12 +278,12 @@
       },
       "indexes": {},
       "foreignKeys": {
-        "pet_accessories_pet_id_pet_id_fk": {
-          "name": "pet_accessories_pet_id_pet_id_fk",
+        "pet_accessories_user_id_user_id_fk": {
+          "name": "pet_accessories_user_id_user_id_fk",
           "tableFrom": "pet_accessories",
-          "tableTo": "pet",
+          "tableTo": "user",
           "columnsFrom": [
-            "pet_id"
+            "user_id"
           ],
           "columnsTo": [
             "id"
@@ -332,10 +340,10 @@
       },
       "indexes": {},
       "foreignKeys": {
-        "pet_interior_items_user_id_pet_id_fk": {
-          "name": "pet_interior_items_user_id_pet_id_fk",
+        "pet_interior_items_user_id_user_id_fk": {
+          "name": "pet_interior_items_user_id_user_id_fk",
           "tableFrom": "pet_interior_items",
-          "tableTo": "pet",
+          "tableTo": "user",
           "columnsFrom": [
             "user_id"
           ],

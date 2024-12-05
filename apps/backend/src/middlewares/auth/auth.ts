@@ -2,7 +2,6 @@ import { validateAuthParams } from './utils'
 import { createMiddleware } from 'hono/factory'
 
 export const auth = createMiddleware(async (c, next) => {
-  const HOUR = 3600
   const authorization = c.req.header('Authorization')
 
   if (!authorization) {

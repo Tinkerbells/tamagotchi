@@ -1,0 +1,1 @@
+ALTER TABLE "pet" ADD CONSTRAINT "pet_user_id_unique" UNIQUE("user_id");

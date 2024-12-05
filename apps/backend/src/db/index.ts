@@ -1,5 +1,4 @@
 import * as schema from './schema'
-import { user } from './schema'
 import env from '@/env'
 import { logger } from '@/lib/logger'
 import { Logger as drizzleLogger } from 'drizzle-orm/logger'
@@ -20,9 +19,6 @@ export interface DatabaseError {
   sqlState: string
   sqlMessage: string
 }
-
-export type User = typeof user.$inferSelect
-export type NewUser = typeof user.$inferInsert
 
 class DBLogger implements drizzleLogger {
   logQuery(query: string, params: unknown[]): void {

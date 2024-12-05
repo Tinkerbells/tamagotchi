@@ -27,7 +27,7 @@ export const create = createRoute({
   },
   tags,
   responses: {
-    [HttpStatusCodes.OK]: jsonContent(insertUserSchema, 'The created task'),
+    [HttpStatusCodes.OK]: jsonContent(selectUserSchema, 'The created task'),
     [HttpStatusCodes.UNPROCESSABLE_ENTITY]: jsonContent(
       createErrorSchema(insertUserSchema),
       'The validation error(s)'
@@ -52,28 +52,6 @@ export const getOne = createRoute({
   },
 })
 
-// export const remove = createRoute({
-//   path: '/tasks/{id}',
-//   method: 'delete',
-//   request: {
-//     params: IdParamsSchema,
-//   },
-//   tags,
-//   responses: {
-//     [HttpStatusCodes.NO_CONTENT]: {
-//       description: 'Task deleted',
-//     },
-//     [HttpStatusCodes.NOT_FOUND]: jsonContent(notFoundSchema, 'Task not found'),
-//     [HttpStatusCodes.UNPROCESSABLE_ENTITY]: jsonContent(
-//       createErrorSchema(IdParamsSchema),
-//       'Invalid id error'
-//     ),
-//   },
-// })
-
 export type ListRoute = typeof list
 export type CreateRoute = typeof create
 export type GetOneRoute = typeof getOne
-// export type GetOneRoute = typeof getOne
-// export type PatchRoute = typeof patch
-// export type RemoveRoute = typeof remove
