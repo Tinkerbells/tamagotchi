@@ -6,8 +6,9 @@ const kyapi = ky.extend({
   hooks: {
     beforeRequest: [
       async (request) => {
+        console.log(request)
         const authStore = new AuthStore()
-        const authorization = await authStore.get()
+        const authorization = ''
         if (authorization) {
           request.headers.set('Authorization', authorization)
         } else {
@@ -17,6 +18,7 @@ const kyapi = ky.extend({
     ],
     afterResponse: [
       async (request, options, response: Response) => {
+        console.log(response)
         if (response.ok) {
           return response
         } else if (response.status === 401) {
@@ -25,6 +27,7 @@ const kyapi = ky.extend({
           request.headers.set('Authorization', authorization)
           return kyapi(request, options)
         } else {
+          console.log(response)
           throw new Error(response.statusText)
         }
       },

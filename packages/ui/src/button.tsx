@@ -9,6 +9,7 @@ export const buttonVariants = cva(
       variant: {
         primary: 'bg-secondary text-primary',
         secondary: 'bg-white text-[#D49571]',
+        outline: 'bg-white text-primary border-[2px] border-[#fcdec3]',
       },
       size: { M: 'py-3', L: 'py-4' },
     },

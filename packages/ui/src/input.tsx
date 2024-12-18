@@ -5,25 +5,13 @@ interface InputProps extends React.HTMLAttributes<HTMLInputElement> {
   label?: string
   name?: string
   placeholder?: string
-  value?: string
-  onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void
   required?: boolean
   isError?: boolean
 }
 
 export const Input = React.forwardRef<HTMLInputElement, InputProps>(
   (
-    {
-      label,
-      name,
-      placeholder,
-      value = '',
-      onChange,
-      required,
-      className,
-      isError,
-      ...rest
-    },
+    { label, name, placeholder, required, className, isError, ...rest },
     ref
   ) => {
     const id = React.useId()
@@ -45,8 +33,6 @@ export const Input = React.forwardRef<HTMLInputElement, InputProps>(
             'w-full'
           )}
           placeholder={placeholder}
-          value={value}
-          onChange={onChange}
           required={required}
           aria-required={required}
           {...rest}

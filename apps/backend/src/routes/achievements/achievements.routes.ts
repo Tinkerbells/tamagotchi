@@ -2,7 +2,7 @@ import {
   selectAchievementsSchema,
   insertUserAchievementsSchema,
 } from '@/db/schema'
-import { notFoundSchema } from '@/lib/constants'
+import { forbiddenSchema } from '@/lib/constants'
 import { createRoute } from '@hono/zod-openapi'
 import * as HttpStatusCodes from 'stoker/http-status-codes'
 import { jsonContent, jsonContentRequired } from 'stoker/openapi/helpers'
@@ -32,7 +32,7 @@ export const update = createRoute({
       'The updated user achievements'
     ),
     [HttpStatusCodes.NOT_FOUND]: jsonContent(
-      notFoundSchema,
+      forbiddenSchema,
       'User achievements not found'
     ),
     [HttpStatusCodes.UNPROCESSABLE_ENTITY]: jsonContent(
@@ -55,7 +55,7 @@ export const get = createRoute({
       'The requested achievements'
     ),
     [HttpStatusCodes.NOT_FOUND]: jsonContent(
-      notFoundSchema,
+      forbiddenSchema,
       'Achievements not found'
     ),
     [HttpStatusCodes.UNPROCESSABLE_ENTITY]: jsonContent(

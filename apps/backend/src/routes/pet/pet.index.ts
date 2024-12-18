@@ -4,7 +4,7 @@ import { createRouter } from '@/lib/create-app'
 
 const router = createRouter()
   .openapi(routes.create, handlers.create)
-  .openapi(routes.get, handlers.getOne)
+  .openapi(routes.get, handlers.get)
   .openapi(routes.update, handlers.update)
 
 export default router

@@ -1,5 +1,6 @@
 import legacy from '@vitejs/plugin-legacy'
 import react from '@vitejs/plugin-react'
+import path from 'path'
 import { defineConfig } from 'vite'
 import { ViteImageOptimizer } from 'vite-plugin-image-optimizer'
 import { nodePolyfills } from 'vite-plugin-node-polyfills'
@@ -37,7 +38,11 @@ export default defineConfig({
     ViteImageOptimizer(),
     nodePolyfills(),
   ],
-
+  resolve: {
+    alias: {
+      '@': path.resolve(__dirname, './src'),
+    },
+  },
   server: {
     port: 5173,
     host: 'localhost',

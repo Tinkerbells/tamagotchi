@@ -20,7 +20,7 @@ export default function createApp() {
   app.use(serveEmojiFavicon('📝'))
   app.use(pinoLogger())
   // app.use(httpLogger())
-  app.use(cors({ origin: [env.APP_URL] }))
+  app.use(cors({ origin: '*' }))
   app.use(compress())
   app.use(trimTrailingSlash())
 

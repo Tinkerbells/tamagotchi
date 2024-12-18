@@ -13,7 +13,6 @@ export class AuthStore {
 
   async get() {
     const authorization = await this.storage.get(['Authorization'])
-    console.log(authorization[0].value)
     return authorization[0].value
   }
 

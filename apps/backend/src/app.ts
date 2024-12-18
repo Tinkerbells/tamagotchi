@@ -4,8 +4,9 @@ import achievements from '@/routes/achievements/achievements.index'
 import index from '@/routes/index.route'
 import pet from '@/routes/pet/pet.index'
 import resources from '@/routes/resources/resources.index'
-import store from '@/routes/store/store.index'
+import shop from '@/routes/shop/shop.index'
 import user from '@/routes/user/user.index'
+import vkUser from '@/routes/vk-user/vk-user.index'
 
 const app = createApp()
 
@@ -16,8 +17,10 @@ const _app = app
   .route('/', user)
   .route('/', pet)
   .route('/', resources)
-  .route('/', store)
+  .route('/', shop)
   .route('/', achievements)
+  .route('/vk', vkUser)
+// .route('/telegram', telegramUser)
 
 export type AppType = typeof _app
 

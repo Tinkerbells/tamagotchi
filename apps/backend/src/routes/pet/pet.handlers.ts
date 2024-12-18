@@ -53,13 +53,31 @@ export const update: AppRouteHandler<UpdateRoute> = async (c) => {
   return c.json(updatedPet, HttpStatusCodes.OK)
 }
 
-export const getOne: AppRouteHandler<GetOneRoute> = async (c) => {
+export const get: AppRouteHandler<GetOneRoute> = async (c) => {
   const { id } = c.req.valid('param')
   const pet = await db.query.pet.findFirst({
     where(fields, operators) {
       return operators.eq(fields.userId, id)
     },
   })
+  const petAccessory = await db.query.purchasedAccessories.findFirst({
+    where(fields, operators) {
+      return operators.and(
+        operators.eq(fields.userId, id),
+        operators.eq(fields.isActive, true)
+      )
+    },
+  })
+
+  const petInteriorItems = await db.query.purchasedAccessories.findMany({
+    where(fields, operators) {
+      return operators.and(
+        operators.eq(fields.userId, id),
+        operators.eq(fields.isActive, true)
+      )
+    },
+  })
+
   if (!pet) {
     return c.json(
       {
@@ -69,5 +87,11 @@ export const getOne: AppRouteHandler<GetOneRoute> = async (c) => {
     )
   }
 
-  return c.json(pet, HttpStatusCodes.OK)
+  const result = {
+    pet: pet,
+    accessory: petAccessory,
+    iterior_items: petInteriorItems,
+  }
+
+  return c.json(result, HttpStatusCodes.OK)
 }

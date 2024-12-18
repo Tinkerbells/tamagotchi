@@ -1,22 +1,59 @@
-import { DEFAULT_VIEW_PANELS } from './routes'
-import { Home, Onboarding, PetCreation } from '@/panels'
-import { AuthProvider } from '@/shared/contexts/auth-context/auth-context'
-import { useActiveVkuiLocation } from '@vkontakte/vk-mini-apps-router'
-import { View, SplitLayout, SplitCol } from '@vkontakte/vkui'
+import { AppProvider } from './app-provider'
+import { Layout } from './layout'
+import { ProtectedRoute } from './protected-route'
+import { routes } from './routes'
+import {
+  HomeScreen,
+  PetCreationScreen,
+  ProfileScreen,
+  ShopScreen,
+  StartScreen,
+} from '@/screens'
+import { AchievementsScreen } from '@/screens/achievements-screen'
+import { Routes, Route } from 'react-router-dom'
 
 export const App = () => {
-  const { panel: activePanel = DEFAULT_VIEW_PANELS.HOME } =
-    useActiveVkuiLocation()
-
   return (
-    <SplitLayout>
-      <SplitCol>
-        <View activePanel={activePanel}>
-          <Home id="home" />
-          <PetCreation id="pet-creation" />
-          <Onboarding id="onboarding" />
-        </View>
-      </SplitCol>
-    </SplitLayout>
+    <AppProvider>
+      <Routes>
+        <Route path="/" element={<Layout />}>
+          <Route
+            index
+            element={
+              <ProtectedRoute>
+                <HomeScreen />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path={routes.profile}
+            element={
+              <ProtectedRoute>
+                <ProfileScreen />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path={routes.achievements}
+            element={
+              <ProtectedRoute>
+                <AchievementsScreen />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path={routes.shop}
+            element={
+              <ProtectedRoute>
+                <ShopScreen />
+              </ProtectedRoute>
+            }
+          />
+          <Route path={routes.createPet} element={<PetCreationScreen />} />
+          <Route path={routes.onboarding} element={<StartScreen />} />
+          <Route path="*" element={<div>Not found</div>} />
+        </Route>
+      </Routes>
+    </AppProvider>
   )
 }

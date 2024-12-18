@@ -1,9 +1,10 @@
 import {
-  insertResourcesSchema,
-  updateResourcesSchema,
+  insertNormsSchema,
+  updateNormsSchema,
+  selectNormsSchema,
   selectResourcesSchema,
 } from '@/db/schema'
-import { notFoundSchema } from '@/lib/constants'
+import { forbiddenSchema } from '@/lib/constants'
 import { createRoute } from '@hono/zod-openapi'
 import * as HttpStatusCodes from 'stoker/http-status-codes'
 import { jsonContent, jsonContentRequired } from 'stoker/openapi/helpers'
@@ -15,16 +16,16 @@ export const create = createRoute({
   path: '/resources',
   method: 'post',
   request: {
-    body: jsonContentRequired(insertResourcesSchema, 'The resources create'),
+    body: jsonContentRequired(insertNormsSchema, 'The resources create'),
   },
   tags,
   responses: {
     [HttpStatusCodes.OK]: jsonContent(
-      insertResourcesSchema,
+      insertNormsSchema,
       'The created resources'
     ),
     [HttpStatusCodes.UNPROCESSABLE_ENTITY]: jsonContent(
-      createErrorSchema(insertResourcesSchema),
+      createErrorSchema(insertNormsSchema),
       'The validation error(s)'
     ),
   },
@@ -35,20 +36,20 @@ export const update = createRoute({
   method: 'patch',
   request: {
     params: IdParamsSchema,
-    body: jsonContentRequired(updateResourcesSchema, 'The resources update'),
+    body: jsonContentRequired(updateNormsSchema, 'The resources update'),
   },
   tags,
   responses: {
     [HttpStatusCodes.OK]: jsonContent(
-      updateResourcesSchema,
+      updateNormsSchema,
       'The updated resources'
     ),
     [HttpStatusCodes.NOT_FOUND]: jsonContent(
-      notFoundSchema,
+      forbiddenSchema,
       'Resources not found'
     ),
     [HttpStatusCodes.UNPROCESSABLE_ENTITY]: jsonContent(
-      createErrorSchema(updateResourcesSchema),
+      createErrorSchema(updateNormsSchema),
       'The validation error(s)'
     ),
   },
@@ -67,7 +68,7 @@ export const get = createRoute({
       'The requested resources'
     ),
     [HttpStatusCodes.NOT_FOUND]: jsonContent(
-      notFoundSchema,
+      forbiddenSchema,
       'Resources not found'
     ),
     [HttpStatusCodes.UNPROCESSABLE_ENTITY]: jsonContent(

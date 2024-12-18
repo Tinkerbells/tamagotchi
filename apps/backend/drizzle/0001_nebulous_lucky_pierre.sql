@@ -1,0 +1,1 @@
+ALTER TABLE "purchased_interior_items" DROP COLUMN IF EXISTS "item_type";

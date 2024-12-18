@@ -83,5 +83,3 @@ const launchParams = decodeURIComponent(url.slice(url.indexOf('?') + 1))
 
 // Проверяем, валидны ли параметры запуска.
 const areLaunchParamsValid = verifyLaunchParams(launchParams, clientSecret)
-
-console.log(areLaunchParamsValid ? 'ok' : 'fail')
