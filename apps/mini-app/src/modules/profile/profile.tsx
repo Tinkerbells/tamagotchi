@@ -1,15 +1,11 @@
+import { useProfile } from './hooks'
 import { ProfileCard } from './profile-card'
-import { useGetPet, UserId } from '@/data'
-import * as React from 'react'
+import { ProfileStatistics } from './profile-statistics'
 
-interface ProfileProps {
-  userId: UserId
-}
+export const Profile = () => {
+  const { pet, isPetLoading, statistics, isStatisticsLoading } = useProfile()
 
-export const Profile: React.FC<ProfileProps> = ({ userId }) => {
-  const { data: pet, isLoading } = useGetPet({ userId })
-
-  if (!pet && isLoading) {
+  if (!pet && isPetLoading) {
     return <div>Loading...</div>
   }
 
@@ -20,6 +16,15 @@ export const Profile: React.FC<ProfileProps> = ({ userId }) => {
   return (
     <div className="absolute flex h-full w-full flex-col items-center justify-center pb-20">
       <ProfileCard name={pet.pet.name} createdDate={pet.pet.createdDate!} />
+      {isStatisticsLoading || !statistics ? (
+        <div>Loading...</div>
+      ) : (
+        <ProfileStatistics
+          walking={statistics.walking}
+          meditation={statistics.meditation}
+          gratitude={statistics.gratitude}
+        />
+      )}
     </div>
   )
 }

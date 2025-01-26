@@ -24,10 +24,7 @@ export const meal = pgTable('meal', {
   updatedAt: timestamp('updated_at').defaultNow().notNull(),
 })
 
-export const selectMealSchema = createSelectSchema(meal, {
-  createdAt: z.string().transform((value) => new Date(value).toISOString()),
-  updatedAt: z.string().transform((value) => new Date(value).toISOString()),
-})
+export const selectMealSchema = createSelectSchema(meal, {})
 
 export const insertMealSchema = createInsertSchema(meal)
   .required({ userId: true, date: true })

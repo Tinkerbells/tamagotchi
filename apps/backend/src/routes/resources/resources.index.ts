@@ -4,7 +4,6 @@ import { createRouter } from '@/lib/create-app'
 
 const router = createRouter()
   .openapi(routes.get, handlers.get)
-  .openapi(routes.create, handlers.create)
-  .openapi(routes.update, handlers.update)
+  .openapi(routes.getStatistics, handlers.getStatistics)
 
 export default router

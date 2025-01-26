@@ -1,6 +1,12 @@
 import type { UserId, UserMood } from './dto'
+import { GET_USER_MOOD_QUERY_KEY } from './use-get-user-mood'
 import { client } from '@/shared'
-import { MutationOptions, useMutation } from '@tanstack/react-query'
+import { useDismissModal } from '@tamagotchi/ui'
+import {
+  MutationOptions,
+  useMutation,
+  useQueryClient,
+} from '@tanstack/react-query'
 
 type CreateUserMoodParams = {
   userId: UserId
@@ -36,10 +42,14 @@ export const useCreateUserMood = (
     'mutationFn'
   >
 ) => {
+  const { dismiss } = useDismissModal()
+  const queryClient = useQueryClient()
   return useMutation({
     mutationFn: (params: CreateUserMoodParams) => createUserMood(params),
     onSuccess: ({ createdAt }) => {
       localStorage.setItem('mood_created', JSON.stringify(createdAt)) // set created date to not sent many requests
+      queryClient.refetchQueries({ queryKey: GET_USER_MOOD_QUERY_KEY })
+      dismiss()
     },
     ...options,
   })

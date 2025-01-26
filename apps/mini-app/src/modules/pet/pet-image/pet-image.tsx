@@ -1,8 +1,8 @@
 import { MoodType } from '../pet-status-text'
-import { getPetImage, getPetHat } from './lib'
+import { getPetImage, getPetAccessory } from './lib'
 import { PetAccessory } from '@/data'
 import { Image } from '@/shared'
-import { HatType } from '@tamagotchi/api/hc'
+import { AccessoryType } from '@tamagotchi/api/hc'
 import * as React from 'react'
 
 interface PetImageProps {
@@ -19,7 +19,16 @@ export const PetImage: React.FC<PetImageProps> = ({ petMood, accessory }) => {
       {accessory && (
         <figure className="absolute left-3 h-full w-full">
           <Image
-            src={getPetHat(accessory.type as HatType)}
+            src={getPetAccessory(accessory.type as AccessoryType)}
+            width={266}
+            height={354}
+          />
+        </figure>
+      )}
+      {accessory && (
+        <figure className="absolute left-3 h-full w-full">
+          <Image
+            src={getPetAccessory(accessory.type as AccessoryType)}
             width={266}
             height={354}
           />

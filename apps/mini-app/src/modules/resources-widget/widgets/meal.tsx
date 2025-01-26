@@ -3,7 +3,7 @@ import { ResourceWidget } from './widget'
 import { Food } from '@/shared'
 import * as React from 'react'
 
-export const FoodWidget: React.FC<ResourceWidgetValue> = ({ value }) => {
+export const MealWidget: React.FC<ResourceWidgetValue> = ({ value }) => {
   return (
     <ResourceWidget
       value={value}

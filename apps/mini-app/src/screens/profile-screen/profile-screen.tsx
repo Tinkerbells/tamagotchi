@@ -1,13 +1,10 @@
 import { WithNavbarAndResourcesScreen } from '../screen'
-import { BackgroundTexture, Profile } from '@/modules'
-import { useAuth } from '@/shared'
+import { Profile } from '@/modules'
 
 export const ProfileScreen = () => {
-  const { user } = useAuth()
   return (
-    <WithNavbarAndResourcesScreen>
-      <BackgroundTexture variant="highlight" />
-      <Profile userId={user.id.toString()} />
+    <WithNavbarAndResourcesScreen background="highlight">
+      <Profile />
     </WithNavbarAndResourcesScreen>
   )
 }

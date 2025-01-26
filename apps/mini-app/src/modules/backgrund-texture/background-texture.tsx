@@ -6,7 +6,7 @@ import {
   VeryBored,
   VeryHappy,
 } from './textures'
-import { MoodType } from '@/modules/pet/pet-status-text'
+import { MoodType } from '@/data'
 import * as React from 'react'
 
 interface BackgroundTextureProps {

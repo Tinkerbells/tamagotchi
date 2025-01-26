@@ -1,4 +1,4 @@
-export { FoodWidget } from './food'
+export { MealWidget } from './meal'
 export { WalkingWidget } from './walking'
 export { SleepWidget } from './sleep'
 export { WaterWidget } from './water'

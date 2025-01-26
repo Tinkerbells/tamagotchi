@@ -8,7 +8,7 @@ import santa from '/images/pet/accessories/santa-hat.webp'
 import witch from '/images/pet/accessories/witch-hat.webp'
 import { AccessoryType, ACCESSORIES_ENUM } from '@tamagotchi/api/hc'
 
-export const getPetHat = (type: AccessoryType) => {
+export const getPetAccessory = (type: AccessoryType) => {
   switch (type) {
     case ACCESSORIES_ENUM.pirate:
       return pirate

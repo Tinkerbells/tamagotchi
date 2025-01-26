@@ -1,6 +1,6 @@
 import { db } from '@/db'
 
-export const getResrouces = async (id: number) => {
+export const getResources = async (id: number) => {
   const now = new Date()
   const startOfToday = new Date(
     now.getFullYear(),
@@ -70,6 +70,13 @@ export const getResrouces = async (id: number) => {
     },
   })
 
-  const resources = { meal, water, meditation, gratitude, walking, sleep }
-  return { resources, norms }
+  const resources = {
+    meal: meal,
+    water: water,
+    meditation: meditation,
+    gratitude: gratitude,
+    walking: walking,
+    sleep: sleep,
+  }
+  return { resources, norms: norms! }
 }

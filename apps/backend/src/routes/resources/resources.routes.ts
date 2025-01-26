@@ -3,6 +3,8 @@ import {
   updateNormsSchema,
   selectNormsSchema,
   selectResourcesSchema,
+  getResourcesSchema,
+  getResourcesStatisticsSchema,
 } from '@/db/schema'
 import { forbiddenSchema } from '@/lib/constants'
 import { createRoute } from '@hono/zod-openapi'
@@ -64,7 +66,7 @@ export const get = createRoute({
   tags,
   responses: {
     [HttpStatusCodes.OK]: jsonContent(
-      selectResourcesSchema,
+      getResourcesSchema,
       'The requested resources'
     ),
     [HttpStatusCodes.NOT_FOUND]: jsonContent(
@@ -78,6 +80,30 @@ export const get = createRoute({
   },
 })
 
+export const getStatistics = createRoute({
+  path: '/resources/statistics/{id}',
+  method: 'get',
+  request: {
+    params: IdParamsSchema,
+  },
+  tags,
+  responses: {
+    [HttpStatusCodes.OK]: jsonContent(
+      getResourcesStatisticsSchema,
+      'The requested resources statistics'
+    ),
+    [HttpStatusCodes.NOT_FOUND]: jsonContent(
+      forbiddenSchema,
+      'Resources statistics not found'
+    ),
+    [HttpStatusCodes.UNPROCESSABLE_ENTITY]: jsonContent(
+      createErrorSchema(IdParamsSchema),
+      'Invalid id error'
+    ),
+  },
+})
+
 export type GetRoute = typeof get
+export type GetStatisticsRoute = typeof getStatistics
 export type CreateRoute = typeof create
 export type UpdateRoute = typeof update

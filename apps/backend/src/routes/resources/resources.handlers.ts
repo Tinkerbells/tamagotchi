@@ -1,71 +1,61 @@
-import { convertResources, getResrouces } from './lib'
-import type { UpdateRoute, GetRoute, CreateRoute } from './resources.routes'
+import { convertResources, getResources } from './lib'
+import type { GetRoute, GetStatisticsRoute } from './resources.routes'
 import { db } from '@/db'
-import { ZOD_ERROR_CODES, ZOD_ERROR_MESSAGES } from '@/lib/constants'
+import { meditation } from '@/db/schema'
 import type { AppRouteHandler } from '@/lib/types'
-import { eq } from 'drizzle-orm'
+import { sql, eq, and } from 'drizzle-orm'
 import * as HttpStatusCodes from 'stoker/http-status-codes'
-import * as HttpStatusPhrases from 'stoker/http-status-phrases'
 
 export const get: AppRouteHandler<GetRoute> = async (c) => {
   const { id } = c.req.valid('param')
-
-  const now = new Date()
-  const startOfToday = new Date(
-    now.getFullYear(),
-    now.getMonth(),
-    now.getDate()
-  )
-  const endOfToday = new Date(startOfToday)
-  endOfToday.setDate(startOfToday.getDate() + 1)
-
-  const { resources, norms } = await getResrouces(id)
+  const { resources, norms } = await getResources(id)
   const convertedResources = convertResources(resources, norms)
-  return c.json(convertResources, HttpStatusCodes.OK)
+  return c.json(convertedResources, HttpStatusCodes.OK)
 }
 
-export const create: AppRouteHandler<CreateRoute> = async (c) => {
-  const newResources = c.req.valid('json')
-  const [inserted] = await db.insert(norms).values(newResources).returning()
-  return c.json(inserted, HttpStatusCodes.OK)
-}
-
-export const update: AppRouteHandler<UpdateRoute> = async (c) => {
+export const getStatistics: AppRouteHandler<GetStatisticsRoute> = async (c) => {
   const { id } = c.req.valid('param')
-  const updates = c.req.valid('json')
+  const meditationTimeValues = await db
+    .select({
+      totalMeditationTime: sql<
+        number | null
+      >`SUM(EXTRACT(EPOCH FROM (${meditation.updatedAt} - ${meditation.createdAt})))`,
+    })
+    .from(meditation)
+    .where(and(eq(meditation.finished, true), eq(meditation.userId, id)))
+    .execute()
 
-  if (Object.keys(updates).length === 0) {
-    return c.json(
-      {
-        success: false,
-        error: {
-          issues: [
-            {
-              code: ZOD_ERROR_CODES.INVALID_UPDATES,
-              path: [],
-              message: ZOD_ERROR_MESSAGES.NO_UPDATES,
-            },
-          ],
-          name: 'ZodError',
-        },
-      },
-      HttpStatusCodes.UNPROCESSABLE_ENTITY
-    )
-  }
-  const [updatedResources] = await db
-    .update(norms)
-    .set(updates)
-    .where(eq(norms.userId, id))
-    .returning()
+  const walkingDistance = await db.query.walking.findMany({
+    where(fields, operators) {
+      return operators.and(
+        operators.eq(fields.userId, id),
+        operators.eq(fields.finished, true)
+      )
+    },
+  })
 
-  if (!updatedResources) {
-    return c.json(
-      {
-        message: HttpStatusPhrases.NOT_FOUND,
-      },
-      HttpStatusCodes.NOT_FOUND
-    )
-  }
+  const gratitudes = await db.query.gratitude.findMany({
+    where(fields, operators) {
+      return operators.and(operators.eq(fields.userId, id))
+    },
+  })
 
-  return c.json(updatedResources, HttpStatusCodes.OK)
+  const totalMeditationTime = meditationTimeValues.reduce(
+    (sum, current) => sum + (current.totalMeditationTime ?? 0),
+    0
+  )
+
+  const totalWalkingDistance = walkingDistance.reduce(
+    (sum, current) => sum + (current.currentValue ?? 0),
+    0
+  )
+
+  return c.json(
+    {
+      meditation: totalMeditationTime,
+      walking: totalWalkingDistance,
+      gratitude: gratitudes.length,
+    },
+    HttpStatusCodes.OK
+  )
 }

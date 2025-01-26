@@ -31,7 +31,10 @@ const getResources = async (params: GetResourcesQueryParams) => {
 
 export const useGetResources = (
   params: GetResourcesQueryParams,
-  options?: Omit<QueryObserverOptions<FetchedResources, Error>, 'queryKey' | 'queryFn'>
+  options?: Omit<
+    QueryObserverOptions<FetchedResources, Error>,
+    'queryKey' | 'queryFn'
+  >
 ) => {
   return useQuery({
     queryKey: GET_RESOURCES_QUERY_KEY,

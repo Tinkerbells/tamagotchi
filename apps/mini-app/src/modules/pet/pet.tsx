@@ -1,20 +1,20 @@
-import { PetBackground, PetImage } from './pet-image'
+import { usePet } from './hooks'
+import { PetImage } from './pet-image'
 import { PetMessageBubble } from './pet-message-bubble'
 import { PetStatusText } from './pet-status-text'
-import { useGetPet, useGetUserMood, UserId } from '@/data'
-import * as React from 'react'
 
-interface PetProps {
-  userId: UserId
-}
-export const Pet: React.FC<PetProps> = ({ userId }) => {
-  const { data: petData, isLoading } = useGetPet({ userId })
+export const Pet = () => {
+  const {
+    petData,
+    isPetLoading,
+    userMood,
+    isUserMoodLoading,
+    petMood,
+    resources,
+    isResourcesLoading,
+  } = usePet()
 
-  const { data: mood, isLoading: isUserMoodLoading } = useGetUserMood({
-    userId: userId,
-  })
-
-  if (!petData && isLoading) {
+  if (!petData && isPetLoading) {
     return <div>Loading...</div>
   }
 
@@ -24,12 +24,13 @@ export const Pet: React.FC<PetProps> = ({ userId }) => {
 
   return (
     <div className="absolute top-0 flex h-full w-full flex-col items-center justify-center">
-      <PetBackground petMood="very_happy" />
-      <PetImage accessory={petData.accessory} petMood="happy" />
-      {!mood && !isUserMoodLoading && (
+      <PetImage accessory={petData.accessory} petMood={petMood} />
+      {!userMood && !isUserMoodLoading && (
         <PetMessageBubble message="Рад тебя видеть! Как твои дела?" />
       )}
-      <PetStatusText petName={petData.pet.name} petMood="happy" />
+      {resources && !isResourcesLoading && (
+        <PetStatusText resources={resources} petName={petData.pet.name} />
+      )}
     </div>
   )
 }

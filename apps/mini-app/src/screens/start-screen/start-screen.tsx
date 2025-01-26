@@ -1,6 +1,5 @@
 import { Screen } from '../screen'
 import { StepDots, StepOne, StepThree, StepTwo } from './steps/steps'
-import { useProvider } from '@/app/app-provider'
 import { Button } from '@tamagotchi/ui'
 import { AnimatePresence, motion } from 'framer-motion'
 import * as React from 'react'

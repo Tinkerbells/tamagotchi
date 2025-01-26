@@ -22,10 +22,7 @@ export const walking = pgTable('walking', {
   updatedAt: timestamp('updated_at').defaultNow().notNull(),
 })
 
-export const selectWalkingSchema = createSelectSchema(walking, {
-  createdAt: z.string().transform((value) => new Date(value).toISOString()),
-  updatedAt: z.string().transform((value) => new Date(value).toISOString()),
-})
+export const selectWalkingSchema = createSelectSchema(walking, {})
 
 export const insertWalkingSchema = createInsertSchema(walking)
   .required({ userId: true, date: true })

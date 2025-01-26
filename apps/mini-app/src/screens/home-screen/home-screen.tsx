@@ -1,12 +1,12 @@
 import { WithNavbarAndResourcesScreen } from '../screen'
 import { Pet } from '@/modules'
-import { useAuth } from '@/shared'
+import { useMoodStore } from '@/modules/resources-widget/store'
 
 export const HomeScreen = () => {
-  const { user } = useAuth()
+  const { mood } = useMoodStore()
   return (
-    <WithNavbarAndResourcesScreen>
-      <Pet userId={user.id} />
+    <WithNavbarAndResourcesScreen background={mood!}>
+      <Pet />
     </WithNavbarAndResourcesScreen>
   )
 }

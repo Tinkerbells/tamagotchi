@@ -6,15 +6,19 @@ export const convertResources = (
   norms: z.infer<typeof selectNormsSchema>
 ) => {
   const { meal, water, sleep, meditation, gratitude, walking } = resources
-  const mealValue =
-    ['breakfast', 'lunch', 'dinner', 'snack'].reduce((count, key) => {
-      return meal[key as keyof typeof meal] ? count + 1 : count
-    }, 0) / 4
-  const waterValue = water.currentValue / norms.waterDailyNorm
-  const sleepValue = sleep.currentValue / norms.sleepDailyNorm
-  const meditationValue = !!meditation && meditation.finished ? 1 : 0
-  const gratitudeValue = gratitude.length / 4
-  const walkingValue = !!walking && walking.finished ? 1 : 0
+
+  const mealValue = meal
+    ? (Number(meal.breakfast ?? false) +
+        Number(meal.lunch ?? false) +
+        Number(meal.dinner ?? false)) *
+      25
+    : 0
+  const waterValue = (water?.currentValue ?? 0) / (norms.waterDailyNorm ?? 1) // Default to 0 if `water` or `norms.waterDailyNorm` is missing.
+  const sleepValue = (sleep?.currentValue ?? 0) / (norms.sleepDailyNorm ?? 1) // Default to 0 if `sleep` or `norms.sleepDailyNorm` is missing.
+  const meditationValue = meditation?.finished ? 100 : 0 // Check if `meditation` exists and is finished.
+  const gratitudeValue = (gratitude?.length ?? 0) / 4 // Default to 0 if `gratitude` is undefined.
+  const walkingValue = walking?.finished ? 100 : 0 // Check if `walking` exists and is finished.
+
   return {
     meal: mealValue,
     water: waterValue,

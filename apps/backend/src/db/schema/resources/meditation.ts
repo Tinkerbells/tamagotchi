@@ -8,7 +8,6 @@ import {
   boolean,
 } from 'drizzle-orm/pg-core'
 import { createInsertSchema, createSelectSchema } from 'drizzle-zod'
-import { z } from 'zod'
 
 export const meditation = pgTable('meditation', {
   id: serial('id').primaryKey(),
@@ -21,10 +20,7 @@ export const meditation = pgTable('meditation', {
   updatedAt: timestamp('updated_at').defaultNow().notNull(),
 })
 
-export const selectMeditationSchema = createSelectSchema(meditation, {
-  createdAt: z.string().transform((value) => new Date(value).toISOString()),
-  updatedAt: z.string().transform((value) => new Date(value).toISOString()),
-})
+export const selectMeditationSchema = createSelectSchema(meditation, {})
 
 export const insertMeditationSchema = createInsertSchema(meditation)
   .required({ userId: true, date: true })

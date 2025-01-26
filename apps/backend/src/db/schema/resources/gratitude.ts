@@ -13,10 +13,7 @@ export const gratitude = pgTable('gratitude', {
   updatedAt: timestamp('updated_at').defaultNow().notNull(),
 })
 
-export const selectGratitudeSchema = createSelectSchema(gratitude, {
-  createdAt: z.string().transform((value) => new Date(value).toISOString()),
-  updatedAt: z.string().transform((value) => new Date(value).toISOString()),
-})
+export const selectGratitudeSchema = createSelectSchema(gratitude, {})
 
 export const insertGratitudeSchema = createInsertSchema(gratitude)
   .required({ userId: true })

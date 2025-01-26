@@ -15,10 +15,7 @@ export const sleep = pgTable('sleep', {
   updatedAt: timestamp('updated_at').defaultNow().notNull(),
 })
 
-export const selectSleepSchema = createSelectSchema(sleep, {
-  createdAt: z.string().transform((value) => new Date(value).toISOString()),
-  updatedAt: z.string().transform((value) => new Date(value).toISOString()),
-})
+export const selectSleepSchema = createSelectSchema(sleep, {})
 
 export const insertSleepSchema = createInsertSchema(sleep)
   .required({ userId: true, date: true })

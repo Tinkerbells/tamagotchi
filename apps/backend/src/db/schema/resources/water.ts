@@ -16,10 +16,7 @@ export const water = pgTable('water', {
   updatedAt: timestamp('updated_at').defaultNow().notNull(),
 })
 
-export const selectWaterSchema = createSelectSchema(water, {
-  createdAt: z.string().transform((value) => new Date(value).toISOString()),
-  updatedAt: z.string().transform((value) => new Date(value).toISOString()),
-})
+export const selectWaterSchema = createSelectSchema(water, {})
 
 export const insertWaterSchema = createInsertSchema(water)
   .required({ userId: true, date: true })
