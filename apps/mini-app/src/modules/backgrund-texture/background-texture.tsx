@@ -5,12 +5,13 @@ import {
   HighlightBackground,
   VeryBored,
   VeryHappy,
+  WaterBackground,
 } from './textures'
 import { MoodType } from '@/data'
 import * as React from 'react'
 
-interface BackgroundTextureProps {
-  variant?: MoodType | 'highlight'
+export interface BackgroundTextureProps {
+  variant?: MoodType | 'highlight' | 'water'
 }
 
 export const BackgroundTexture: React.FC<BackgroundTextureProps> = ({
@@ -27,6 +28,8 @@ export const BackgroundTexture: React.FC<BackgroundTextureProps> = ({
       return <VeryHappy />
     case 'highlight':
       return <HighlightBackground />
+    case 'water':
+      return <WaterBackground />
     default:
       return <DefaultBackground />
   }

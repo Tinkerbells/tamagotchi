@@ -8,6 +8,7 @@ import {
   ProfileScreen,
   ShopScreen,
   StartScreen,
+  WaterScreen,
 } from '@/screens'
 import { AchievementsScreen } from '@/screens/achievements-screen'
 import { Routes, Route } from 'react-router-dom'
@@ -46,6 +47,14 @@ export const App = () => {
             element={
               <ProtectedRoute>
                 <ShopScreen />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path={routes.water}
+            element={
+              <ProtectedRoute>
+                <WaterScreen />
               </ProtectedRoute>
             }
           />

@@ -1,5 +1,6 @@
 import { cn } from '@tamagotchi/utils'
 import * as React from 'react'
+import { Link, To } from 'react-router-dom'
 
 type HexColor = `#${string}`
 
@@ -8,9 +9,11 @@ export interface ResourceWidgetProps {
   value: number
   label: string
   colors: [HexColor, HexColor, HexColor]
+  link?: To
 }
 
 export const ResourceWidget: React.FC<ResourceWidgetProps> = ({
+  link,
   icon,
   value,
   label,
@@ -20,8 +23,9 @@ export const ResourceWidget: React.FC<ResourceWidgetProps> = ({
   const bgColor = colors[1]
   const bgFillColor = colors[2]
   const fillValue = `${value}%`
+  // TODO add link for all resources widgets
   return (
-    <div className="flex w-full flex-col items-center">
+    <Link to={link || ''} className="flex w-full flex-col items-center">
       <div
         className={cn(
           'relative z-10 flex h-10 w-[68px] items-center justify-center overflow-hidden rounded-[17px]'
@@ -45,6 +49,6 @@ export const ResourceWidget: React.FC<ResourceWidgetProps> = ({
       >
         {label}
       </span>
-    </div>
+    </Link>
   )
 }

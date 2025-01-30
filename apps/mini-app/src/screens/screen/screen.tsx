@@ -1,10 +1,14 @@
-import { MoodType } from '@/data'
-import { BackgroundTexture, GemsWidget, ResourcesWidget } from '@/modules'
+import {
+  BackgroundTexture,
+  BackgroundTextureProps,
+  GemsWidget,
+  ResourcesWidget,
+} from '@/modules'
 import { Navbar } from '@/shared'
 import * as React from 'react'
 
 interface ScreenProps extends React.PropsWithChildren {
-  background?: MoodType | 'highlight'
+  background?: BackgroundTextureProps['variant']
 }
 
 export const withNavbar = <P extends ScreenProps>(
@@ -36,6 +40,7 @@ export const withResources = <P extends ScreenProps>(
 }
 
 export const Screen: React.FC<ScreenProps> = ({ children, background }) => {
+  console.log(background)
   return (
     <main className="bg-main relative flex h-screen w-full flex-col items-center overflow-scroll px-4 bg-blend-multiply">
       <BackgroundTexture variant={background} />
