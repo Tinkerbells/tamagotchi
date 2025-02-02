@@ -3,7 +3,7 @@ import { cva, VariantProps } from 'class-variance-authority'
 import * as React from 'react'
 
 export const buttonVariants = cva(
-  'items-center font-normal justify-center rounded-2xl text-base transition-all px-8',
+  'inline-flex items-center font-normal justify-center rounded-2xl text-base transition-all px-8',
   {
     variants: {
       variant: {

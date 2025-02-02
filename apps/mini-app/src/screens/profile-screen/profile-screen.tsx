@@ -3,7 +3,7 @@ import { Profile } from '@/modules'
 
 export const ProfileScreen = () => {
   return (
-    <WithNavbarAndResourcesScreen background="highlight">
+    <WithNavbarAndResourcesScreen texture="highlight">
       <Profile />
     </WithNavbarAndResourcesScreen>
   )

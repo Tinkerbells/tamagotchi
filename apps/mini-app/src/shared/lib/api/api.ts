@@ -6,7 +6,6 @@ const kyapi = ky.extend({
   hooks: {
     beforeRequest: [
       async (request) => {
-        console.log(request)
         const authStore = new AuthStore()
         const authorization = ''
         if (authorization) {

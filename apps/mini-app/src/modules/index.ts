@@ -1,5 +1,6 @@
 export * from './pet'
 export * from './resources-widget'
+export * from './resources-panel'
 export * from './profile'
 export * from './backgrund-texture'
 export * from './achievements'

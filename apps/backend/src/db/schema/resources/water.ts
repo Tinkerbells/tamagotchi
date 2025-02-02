@@ -1,8 +1,7 @@
 import { user } from '../user'
 import { norms } from './norms'
-import { pgTable, serial, integer, timestamp, date } from 'drizzle-orm/pg-core'
+import { pgTable, serial, integer, date, timestamp } from 'drizzle-orm/pg-core'
 import { createInsertSchema, createSelectSchema } from 'drizzle-zod'
-import { z } from 'zod'
 
 export const water = pgTable('water', {
   id: serial('id').primaryKey(),

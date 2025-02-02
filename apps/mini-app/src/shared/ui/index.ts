@@ -1,5 +1,6 @@
 export * from './image'
 export * from './navbar'
 export * from './icons'
-export * from './progress'
+export * from './circle-progress'
 export * from './gems'
+export * from './week-overview'

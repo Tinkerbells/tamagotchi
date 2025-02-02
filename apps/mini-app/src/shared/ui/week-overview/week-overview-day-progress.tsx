@@ -1,0 +1,92 @@
+import { WeekOverviewProps } from './week-overview'
+import { cn } from '@tamagotchi/utils'
+
+export interface DayProgressProps {
+  progress: number
+  day: string
+  month: string
+  isToday?: boolean
+  variant: WeekOverviewProps['variant']
+}
+
+const styles = {
+  water: {
+    stroke: '#0bb5b5',
+    fill: '#e9fafe',
+  },
+  food: {
+    stroke: '#ef9b7a',
+    fill: '#fef1e9',
+  },
+  sleep: {
+    stroke: '#b1556c',
+    fill: '#fee9ef',
+  },
+}
+
+export const DayProgress: React.FC<DayProgressProps> = ({
+  progress,
+  day,
+  month,
+  isToday,
+  variant,
+}) => {
+  const radius = 22
+  const center = 24
+  const circumference = 2 * Math.PI * radius
+  const dashOffset = circumference * (1 - progress / 100)
+
+  const { stroke, fill } = styles[variant]
+
+  const textColor = `text-[${stroke}]`
+
+  return (
+    <div className="relative flex h-12 w-12 items-center justify-center">
+      <svg width="48" height="48" viewBox="0 0 48 48">
+        {/* Background circle */}
+        <circle
+          cx={center}
+          cy={center}
+          r={radius}
+          fill={isToday ? fill : 'none'}
+          stroke={'#000000'}
+          fillOpacity={0.8}
+          strokeOpacity={0.08}
+          strokeWidth={1.5}
+        />
+        {/* Progress circle */}
+        <circle
+          cx={center}
+          cy={center}
+          r={radius}
+          fill="none"
+          stroke={stroke}
+          strokeWidth={4}
+          strokeLinecap="round"
+          strokeDasharray={circumference}
+          strokeDashoffset={dashOffset}
+          transform={`rotate(-90 ${center} ${center})`}
+          style={{ transition: 'stroke-dashoffset 0.5s ease-out' }}
+        />
+      </svg>
+      <div className="absolute flex flex-col">
+        <span
+          className={cn(
+            'text-center text-sm font-semibold',
+            isToday ? textColor : 'text-black'
+          )}
+        >
+          {day}
+        </span>
+        <span
+          className={cn(
+            '-mt-0.5 text-center text-xs font-normal',
+            isToday ? textColor : 'text-text-secondary'
+          )}
+        >
+          {month}
+        </span>
+      </div>
+    </div>
+  )
+}

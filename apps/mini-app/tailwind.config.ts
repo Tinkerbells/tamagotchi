@@ -1,7 +1,8 @@
 import sharedConfig from '@tamagotchi/tailwind-config'
+import scrollbarHide from 'tailwind-scrollbar-hide'
 import type { Config } from 'tailwindcss'
 
-const config: Pick<Config, 'content' | 'presets' | 'theme'> = {
+const config: Pick<Config, 'content' | 'presets' | 'theme' | 'plugins'> = {
   content: [
     './index.html',
     './src/**/*.{js,ts,jsx,tsx}',
@@ -22,7 +23,15 @@ const config: Pick<Config, 'content' | 'presets' | 'theme'> = {
         'profile-card': '0 20px 24px 0 rgba(233, 192, 179, 0.2)',
         achievement: `0 2px 24px 0 rgba(0, 0, 0, 0.08), 0 0 2px 0 rgba(0, 0, 0, 0.08)`,
       },
+      backgroundImage: {
+        main: 'linear-gradient(#ffffff, #ffffff), linear-gradient(#f2f3f5, #f2f3f5)',
+        water: 'linear-gradient(180deg, rgba(255, 255, 255, 0) 0%, #fff 100%)',
+      },
       colors: {
+        background: {
+          primary: '#fff',
+          secondary: '#f2f3f5',
+        },
         'custom-border': 'rgba(0, 0, 0, 0.08)',
         text: {
           secondary: '#818c99',
@@ -35,6 +44,7 @@ const config: Pick<Config, 'content' | 'presets' | 'theme'> = {
     },
   },
   presets: [sharedConfig],
+  plugins: [scrollbarHide],
 }
 
 export default config

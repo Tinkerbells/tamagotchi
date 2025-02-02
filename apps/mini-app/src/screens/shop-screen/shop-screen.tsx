@@ -5,7 +5,7 @@ import { useAuth } from '@/shared'
 export const ShopScreen = () => {
   const { user } = useAuth()
   return (
-    <WithNavbarScreen>
+    <WithNavbarScreen background="sleep">
       <ShopWidget userId={user.id} />
     </WithNavbarScreen>
   )

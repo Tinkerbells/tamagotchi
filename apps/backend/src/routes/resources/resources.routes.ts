@@ -1,13 +1,12 @@
 import {
   insertNormsSchema,
   updateNormsSchema,
-  selectNormsSchema,
-  selectResourcesSchema,
   getResourcesSchema,
   getResourcesStatisticsSchema,
+  selectWaterSchema,
 } from '@/db/schema'
 import { forbiddenSchema } from '@/lib/constants'
-import { createRoute } from '@hono/zod-openapi'
+import { createRoute, z } from '@hono/zod-openapi'
 import * as HttpStatusCodes from 'stoker/http-status-codes'
 import { jsonContent, jsonContentRequired } from 'stoker/openapi/helpers'
 import { createErrorSchema, IdParamsSchema } from 'stoker/openapi/schemas'
@@ -80,6 +79,29 @@ export const get = createRoute({
   },
 })
 
+export const getWater = createRoute({
+  path: '/resources/water/{id}',
+  method: 'get',
+  request: {
+    params: IdParamsSchema,
+  },
+  tags,
+  responses: {
+    [HttpStatusCodes.OK]: jsonContent(
+      z.array(selectWaterSchema),
+      'The requested resources'
+    ),
+    [HttpStatusCodes.NOT_FOUND]: jsonContent(
+      forbiddenSchema,
+      'Water resources not found'
+    ),
+    [HttpStatusCodes.UNPROCESSABLE_ENTITY]: jsonContent(
+      createErrorSchema(IdParamsSchema),
+      'Invalid id error'
+    ),
+  },
+})
+
 export const getStatistics = createRoute({
   path: '/resources/statistics/{id}',
   method: 'get',
@@ -104,6 +126,7 @@ export const getStatistics = createRoute({
 })
 
 export type GetRoute = typeof get
+export type GetWaterRoute = typeof getWater
 export type GetStatisticsRoute = typeof getStatistics
 export type CreateRoute = typeof create
 export type UpdateRoute = typeof update

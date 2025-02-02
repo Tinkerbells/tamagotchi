@@ -10,7 +10,6 @@ type GetPetQueryParams = {
 export const GET_PET_QUERY_KEY = ['pet']
 
 const getPet = async (params: GetPetQueryParams) => {
-  console.log('Getting pet')
   try {
     const petResponse = await client.pet[':id'].$get({
       param: { id: params.userId.toString() },

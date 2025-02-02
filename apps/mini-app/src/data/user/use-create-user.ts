@@ -8,7 +8,6 @@ const createUser = async (params: CreateUserQueryParams) => {
   try {
     if (params.vkUser) {
       const { country, city, ...vkUserInfo } = params.vkUser
-      console.log(country, city, vkUserInfo)
       const userResponse = await client.user.$post({
         json: {
           vkUser: {

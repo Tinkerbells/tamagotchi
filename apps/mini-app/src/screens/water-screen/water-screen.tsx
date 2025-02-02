@@ -1,10 +1,35 @@
-import { Screen } from '../screen'
-import { WaterWidget } from '@/modules'
+import { WithResourcesPanel } from '../screen'
+import { useWater } from './hooks'
+import { WaterWidget, WaterWidgetSkeleton } from '@/modules'
 
 export const WaterScreen = () => {
+  const {
+    title,
+    description,
+    isLoading,
+    today,
+    waterData,
+    currentProgress,
+    currentValue,
+    dailyNorm,
+  } = useWater()
   return (
-    <Screen background="water">
-      <WaterWidget />
-    </Screen>
+    <WithResourcesPanel
+      panel={{ variant: 'water', title, description, isLoading }}
+      texture="water"
+      background="water"
+    >
+      {!isLoading && waterData ? (
+        <WaterWidget
+          currentValue={currentValue}
+          dailyNorm={dailyNorm}
+          today={today}
+          waterData={waterData}
+          currentProgress={currentProgress}
+        />
+      ) : (
+        <WaterWidgetSkeleton />
+      )}
+    </WithResourcesPanel>
   )
 }

@@ -5,7 +5,7 @@ import { useMoodStore } from '@/modules/resources-widget/store'
 export const HomeScreen = () => {
   const { mood } = useMoodStore()
   return (
-    <WithNavbarAndResourcesScreen background={mood!}>
+    <WithNavbarAndResourcesScreen texture={mood!}>
       <Pet />
     </WithNavbarAndResourcesScreen>
   )
