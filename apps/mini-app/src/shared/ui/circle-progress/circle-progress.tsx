@@ -1,6 +1,6 @@
 import { WaterProgressBackground } from './backgrounds'
 import { motion } from 'framer-motion'
-import React, { useRef } from 'react'
+import React, { useRef, useState } from 'react'
 
 export interface CircleProgressProps {
   progress: number
@@ -15,8 +15,9 @@ export const CircleProgress: React.FC<CircleProgressProps> = ({
 }) => {
   const svgRef = useRef<SVGSVGElement | null>(null)
   const radius = 130
-  const center = 134 // Center of SVG viewBox
+  const center = 134
   const circumference = 2 * Math.PI * radius
+  const previousProgress = useRef(progress)
 
   const getSVGPoint = (clientX: number, clientY: number) => {
     if (!svgRef.current) return { x: 0, y: 0 }
@@ -30,17 +31,42 @@ export const CircleProgress: React.FC<CircleProgressProps> = ({
     const { clientX, clientY } = event
     const { x: svgX, y: svgY } = getSVGPoint(clientX, clientY)
 
-    // Calculate relative position to center
     const relX = svgX - center
-    const relY = center - svgY // Invert Y axis
-
-    // Calculate angle in radians (0-2π)
+    const relY = center - svgY
     const standardAngle = Math.atan2(relY, relX)
+
+    // Calculate angle with proper wrapping
     let theta = (Math.PI / 2 - standardAngle + 2 * Math.PI) % (2 * Math.PI)
 
-    // Calculate progress and clamp between 0 and 100
-    const newProgress = (theta / (2 * Math.PI)) * 100
-    onProgressChange(Math.min(100, Math.max(0, newProgress)))
+    // Calculate raw progress value
+    let newProgress = (theta / (2 * Math.PI)) * 100
+
+    // Prevent circular wrapping
+    const diff = newProgress - previousProgress.current
+    const wrapAround = Math.abs(diff) > 50 // Detect full-circle jumps
+
+    if (wrapAround) {
+      if (diff > 0) {
+        // Prevent clockwise overflow
+        newProgress = previousProgress.current === 100 ? 100 : 0
+      } else {
+        // Prevent counter-clockwise underflow
+        newProgress = previousProgress.current === 0 ? 0 : 100
+      }
+    }
+
+    // Apply hard limits
+    if (previousProgress.current === 100 && newProgress < 100) {
+      // Allow only downward movement from 100%
+      newProgress = Math.min(100, Math.max(98, newProgress))
+    } else if (previousProgress.current === 0 && newProgress > 0) {
+      // Allow only upward movement from 0%
+      newProgress = Math.max(0, Math.min(2, newProgress))
+    }
+
+    const clampedProgress = Math.min(100, Math.max(0, newProgress))
+    previousProgress.current = clampedProgress
+    onProgressChange(clampedProgress)
   }
 
   // Calculate knob position
@@ -88,7 +114,6 @@ export const CircleProgress: React.FC<CircleProgressProps> = ({
         style={{ cursor: 'grab' }}
         whileDrag={{ cursor: 'grabbing' }}
       >
-        {/* Knob */}
         <motion.circle
           cx={knobX}
           cy={knobY}
@@ -96,9 +121,18 @@ export const CircleProgress: React.FC<CircleProgressProps> = ({
           fill="white"
           drag
           onDrag={handleDrag}
-          dragConstraints={{ left: 0, right: 0, top: 0, bottom: 0 }}
+          dragConstraints={{
+            left: 0,
+            right: 0,
+            top: 0,
+            bottom: 0,
+          }}
           dragElastic={0}
-          style={{ cursor: 'grab' }}
+          dragMomentum={false}
+          style={{
+            cursor: progress === 100 ? 'default' : 'grab',
+            pointerEvents: progress === 100 ? 'none' : 'auto',
+          }}
         />
       </motion.g>
       <defs>
