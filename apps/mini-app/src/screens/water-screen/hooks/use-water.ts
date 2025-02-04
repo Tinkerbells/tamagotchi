@@ -17,6 +17,7 @@ export const useWater = () => {
   const { data: water, isLoading: isWaterLoading } = useGetWater({
     userId: user.id,
   })
+
   const currentProgress =
     water?.waterData?.[water.waterData?.length - 1].progress || 0
 

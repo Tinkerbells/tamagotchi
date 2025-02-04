@@ -45,6 +45,7 @@ export const updateWater: AppRouteHandler<UpdateWaterRoute> = async (c) => {
   }
 
   const today = new Date()
+
   today.setHours(0, 0, 0, 0)
 
   const existingWater = await db.query.water.findFirst({
@@ -71,7 +72,7 @@ export const updateWater: AppRouteHandler<UpdateWaterRoute> = async (c) => {
         HttpStatusCodes.NOT_FOUND
       )
     }
-    return updatedWater
+    return c.json(updatedWater, HttpStatusCodes.OK)
   } else {
     const [createdWater] = await db.insert(water).values(updates).returning()
     if (!createdWater) {
@@ -82,7 +83,7 @@ export const updateWater: AppRouteHandler<UpdateWaterRoute> = async (c) => {
         HttpStatusCodes.NOT_FOUND
       )
     }
-    return createWater
+    return c.json(createdWater, HttpStatusCodes.CREATED)
   }
 }
 

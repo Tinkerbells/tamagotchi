@@ -43,13 +43,17 @@ export const updateWater = createRoute({
   },
   tags,
   responses: {
-    [HttpStatusCodes.OK]: jsonContent(updateNormsSchema, 'The updated water'),
+    [HttpStatusCodes.OK]: jsonContent(selectWaterSchema, 'The updated water'),
+    [HttpStatusCodes.CREATED]: jsonContent(
+      selectWaterSchema,
+      'The created water'
+    ),
     [HttpStatusCodes.NOT_FOUND]: jsonContent(
       forbiddenSchema,
       'Resources not water'
     ),
     [HttpStatusCodes.UNPROCESSABLE_ENTITY]: jsonContent(
-      createErrorSchema(updateNormsSchema),
+      createErrorSchema(insertWaterSchema),
       'The validation error(s)'
     ),
   },

@@ -17,7 +17,6 @@ export const SleepScreen = () => {
     <WithResourcesPanel
       panel={{ variant: 'sleep', title, description, isLoading }}
       texture="sleep"
-      background="sleep"
     >
       {!isLoading && waterData ? (
         <SleepWidget

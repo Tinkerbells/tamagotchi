@@ -9,6 +9,7 @@ import {
 import { Navbar } from '@/shared'
 import { cn } from '@tamagotchi/utils'
 import * as React from 'react'
+import { Toaster } from 'react-hot-toast'
 
 interface ScreenProps extends React.ComponentProps<'div'> {
   texture?: BackgroundTextureProps['variant']
@@ -70,6 +71,7 @@ export const Screen: React.FC<ScreenProps> = ({
         className
       )}
     >
+      <Toaster position="top-center" reverseOrder={false} />
       <BackgroundTexture variant={texture} />
       {children}
     </main>

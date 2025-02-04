@@ -5,6 +5,7 @@ import { createRouter } from '@/lib/create-app'
 const router = createRouter()
   .openapi(routes.get, handlers.get)
   .openapi(routes.getWater, handlers.getWater)
+  .openapi(routes.updateWater, handlers.updateWater)
   .openapi(routes.getNorms, handlers.getNorms)
   .openapi(routes.getStatistics, handlers.getStatistics)
 
