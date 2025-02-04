@@ -9,27 +9,36 @@ type GetWaterQueryParams = {
 
 type GetWaterQueryType = {
   waterData: WeekDayProgressType[]
-  currentValue: number | null
-  dailyNorm: number | null
+  currentValue: number
+  dailyNorm: number
 }
 
 export const GET_WATER_QUERY_KEY = ['water']
 
 const getWater = async (params: GetWaterQueryParams) => {
   try {
-    const response = await client.resources.water[':id'].$get({
-      param: { id: params.userId.toString() },
-    })
-    if (!response.ok) {
-      const error = new Error(
-        `Failed to water: ${response.status} ${response.statusText}`
+    const [waterResponse, normsResponse] = await Promise.all([
+      client.resources.water[':id'].$get({
+        param: { id: params.userId.toString() },
+      }),
+      client.resources.norms[':id'].$get({
+        param: { id: params.userId.toString() },
+      }),
+    ])
+
+    if (!waterResponse.ok) {
+      throw new Error(
+        `Failed to fetch water: ${waterResponse.status} ${waterResponse.statusText}`
       )
-      error.name = 'FetchWaterError'
-      throw error
     }
-    const data = await response.json()
-    const convertedData = convertWater(data)
-    return convertedData
+    if (!normsResponse.ok) {
+      throw new Error(
+        `Failed to fetch norms: ${waterResponse.status} ${waterResponse.statusText}`
+      )
+    }
+    const water = await waterResponse.json()
+    const norms = await normsResponse.json()
+    return convertWater(water, norms)
   } catch (error) {
     console.error(error)
     throw error

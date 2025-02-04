@@ -12,9 +12,9 @@ export const WeekOverview = ({ variant, values }: WeekOverviewProps) => {
   const containerRef = useAutoScroll<HTMLDivElement>([values])
   const id = useId()
   return (
-    <div className="mt-12 w-full overflow-hidden">
+    <div className="mt-12 w-full">
       <div
-        className="scrollbar-hide flex gap-5 overflow-y-scroll px-6"
+        className="scrollbar-hide flex gap-5 overflow-x-scroll pr-6"
         ref={containerRef}
       >
         {values.map(({ day, month, progress }, index) => (

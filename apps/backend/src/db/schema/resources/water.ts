@@ -18,9 +18,11 @@ export const water = pgTable('water', {
 export const selectWaterSchema = createSelectSchema(water, {})
 
 export const insertWaterSchema = createInsertSchema(water)
-  .required({ userId: true, date: true })
+  .required({ userId: true, currentValue: true })
   .omit({
     id: true,
+    date: true,
     createdAt: true,
     updatedAt: true,
+    dailyNorm: true,
   })

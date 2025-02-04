@@ -23,7 +23,7 @@ export const Pet = () => {
   }
 
   return (
-    <div className="absolute top-0 flex h-full w-full flex-col items-center justify-center">
+    <div className="absolute bottom-[30vh] mb-4 flex flex-col items-center justify-center">
       <PetImage accessory={petData.accessory} petMood={petMood} />
       {!userMood && !isUserMoodLoading && (
         <PetMessageBubble message="Рад тебя видеть! Как твои дела?" />

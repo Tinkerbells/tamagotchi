@@ -14,7 +14,7 @@ export const Profile = () => {
   }
 
   return (
-    <div className="absolute flex h-full w-full flex-col items-center justify-center pb-20">
+    <div className="absolute bottom-[30vh] flex flex-col items-center justify-center gap-12">
       <ProfileCard name={pet.pet.name} createdDate={pet.pet.createdDate!} />
       {isStatisticsLoading || !statistics ? (
         <div>Loading...</div>

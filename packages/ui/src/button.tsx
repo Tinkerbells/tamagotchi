@@ -1,9 +1,10 @@
 import { cn } from '@tamagotchi/utils'
 import { cva, VariantProps } from 'class-variance-authority'
+import { Loader2 } from 'lucide-react'
 import * as React from 'react'
 
 export const buttonVariants = cva(
-  'inline-flex items-center font-normal justify-center rounded-2xl text-base transition-all px-8',
+  'flex items-center font-normal justify-center rounded-2xl text-base transition-all px-8',
   {
     variants: {
       variant: {
@@ -62,9 +63,9 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
         {...props}
       >
         {leftIcon}
+        {isLoading && <Loader2 className="mr-2 h-5 w-5 animate-spin" />}
         {children}
         {rightIcon}
-        {/* {isLoading && <Lucide.Loader />} */}
       </button>
     )
   }

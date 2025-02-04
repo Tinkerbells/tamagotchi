@@ -1,18 +1,30 @@
 import { WaterProgressBackground } from './backgrounds'
 import { motion } from 'framer-motion'
-import React, { useRef, useState } from 'react'
+import React, { useRef } from 'react'
+
+const styles = {
+  water: {
+    trackStroke: '#d6edef',
+    progressStroke: '#0bb5b5',
+  },
+  sleep: {
+    trackStroke: '#efd6da',
+    progressStroke: '#b1556c',
+  },
+}
 
 export interface CircleProgressProps {
   progress: number
-  type: 'water' | 'sleep'
+  variant: 'water' | 'sleep'
   onProgressChange: (progress: number) => void
 }
 
 export const CircleProgress: React.FC<CircleProgressProps> = ({
   progress,
-  type,
+  variant,
   onProgressChange,
 }) => {
+  const { trackStroke, progressStroke } = styles[variant]
   const svgRef = useRef<SVGSVGElement | null>(null)
   const radius = 130
   const center = 134
@@ -35,32 +47,24 @@ export const CircleProgress: React.FC<CircleProgressProps> = ({
     const relY = center - svgY
     const standardAngle = Math.atan2(relY, relX)
 
-    // Calculate angle with proper wrapping
     let theta = (Math.PI / 2 - standardAngle + 2 * Math.PI) % (2 * Math.PI)
 
-    // Calculate raw progress value
     let newProgress = (theta / (2 * Math.PI)) * 100
 
-    // Prevent circular wrapping
     const diff = newProgress - previousProgress.current
-    const wrapAround = Math.abs(diff) > 50 // Detect full-circle jumps
+    const wrapAround = Math.abs(diff) > 50
 
     if (wrapAround) {
       if (diff > 0) {
-        // Prevent clockwise overflow
         newProgress = previousProgress.current === 100 ? 100 : 0
       } else {
-        // Prevent counter-clockwise underflow
         newProgress = previousProgress.current === 0 ? 0 : 100
       }
     }
 
-    // Apply hard limits
     if (previousProgress.current === 100 && newProgress < 100) {
-      // Allow only downward movement from 100%
       newProgress = Math.min(100, Math.max(98, newProgress))
     } else if (previousProgress.current === 0 && newProgress > 0) {
-      // Allow only upward movement from 0%
       newProgress = Math.max(0, Math.min(2, newProgress))
     }
 
@@ -83,7 +87,7 @@ export const CircleProgress: React.FC<CircleProgressProps> = ({
       className="overflow-visible"
     >
       {/* Background circle */}
-      {type === 'water' && (
+      {variant === 'water' && (
         <WaterProgressBackground x={center - 131.5} y={center - 127.5} />
       )}
 
@@ -93,7 +97,7 @@ export const CircleProgress: React.FC<CircleProgressProps> = ({
         cy={center}
         r={radius}
         fill="none"
-        stroke="#d6edef"
+        stroke={trackStroke}
         strokeWidth="8"
       />
 
@@ -103,7 +107,7 @@ export const CircleProgress: React.FC<CircleProgressProps> = ({
         cy={center}
         r={radius}
         fill="none"
-        stroke="#0bb5b5"
+        stroke={progressStroke}
         strokeWidth="8"
         strokeDasharray={`${circumference * (progress / 100)} ${circumference}`}
         transform={`rotate(-90 ${center} ${center})`}

@@ -7,8 +7,10 @@ import {
   PetCreationScreen,
   ProfileScreen,
   ShopScreen,
+  MeditationScreen,
   StartScreen,
   WaterScreen,
+  SleepScreen,
 } from '@/screens'
 import { AchievementsScreen } from '@/screens/achievements-screen'
 import { Routes, Route } from 'react-router-dom'
@@ -55,6 +57,22 @@ export const App = () => {
             element={
               <ProtectedRoute>
                 <WaterScreen />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path={routes.sleep}
+            element={
+              <ProtectedRoute>
+                <SleepScreen />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path={routes.meditation}
+            element={
+              <ProtectedRoute>
+                <MeditationScreen />
               </ProtectedRoute>
             }
           />

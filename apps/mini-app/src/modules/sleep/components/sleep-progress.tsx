@@ -2,7 +2,7 @@ import { CircleProgress, CircleProgressProps } from '@/shared'
 import { Button } from '@tamagotchi/ui'
 import * as React from 'react'
 
-type WaterProgressProps = Omit<
+type SleepProgressProps = Omit<
   CircleProgressProps,
   'type' | 'onProgressChange'
 > & {
@@ -10,16 +10,15 @@ type WaterProgressProps = Omit<
   dailyNorm: number
 }
 
-export const WaterProgress = ({
-  // progress,
+export const SleepProgress = ({
   currentValue,
   dailyNorm,
-}: WaterProgressProps) => {
+}: SleepProgressProps) => {
   const [progress, setProgress] = React.useState(50)
   return (
     <div className="flex h-[268px] w-[268px] items-center justify-center overflow-visible">
       <CircleProgress
-        variant="water"
+        variant="sleep"
         progress={progress}
         onProgressChange={setProgress}
       />
@@ -31,7 +30,7 @@ export const WaterProgress = ({
         <span className="text-[10px]">
           Ваша норма: <b>{dailyNorm}мл</b>
         </span>
-        <Button className="h-[26px] rounded-full bg-white px-2 py-0.5 text-xs font-semibold text-[#0bb5b5]">
+        <Button className="h-[26px] rounded-full bg-white px-2 py-0.5 text-xs font-semibold text-[#b1556c]">
           Изменить
         </Button>
       </div>

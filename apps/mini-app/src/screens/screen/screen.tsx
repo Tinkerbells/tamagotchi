@@ -10,9 +10,8 @@ import { Navbar } from '@/shared'
 import { cn } from '@tamagotchi/utils'
 import * as React from 'react'
 
-interface ScreenProps extends React.PropsWithChildren {
+interface ScreenProps extends React.ComponentProps<'div'> {
   texture?: BackgroundTextureProps['variant']
-  background?: ResourcesPanelProps['variant']
 }
 
 const withNavbar = <P extends ScreenProps>(
@@ -62,14 +61,13 @@ const withResourcesPanel = <
 export const Screen: React.FC<ScreenProps> = ({
   children,
   texture,
-  background,
+  className,
 }) => {
-  const bgColor = `bg-[${background}]`
   return (
     <main
       className={cn(
         'bg-background-primary relative flex h-screen w-full flex-col items-center overflow-x-hidden overflow-y-scroll px-4 bg-blend-multiply',
-        bgColor
+        className
       )}
     >
       <BackgroundTexture variant={texture} />

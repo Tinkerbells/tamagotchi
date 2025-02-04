@@ -4,6 +4,8 @@ import {
   getResourcesSchema,
   getResourcesStatisticsSchema,
   selectWaterSchema,
+  selectNormsSchema,
+  insertWaterSchema,
 } from '@/db/schema'
 import { forbiddenSchema } from '@/lib/constants'
 import { createRoute, z } from '@hono/zod-openapi'
@@ -27,6 +29,27 @@ export const create = createRoute({
     ),
     [HttpStatusCodes.UNPROCESSABLE_ENTITY]: jsonContent(
       createErrorSchema(insertNormsSchema),
+      'The validation error(s)'
+    ),
+  },
+})
+
+export const updateWater = createRoute({
+  path: '/resources/water/{id}',
+  method: 'patch',
+  request: {
+    params: IdParamsSchema,
+    body: jsonContentRequired(insertWaterSchema, 'The water update'),
+  },
+  tags,
+  responses: {
+    [HttpStatusCodes.OK]: jsonContent(updateNormsSchema, 'The updated water'),
+    [HttpStatusCodes.NOT_FOUND]: jsonContent(
+      forbiddenSchema,
+      'Resources not water'
+    ),
+    [HttpStatusCodes.UNPROCESSABLE_ENTITY]: jsonContent(
+      createErrorSchema(updateNormsSchema),
       'The validation error(s)'
     ),
   },
@@ -71,6 +94,26 @@ export const get = createRoute({
     [HttpStatusCodes.NOT_FOUND]: jsonContent(
       forbiddenSchema,
       'Resources not found'
+    ),
+    [HttpStatusCodes.UNPROCESSABLE_ENTITY]: jsonContent(
+      createErrorSchema(IdParamsSchema),
+      'Invalid id error'
+    ),
+  },
+})
+
+export const getNorms = createRoute({
+  path: '/resources/norms/{id}',
+  method: 'get',
+  request: {
+    params: IdParamsSchema,
+  },
+  tags,
+  responses: {
+    [HttpStatusCodes.OK]: jsonContent(selectNormsSchema, 'The requested norms'),
+    [HttpStatusCodes.NOT_FOUND]: jsonContent(
+      forbiddenSchema,
+      'Norms not found'
     ),
     [HttpStatusCodes.UNPROCESSABLE_ENTITY]: jsonContent(
       createErrorSchema(IdParamsSchema),
@@ -127,6 +170,8 @@ export const getStatistics = createRoute({
 
 export type GetRoute = typeof get
 export type GetWaterRoute = typeof getWater
+export type GetNormsRoute = typeof getNorms
 export type GetStatisticsRoute = typeof getStatistics
 export type CreateRoute = typeof create
 export type UpdateRoute = typeof update
+export type UpdateWaterRoute = typeof updateWater

@@ -11,7 +11,7 @@ export const ProfileStatistics: FC<ProfileStatisticsProps> = ({
   walking,
 }) => {
   return (
-    <div className="absolute bottom-[220px] flex justify-between gap-4">
+    <div className="flex justify-between gap-4">
       <StatisticContainer title="Благодарностей" value={gratitude.toString()}>
         <Heart className="h-[61px] w-[67px] text-[#dfc7ab] opacity-25" />
       </StatisticContainer>
