@@ -1,5 +1,6 @@
-import { MoodStatusModal } from '@/modules/modals'
+import { MoodStatusDialog } from '@/modules/modals'
 import { Dialog, DialogTrigger } from '@tamagotchi/ui'
+import { motion } from 'framer-motion'
 import * as React from 'react'
 
 interface PetMessageBubble {
@@ -9,15 +10,34 @@ interface PetMessageBubble {
 export const PetMessageBubble: React.FC<PetMessageBubble> = ({ message }) => {
   return (
     <Dialog>
-      <div className="absolute right-[15%]">
+      <div className="absolute right-0 mt-4">
         <div className="relative w-full">
-          <SmallBubble />
-          <LargeBubble />
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 0.3, delay: 0.2 }}
+          >
+            <SmallBubble />
+          </motion.div>
+
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 0.3, delay: 0.4 }}
+          >
+            <LargeBubble />
+          </motion.div>
         </div>
-        <DialogTrigger className="shadow-bubble-message mt-8 flex h-14 w-[176px] items-center justify-center rounded-3xl bg-white px-2 py-4 text-[15px] font-medium text-[#533325]">
-          {message}
-        </DialogTrigger>
-        <MoodStatusModal />
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 0.3, delay: 0.6 }}
+        >
+          <DialogTrigger className="shadow-bubble-message mt-8 flex h-14 w-[176px] items-center justify-center rounded-3xl bg-white px-2 py-4 text-[15px] font-medium text-[#533325]">
+            {message}
+          </DialogTrigger>
+        </motion.div>
+        <MoodStatusDialog />
       </div>
     </Dialog>
   )

@@ -36,7 +36,7 @@ export const useGetUser = (
   return useQuery({
     queryKey: GET_USER_QUERY_KEY,
     queryFn: () => getUser(params),
-    refetchInterval: 6000,
+    refetchInterval: 60000,
     retry: 0,
     ...options,
   })

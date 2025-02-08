@@ -1,6 +1,8 @@
 import {
   getResourcesSchema,
   getResourcesStatisticsSchema,
+  norms,
+  updateNormsSchema,
 } from '@tamagotchi/api/hc'
 import { z } from 'zod'
 
@@ -15,3 +17,7 @@ export const moodStates = {
 } as const
 
 export type MoodType = (typeof moodStates)[keyof typeof moodStates]
+
+export type UpdateNormsDto = z.infer<typeof updateNormsSchema>
+
+export type FetchedNorms = typeof norms.$inferSelect

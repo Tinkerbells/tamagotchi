@@ -1,21 +1,16 @@
 import { db } from '@/db'
+import dayjs from 'dayjs'
 
 export const getResources = async (id: number) => {
-  const now = new Date()
-  const startOfToday = new Date(
-    now.getFullYear(),
-    now.getMonth(),
-    now.getDate()
-  )
-  const endOfToday = new Date(startOfToday)
-  endOfToday.setDate(startOfToday.getDate() + 1)
+  const startOfToday = dayjs().startOf('day').format('YYYY-MM-DD')
+  const startOfNextDay = dayjs(startOfToday).add(1, 'day').format('YYYY-MM-DD')
 
   const meal = await db.query.meal.findFirst({
     where(fields, operators) {
       return operators.and(
         operators.eq(fields.userId, id),
-        operators.gte(fields.createdAt, startOfToday),
-        operators.lt(fields.createdAt, endOfToday)
+        operators.gte(fields.date, startOfToday),
+        operators.lt(fields.date, startOfNextDay)
       )
     },
   })
@@ -23,8 +18,8 @@ export const getResources = async (id: number) => {
     where(fields, operators) {
       return operators.and(
         operators.eq(fields.userId, id),
-        operators.gte(fields.createdAt, startOfToday),
-        operators.lt(fields.createdAt, endOfToday)
+        operators.gte(fields.date, startOfToday),
+        operators.lt(fields.date, startOfNextDay)
       )
     },
   })
@@ -32,8 +27,8 @@ export const getResources = async (id: number) => {
     where(fields, operators) {
       return operators.and(
         operators.eq(fields.userId, id),
-        operators.gte(fields.createdAt, startOfToday),
-        operators.lt(fields.createdAt, endOfToday)
+        operators.gte(fields.date, startOfToday),
+        operators.lt(fields.date, startOfNextDay)
       )
     },
   })
@@ -41,8 +36,8 @@ export const getResources = async (id: number) => {
     where(fields, operators) {
       return operators.and(
         operators.eq(fields.userId, id),
-        operators.gte(fields.createdAt, startOfToday),
-        operators.lt(fields.createdAt, endOfToday)
+        operators.gte(fields.date, startOfToday),
+        operators.lt(fields.date, startOfNextDay)
       )
     },
   })
@@ -50,8 +45,8 @@ export const getResources = async (id: number) => {
     where(fields, operators) {
       return operators.and(
         operators.eq(fields.userId, id),
-        operators.gte(fields.createdAt, startOfToday),
-        operators.lt(fields.createdAt, endOfToday)
+        operators.gte(fields.date, startOfToday),
+        operators.lt(fields.date, startOfNextDay)
       )
     },
   })
@@ -59,24 +54,25 @@ export const getResources = async (id: number) => {
     where(fields, operators) {
       return operators.and(
         operators.eq(fields.userId, id),
-        operators.gte(fields.createdAt, startOfToday),
-        operators.lt(fields.createdAt, endOfToday)
+        operators.gte(fields.date, startOfToday),
+        operators.lt(fields.date, startOfNextDay)
       )
     },
   })
   const norms = await db.query.norms.findFirst({
     where(fields, operators) {
-      return operators.and(operators.eq(fields.userId, id))
+      return operators.eq(fields.userId, id)
     },
   })
 
   const resources = {
-    meal: meal,
-    water: water,
-    meditation: meditation,
-    gratitude: gratitude,
-    walking: walking,
-    sleep: sleep,
+    meal,
+    water,
+    meditation,
+    gratitude,
+    walking,
+    sleep,
   }
+
   return { resources, norms: norms! }
 }

@@ -1,3 +1,3 @@
-export const StatusModal = () => {
+export const StatusDialog = () => {
   return <div></div>
 }

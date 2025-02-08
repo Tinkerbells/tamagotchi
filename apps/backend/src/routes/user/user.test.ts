@@ -1,4 +1,4 @@
-import router from './user.index'
+import { userRouter } from '.'
 import env from '@/env'
 import createApp from '@/lib/create-app'
 import { testClient } from 'hono/testing'
@@ -10,7 +10,7 @@ if (env.NODE_ENV !== 'test') {
   throw new Error("NODE_ENV must be 'test'")
 }
 
-const client = testClient(createApp().route('/', router))
+const client = testClient(createApp().route('/', userRouter))
 
 describe('tasks routes', () => {
   beforeAll(async () => {

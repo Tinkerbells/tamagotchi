@@ -18,10 +18,10 @@ export const GET_WATER_QUERY_KEY = ['water']
 const getWater = async (params: GetWaterQueryParams) => {
   try {
     const [waterResponse, normsResponse] = await Promise.all([
-      client.resources.water[':id'].$get({
+      client.water[':id'].$get({
         param: { id: params.userId.toString() },
       }),
-      client.resources.norms[':id'].$get({
+      client.norms[':id'].$get({
         param: { id: params.userId.toString() },
       }),
     ])

@@ -16,13 +16,13 @@ import { useToggle } from '@uidotdev/usehooks'
 import * as React from 'react'
 import { PropsWithChildren } from 'react'
 
-interface CreatePurchaseModalProps extends PropsWithChildren {
+interface CreatePurchaseDialogProps extends PropsWithChildren {
   price: number
   itemId: number
   itemType: 'accessory' | 'interior'
 }
 
-export const CreatePurchaseModal: React.FC<CreatePurchaseModalProps> = ({
+export const CreatePurchaseDialog: React.FC<CreatePurchaseDialogProps> = ({
   price,
   itemId,
   itemType,

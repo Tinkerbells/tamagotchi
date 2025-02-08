@@ -15,7 +15,7 @@ export const meal = pgTable('meal', {
   userId: integer('user_id')
     .notNull()
     .references(() => user.id),
-  date: date('date').notNull().unique(),
+  date: date('date').defaultNow().notNull().unique(),
   breakfast: boolean('breakfast').default(false),
   lunch: boolean('lunch').default(false),
   dinner: boolean('dinner').default(false),

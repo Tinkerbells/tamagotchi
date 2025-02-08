@@ -1,6 +1,6 @@
 import { useUpdatePet } from '@/data'
 import { useAuth } from '@/shared'
-import { Button, Input, useDismissModal } from '@tamagotchi/ui'
+import { Button, Input, useDismissDialog } from '@tamagotchi/ui'
 import { useForm } from 'react-hook-form'
 
 interface PetRenameFormData {

@@ -16,7 +16,7 @@ export const walking = pgTable('walking', {
     .notNull()
     .references(() => user.id),
   currentValue: integer('current_value').default(0).notNull(),
-  date: date('date').notNull().unique(),
+  date: date('date').defaultNow().notNull().unique(),
   finished: boolean('finished').default(false),
   createdAt: timestamp('created_at').defaultNow().notNull(),
   updatedAt: timestamp('updated_at').defaultNow().notNull(),

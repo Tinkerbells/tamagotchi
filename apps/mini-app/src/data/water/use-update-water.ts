@@ -1,3 +1,4 @@
+import { GET_RESOURCES_QUERY_KEY } from '../resources'
 import { UserId } from '../user'
 import { UpdateWaterDto, WaterType } from './dto'
 import { GET_WATER_QUERY_KEY } from './use-get-water'
@@ -7,12 +8,13 @@ import {
   useMutation,
   useQueryClient,
 } from '@tanstack/react-query'
+import toast from 'react-hot-toast'
 
 type UpdateWaterParams = { userId: UserId } & UpdateWaterDto
 
 const updateWater = async (params: UpdateWaterParams) => {
   try {
-    const response = await client.resources.water[':id'].$patch({
+    const response = await client.water[':id'].$patch({
       param: { id: params.userId.toString() },
       json: {
         userId: params.userId,
@@ -48,6 +50,8 @@ export const useUpdateWater = (
     onSuccess: (data, variables, context) => {
       // queryClient.setQueryData(GET_WATER_QUERY_KEY, () => data)
       queryClient.refetchQueries({ queryKey: GET_WATER_QUERY_KEY })
+      queryClient.refetchQueries({ queryKey: GET_RESOURCES_QUERY_KEY })
+      toast.success('Успешно обновлено!')
       options?.onSuccess?.(data, variables, context)
     },
   })

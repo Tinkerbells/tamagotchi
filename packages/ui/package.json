@@ -26,6 +26,7 @@
   "dependencies": {
     "@floating-ui/react": "^0.26.20",
     "@radix-ui/react-dialog": "^1.1.2",
+    "@radix-ui/react-separator": "^1.1.2",
     "@tamagotchi/utils": "workspace:*",
     "@types/canvas-confetti": "^1.6.4",
     "canvas-confetti": "^1.9.3",

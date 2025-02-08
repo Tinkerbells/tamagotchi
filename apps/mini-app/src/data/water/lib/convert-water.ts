@@ -1,5 +1,5 @@
 import { FetchedWater } from '../dto'
-import { FetchedNorms } from '@/data/types'
+import { FetchedNorms } from '@/data/resources'
 import dayjs from 'dayjs'
 import 'dayjs/locale/ru'
 
@@ -32,7 +32,6 @@ export const convertWater = (
         : 0,
     }
   })
-
   return {
     waterData: weekWaterData,
     currentValue: getCurrentValue(waterRecords),

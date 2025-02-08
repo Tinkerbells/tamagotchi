@@ -2,7 +2,7 @@ import { ProductCard } from '../product-card'
 import { AccessoryItem } from './accessory-item'
 import { getHat } from './lib'
 import { AccessoriesType } from '@/data'
-import { CreatePurchaseModal } from '@/modules'
+import { CreatePurchaseDialog } from '@/modules'
 import { Image } from '@/shared'
 import { AccessoryType } from '@tamagotchi/api/hc'
 import { Dialog } from '@tamagotchi/ui'
@@ -36,7 +36,7 @@ export const Accessories: React.FC<AccessoriesProps> = ({ data }) => {
                 height={298}
               />
             </AccessoryItem>
-            <CreatePurchaseModal
+            <CreatePurchaseDialog
               price={item.price}
               itemType="accessory"
               itemId={item.id}
@@ -52,7 +52,7 @@ export const Accessories: React.FC<AccessoriesProps> = ({ data }) => {
                   height={298}
                 />
               </ProductCard>
-            </CreatePurchaseModal>
+            </CreatePurchaseDialog>
           </Dialog>
         ))}
       </div>

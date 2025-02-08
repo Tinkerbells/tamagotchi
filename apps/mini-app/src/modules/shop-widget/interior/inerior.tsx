@@ -2,7 +2,7 @@ import { ProductCard } from '../product-card'
 import { InteriorItem } from './interior-item'
 import { getInteriorItem } from './lib'
 import { InteriorItemsType } from '@/data'
-import { CreatePurchaseModal } from '@/modules'
+import { CreatePurchaseDialog } from '@/modules'
 import { Image } from '@/shared'
 import { InteriorType } from '@tamagotchi/api/hc'
 import { Dialog } from '@tamagotchi/ui'
@@ -34,7 +34,7 @@ export const InteriorItems: React.FC<InteriorItemsProps> = ({ data }) => {
                 height={298}
               />
             </InteriorItem>
-            <CreatePurchaseModal
+            <CreatePurchaseDialog
               price={item.price}
               itemType="interior"
               itemId={item.id}
@@ -50,7 +50,7 @@ export const InteriorItems: React.FC<InteriorItemsProps> = ({ data }) => {
                   height={298}
                 />
               </ProductCard>
-            </CreatePurchaseModal>
+            </CreatePurchaseDialog>
           </Dialog>
         ))}
       </div>

@@ -1,5 +1,7 @@
-import { useGetPet, useGetWater } from '@/data'
+import { getCurrentWaterValue } from '../utils'
+import { useGetPet, useGetWater, useUpdateWater } from '@/data'
 import { getFormatToday, useAuth } from '@/shared'
+import * as React from 'react'
 
 export const useWater = () => {
   const today = getFormatToday()
@@ -14,12 +16,38 @@ export const useWater = () => {
   const description =
     'Регулярные совместные приемы воды с питомцем укрепляют его и ваше здоровье.'
 
-  const { data: water, isLoading: isWaterLoading } = useGetWater({
+  const { mutate: updateWaterMutation, isPending: isWaterUpdating } =
+    useUpdateWater()
+
+  const {
+    data: water,
+    isLoading: isWaterLoading,
+    isSuccess,
+  } = useGetWater({
     userId: user.id,
   })
 
-  const currentProgress =
-    water?.waterData?.[water.waterData?.length - 1].progress || 0
+  const [currentProgress, setCurrentProgress] = React.useState(0)
+
+  React.useEffect(() => {
+    if (water) {
+      if (isSuccess) {
+        const progress = water?.waterData[water.waterData.length - 1].progress
+        setCurrentProgress(progress)
+        return
+      }
+    }
+  }, [water, isSuccess])
+
+  const updateWater = () => {
+    updateWaterMutation({
+      userId: user.id,
+      currentValue: getCurrentWaterValue(
+        currentProgress,
+        water?.dailyNorm || 750
+      ),
+    })
+  }
 
   const isLoading = isWaterLoading && isPetDataLoading
 
@@ -32,5 +60,8 @@ export const useWater = () => {
     title,
     description,
     currentProgress,
+    setCurrentProgress,
+    updateWater,
+    isWaterUpdating,
   }
 }

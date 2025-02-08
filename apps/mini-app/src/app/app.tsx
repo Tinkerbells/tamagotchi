@@ -9,8 +9,8 @@ import {
   ShopScreen,
   MeditationScreen,
   StartScreen,
-  WaterScreen,
   SleepScreen,
+  WaterScreen,
 } from '@/screens'
 import { AchievementsScreen } from '@/screens/achievements-screen'
 import { Routes, Route } from 'react-router-dom'

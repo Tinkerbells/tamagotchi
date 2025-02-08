@@ -1,33 +1,58 @@
 import { WithResourcesPanel } from '../screen'
 import { useSleep } from './hooks'
-import { SleepWidget, SleepWidgetSkeleton } from '@/modules'
+import { NormsWidget, NormsWidgetSkeleton } from '@/modules'
+import { Button } from '@tamagotchi/ui'
 
 export const SleepScreen = () => {
   const {
+    today,
+    data,
+    dailyNorm,
+    currentValue,
+    isLoading,
     title,
     description,
-    isLoading,
-    today,
-    waterData,
     currentProgress,
-    currentValue,
-    dailyNorm,
+    setCurrentProgress,
+    updateSleep,
+    isSleepUpdating,
   } = useSleep()
+
+  const SaveButton = () => {
+    return (
+      <Button
+        className="h-[44px] w-full bg-[#fcc3dd] text-[#B1556C]"
+        isLoading={isSleepUpdating}
+        onClick={() => updateSleep()}
+      >
+        Сохранить
+      </Button>
+    )
+  }
+
   return (
     <WithResourcesPanel
-      panel={{ variant: 'sleep', title, description, isLoading }}
+      panel={{
+        variant: 'sleep',
+        title,
+        description,
+        isLoading,
+        renderPrimaryButton: () => <SaveButton />,
+      }}
       texture="sleep"
     >
-      {!isLoading && waterData ? (
-        <SleepWidget
+      {!isLoading && data ? (
+        <NormsWidget
           currentValue={currentValue}
-          dailyNorm={dailyNorm}
-          today={today}
-          waterData={waterData}
           currentProgress={currentProgress}
+          today={today}
+          data={data}
+          onProgressChange={setCurrentProgress}
+          dailyNorm={dailyNorm}
+          variant="sleep"
         />
       ) : (
-        <SleepWidgetSkeleton />
+        <NormsWidgetSkeleton />
       )}
     </WithResourcesPanel>
   )

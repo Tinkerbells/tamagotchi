@@ -1,7 +1,7 @@
 import { cn } from '@tamagotchi/utils'
 import * as React from 'react'
 
-interface InputProps extends React.HTMLAttributes<HTMLInputElement> {
+interface InputProps extends React.ComponentProps<'input'> {
   label?: string
   name?: string
   placeholder?: string
@@ -15,6 +15,7 @@ export const Input = React.forwardRef<HTMLInputElement, InputProps>(
     ref
   ) => {
     const id = React.useId()
+    console.log(rest.value)
     return (
       <div>
         {(label || name) && (
@@ -23,7 +24,6 @@ export const Input = React.forwardRef<HTMLInputElement, InputProps>(
           </label>
         )}
         <input
-          ref={ref}
           name={name}
           id={id}
           className={cn(
@@ -35,6 +35,7 @@ export const Input = React.forwardRef<HTMLInputElement, InputProps>(
           placeholder={placeholder}
           required={required}
           aria-required={required}
+          ref={ref}
           {...rest}
         />
       </div>

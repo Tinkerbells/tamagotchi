@@ -1,5 +1,5 @@
 import { ProfileHead } from './head'
-import { PetRenameModal } from '@/modules/modals'
+import { PetRenameDialog } from '@/modules/modals'
 import { Clip } from '@/shared'
 import { Dialog, DialogTrigger } from '@tamagotchi/ui'
 import * as React from 'react'
@@ -38,7 +38,7 @@ export const ProfileCard: React.FC<ProfileCardProps> = ({
           </div>
         </div>
       </DialogTrigger>
-      <PetRenameModal />
+      <PetRenameDialog />
     </Dialog>
   )
 }

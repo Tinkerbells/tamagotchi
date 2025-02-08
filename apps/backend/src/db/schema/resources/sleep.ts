@@ -1,7 +1,6 @@
 import { user } from '../user'
 import { pgTable, serial, integer, timestamp, date } from 'drizzle-orm/pg-core'
 import { createInsertSchema, createSelectSchema } from 'drizzle-zod'
-import { z } from 'zod'
 
 export const sleep = pgTable('sleep', {
   id: serial('id').primaryKey(),
@@ -9,8 +8,7 @@ export const sleep = pgTable('sleep', {
     .notNull()
     .references(() => user.id),
   currentValue: integer('current_value').default(0).notNull(),
-  dailyNorm: integer('daily_norm').notNull(),
-  date: date('date').notNull().unique(),
+  date: date('date').defaultNow().notNull().unique(),
   createdAt: timestamp('created_at').defaultNow().notNull(),
   updatedAt: timestamp('updated_at').defaultNow().notNull(),
 })
@@ -21,6 +19,7 @@ export const insertSleepSchema = createInsertSchema(sleep)
   .required({ userId: true, date: true })
   .omit({
     id: true,
+    date: true,
     createdAt: true,
     updatedAt: true,
   })

@@ -6,7 +6,7 @@ import {
   DialogHeader,
 } from '@tamagotchi/ui'
 
-export const MoodStatusModal = () => {
+export const MoodStatusDialog = () => {
   return (
     <DialogContent className="max-w-[90%]" withClose={false}>
       <DialogHeader>

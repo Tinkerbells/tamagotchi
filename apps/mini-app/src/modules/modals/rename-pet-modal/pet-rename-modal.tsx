@@ -6,7 +6,7 @@ import {
   DialogHeader,
 } from '@tamagotchi/ui'
 
-export const PetRenameModal = () => {
+export const PetRenameDialog = () => {
   return (
     <DialogContent className="max-w-[90%]">
       <DialogHeader>

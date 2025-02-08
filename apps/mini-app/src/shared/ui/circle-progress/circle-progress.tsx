@@ -29,7 +29,6 @@ export const CircleProgress: React.FC<CircleProgressProps> = ({
   const radius = 130
   const center = 134
   const circumference = 2 * Math.PI * radius
-  const previousProgress = useRef(progress)
 
   const getSVGPoint = (clientX: number, clientY: number) => {
     if (!svgRef.current) return { x: 0, y: 0 }
@@ -47,29 +46,32 @@ export const CircleProgress: React.FC<CircleProgressProps> = ({
     const relY = center - svgY
     const standardAngle = Math.atan2(relY, relX)
 
+    // Convert angle so that 0° is at the top.
     let theta = (Math.PI / 2 - standardAngle + 2 * Math.PI) % (2 * Math.PI)
 
     let newProgress = (theta / (2 * Math.PI)) * 100
 
-    const diff = newProgress - previousProgress.current
-    const wrapAround = Math.abs(diff) > 50
+    // Use the externally controlled progress (passed as a prop) for comparison.
+    const diff = newProgress - progress
+    const isWrapAround = Math.abs(diff) > 50
 
-    if (wrapAround) {
-      if (diff > 0) {
-        newProgress = previousProgress.current === 100 ? 100 : 0
-      } else {
-        newProgress = previousProgress.current === 0 ? 0 : 100
-      }
+    if (isWrapAround) {
+      // If the difference is large, assume the user has crossed the 0/100 boundary.
+      newProgress = diff > 0 ? 0 : 100
     }
 
-    if (previousProgress.current === 100 && newProgress < 100) {
-      newProgress = Math.min(100, Math.max(98, newProgress))
-    } else if (previousProgress.current === 0 && newProgress > 0) {
-      newProgress = Math.max(0, Math.min(2, newProgress))
+    // If we're at one of the boundaries and the drag starts moving away,
+    // constrain the new value to remain near that boundary.
+    if (progress === 100 && newProgress < 100) {
+      newProgress = Math.max(98, newProgress)
+    } else if (progress === 0 && newProgress > 0) {
+      newProgress = Math.min(2, newProgress)
     }
 
+    // Clamp the new progress between 0 and 100.
     const clampedProgress = Math.min(100, Math.max(0, newProgress))
-    previousProgress.current = clampedProgress
+
+    // Notify the parent of the new progress.
     onProgressChange(clampedProgress)
   }
 
