@@ -10,7 +10,7 @@ COPY apps/mini-app/package.json ./apps/mini-app/
 # 3. Install dependencies
 RUN npm install -g pnpm 
 
-RUN npm install 
+RUN pnpm install 
 # 4. Copy all source files
 COPY . .
 
