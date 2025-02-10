@@ -69,7 +69,7 @@ export const get: AppRouteHandler<GetOneRoute> = async (c) => {
     },
   })
 
-  const petInteriorItems = await db.query.purchasedAccessories.findMany({
+  const petInteriorItems = await db.query.purchasedInteriorItems.findMany({
     where(fields, operators) {
       return operators.and(
         operators.eq(fields.userId, id),
@@ -90,7 +90,7 @@ export const get: AppRouteHandler<GetOneRoute> = async (c) => {
   const result = {
     pet: pet,
     accessory: petAccessory,
-    iterior_items: petInteriorItems,
+    interior_items: petInteriorItems,
   }
 
   return c.json(result, HttpStatusCodes.OK)

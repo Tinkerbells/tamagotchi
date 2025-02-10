@@ -45,6 +45,7 @@ export const MeditationScreen = () => {
 
   return (
     <WithResourcesPanel
+      texture="meditation"
       panel={{
         variant: 'meditation',
         title,
@@ -52,12 +53,9 @@ export const MeditationScreen = () => {
         isLoading,
         renderPrimaryButton: () => <PrimaryButton />,
       }}
-      texture="meditation"
       className="bg-background-secondary"
     >
-      {getIsTimer() && (
-        <MeditationWidget isTimerRunning={isRunning} timerProgress={progress} />
-      )}
+      <MeditationWidget isTimerRunning={isRunning} timerProgress={progress} />
     </WithResourcesPanel>
   )
 }

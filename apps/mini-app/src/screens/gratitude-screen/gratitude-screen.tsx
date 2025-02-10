@@ -1,0 +1,45 @@
+import { WithResourcesPanel } from '../screen'
+import { useSleep } from './hooks'
+import { NormsWidget, NormsWidgetSkeleton } from '@/modules'
+import { Button } from '@tamagotchi/ui'
+
+export const GratitudeScreen = () => {
+  const {
+    today,
+    data,
+    dailyNorm,
+    currentValue,
+    isLoading,
+    title,
+    description,
+    currentProgress,
+    setCurrentProgress,
+    updateSleep,
+    isSleepUpdating,
+  } = useSleep()
+
+  const SaveButton = () => {
+    return (
+      <Button
+        className="h-[44px] w-full bg-[#fcc3dd] text-[#B1556C]"
+        isLoading={isSleepUpdating}
+        onClick={() => updateSleep()}
+      >
+        Сохранить
+      </Button>
+    )
+  }
+
+  return (
+    <WithResourcesPanel
+      panel={{
+        variant: 'gratitude',
+        title,
+        description,
+        isLoading,
+        renderPrimaryButton: () => <SaveButton />,
+      }}
+      texture="meditation"
+    ></WithResourcesPanel>
+  )
+}

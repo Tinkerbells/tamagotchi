@@ -1,6 +1,6 @@
 'use client'
 
-import { buildThumbnail } from './lib/build-image'
+import { buildThumbnail } from '../lib/build-image'
 import { Skeleton } from '@tamagotchi/ui'
 import { cn } from '@tamagotchi/utils'
 import * as React from 'react'

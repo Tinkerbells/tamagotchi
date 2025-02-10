@@ -8,7 +8,6 @@ import {
   date,
 } from 'drizzle-orm/pg-core'
 import { createInsertSchema, createSelectSchema } from 'drizzle-zod'
-import { z } from 'zod'
 
 export const meal = pgTable('meal', {
   id: serial('id').primaryKey(),
@@ -20,6 +19,7 @@ export const meal = pgTable('meal', {
   lunch: boolean('lunch').default(false),
   dinner: boolean('dinner').default(false),
   snack: boolean('snack').default(false),
+  afternoon_snack: boolean('afternoon_snack').default(false),
   createdAt: timestamp('created_at').defaultNow().notNull(),
   updatedAt: timestamp('updated_at').defaultNow().notNull(),
 })
@@ -27,7 +27,7 @@ export const meal = pgTable('meal', {
 export const selectMealSchema = createSelectSchema(meal, {})
 
 export const insertMealSchema = createInsertSchema(meal)
-  .required({ userId: true, date: true })
+  .required({ userId: true })
   .omit({
     id: true,
     createdAt: true,

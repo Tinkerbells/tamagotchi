@@ -12,9 +12,9 @@ const styles = {
     primary: 'text-[#0bb5b5]',
   },
   food: {
-    backButtonBg: 'bg-[#e9fafe]',
+    backButtonBg: 'bg-[#fef1e9]',
     buttonBg: 'bg-[#c3f9fc]',
-    primary: 'text-[#0bb5b5]',
+    primary: 'text-[#b16c55]',
   },
   sleep: {
     backButtonBg: 'bg-[#fee9fa]',
@@ -40,7 +40,7 @@ const styles = {
 
 const icons = {
   water: <WaterDrop className="h-full w-full text-[#ebfdfe]" />,
-  food: <Food className="h-[100px] w-[100px] text-[#D9D9D9]" />,
+  food: <Food className="h-[100px] w-[100px] text-[#fef0eb]" />,
   sleep: <Sleep className="h-[90px] w-[90px] text-[#FCC3DD]" />,
   meditation: <Meditation className="h-20 w-20 text-[#FCD1C3] opacity-30" />,
   gratitude: <Heart className="h-[100px] w-[100px] text-[#D9D9D9]" />,
@@ -68,7 +68,7 @@ export const ResourcesPanel = ({
   const navigate = useNavigate()
 
   return (
-    <section className="absolute bottom-0 flex h-[30vh] w-full flex-col items-center rounded-tl-[18px] rounded-tr-[18px] bg-white px-4 py-6">
+    <section className="absolute bottom-0 z-[999] flex h-[30vh] w-full flex-col items-center rounded-tl-[18px] rounded-tr-[18px] bg-white px-4 py-6">
       {isLoading ? (
         <ResourcesPanelSkeleton />
       ) : (

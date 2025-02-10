@@ -10,7 +10,7 @@ interface PetMessageBubble {
 export const PetMessageBubble: React.FC<PetMessageBubble> = ({ message }) => {
   return (
     <Dialog>
-      <div className="absolute right-0 mt-4">
+      <div className="absolute ml-[50%] mt-6">
         <div className="relative w-full">
           <motion.div
             initial={{ opacity: 0 }}

@@ -1,12 +1,8 @@
 import { AchievementsItem } from './achievements-item'
-import { useGetAchievements, UserId } from '@/data'
-import * as React from 'react'
+import { useAchievement } from './hooks'
 
-interface AchievementsProps {
-  userId: UserId
-}
-export const Achievements: React.FC<AchievementsProps> = ({ userId }) => {
-  const { data: achievements, isLoading } = useGetAchievements({ userId })
+export const Achievements = () => {
+  const { achievements, isLoading } = useAchievement()
 
   if (!achievements && isLoading) {
     return <div>Loading...</div>

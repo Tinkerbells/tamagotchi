@@ -33,7 +33,7 @@ export const update: AppRouteHandler<UpdateRoute> = async (c) => {
   const [updatedNorms] = await db
     .update(norms)
     .set(updates)
-    .where(eq(norms.id, id))
+    .where(eq(norms.userId, id))
     .returning()
   if (!updatedNorms) {
     return c.json(

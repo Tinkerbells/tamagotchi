@@ -67,7 +67,7 @@ export const Screen: React.FC<ScreenProps> = ({
   return (
     <main
       className={cn(
-        'bg-background-primary relative flex h-screen w-full flex-col items-center overflow-x-hidden overflow-y-scroll px-4 bg-blend-multiply',
+        'bg-background-primary flex h-screen w-full flex-col items-center overflow-x-hidden overflow-y-scroll px-4 bg-blend-multiply',
         className
       )}
     >

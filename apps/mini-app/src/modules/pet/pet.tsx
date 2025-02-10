@@ -1,5 +1,6 @@
 import { usePet } from './hooks'
 import { PetImage } from './pet-image'
+import { PetInteriorItems } from './pet-interior-items'
 import { PetMessageBubble } from './pet-message-bubble'
 import { PetStatusText } from './pet-status-text'
 
@@ -23,8 +24,9 @@ export const Pet = () => {
   }
 
   return (
-    <div className="absolute bottom-[30vh] mb-4 flex flex-col items-center justify-center">
-      <PetImage accessory={petData.accessory} petMood={petMood} />
+    <div className="absolute bottom-[30vh] mb-4 flex w-full flex-col items-center justify-center">
+      <PetImage accessory={petData.accessory} petMood={petMood!} />
+      <PetInteriorItems interiorItems={petData.interior_items} />
       {!userMood && !isUserMoodLoading && (
         <PetMessageBubble message="Рад тебя видеть! Как твои дела?" />
       )}

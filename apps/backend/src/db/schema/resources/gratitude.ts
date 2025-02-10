@@ -14,7 +14,7 @@ export const gratitude = pgTable('gratitude', {
   userId: integer('user_id')
     .notNull()
     .references(() => user.id),
-  date: date('date').defaultNow().notNull().unique(),
+  date: date('date').defaultNow().notNull(),
   message: text('message').notNull(),
   createdAt: timestamp('created_at').defaultNow().notNull(),
   updatedAt: timestamp('updated_at').defaultNow().notNull(),
@@ -23,9 +23,10 @@ export const gratitude = pgTable('gratitude', {
 export const selectGratitudeSchema = createSelectSchema(gratitude, {})
 
 export const insertGratitudeSchema = createInsertSchema(gratitude)
-  .required({ userId: true })
+  .required({ userId: true, message: true })
   .omit({
     id: true,
+    date: true,
     createdAt: true,
     updatedAt: true,
   })

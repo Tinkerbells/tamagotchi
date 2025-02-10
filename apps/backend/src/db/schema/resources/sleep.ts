@@ -16,7 +16,7 @@ export const sleep = pgTable('sleep', {
 export const selectSleepSchema = createSelectSchema(sleep, {})
 
 export const insertSleepSchema = createInsertSchema(sleep)
-  .required({ userId: true, date: true })
+  .required({ currentValue: true, userId: true })
   .omit({
     id: true,
     date: true,

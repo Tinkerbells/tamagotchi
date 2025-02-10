@@ -1,0 +1,6 @@
+export * from './books'
+export * from './cup'
+export * from './lamp'
+export * from './cookies'
+export * from './painting'
+export * from './garlands'

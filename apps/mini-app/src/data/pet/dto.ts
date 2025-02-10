@@ -4,14 +4,14 @@ import {
   pet,
 } from '@tamagotchi/api/hc'
 
-export type PetAccessory = Omit<
+export type PetAccessoryType = Omit<
   typeof purchasedAccessories.$inferSelect,
   'purchasedAt'
 > & {
   purchasedAt: string | null
 }
 
-export type PetInteriorItems = Omit<
+export type PetInteriorItemType = Omit<
   typeof purchasedInteriorItems.$inferSelect,
   'purchasedAt'
 > & {
@@ -22,6 +22,6 @@ export type Pet = typeof pet.$inferSelect
 
 export type PetDto = {
   pet: Pet
-  accessory?: PetAccessory
-  interior_items?: PetInteriorItems[]
+  accessory?: PetAccessoryType
+  interior_items?: PetInteriorItemType[]
 }

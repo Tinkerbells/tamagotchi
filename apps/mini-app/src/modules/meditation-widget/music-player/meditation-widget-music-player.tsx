@@ -1,4 +1,4 @@
-import { useMusicPlayer } from './hooks'
+import { useMusicPlayer } from '../hooks'
 import { MeditationWidgetMusicItem } from './meditation-widget-music-item'
 import { MeditationWidgetMusicItemSkeleton } from './meditation-widget-music-item-skeleton'
 import {
@@ -15,7 +15,7 @@ import {
   sortableKeyboardCoordinates,
   verticalListSortingStrategy,
 } from '@dnd-kit/sortable'
-import { useToggle } from '@uidotdev/usehooks'
+import { useClickAway, useToggle } from '@uidotdev/usehooks'
 import { motion, AnimatePresence, easeInOut } from 'framer-motion'
 import {
   PauseCircle,
@@ -41,6 +41,9 @@ const headerVariants = {
 
 export const MeditationWidgetPlayer = () => {
   const [open, toggleOpen] = useToggle(false)
+  const ref = useClickAway<HTMLDivElement>(() => {
+    toggleOpen(false)
+  })
   const {
     togglePlayPause,
     paused,
@@ -72,7 +75,10 @@ export const MeditationWidgetPlayer = () => {
   const isLoading = isMusicLoading && isReady
 
   return (
-    <div className="absolute top-20 flex flex-col items-center">
+    <div
+      className="absolute top-20 z-10 flex w-full flex-col items-center"
+      ref={ref}
+    >
       <motion.div
         initial="closed"
         animate={open ? 'open' : 'closed'}

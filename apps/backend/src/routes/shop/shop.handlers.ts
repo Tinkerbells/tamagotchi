@@ -194,7 +194,6 @@ export const updatedInteriorItems: AppRouteHandler<
   }
 
   const newActiveState = !interiorItemToUpdate.isActive
-  console.log('interiorItemToUpdate: ', newActiveState)
 
   await db
     .update(purchasedInteriorItems)
