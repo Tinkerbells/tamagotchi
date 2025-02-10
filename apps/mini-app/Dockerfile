@@ -2,7 +2,9 @@ FROM node:18 AS builder
 WORKDIR /app
 
 # 1. Copy root package files
-COPY package.json pnpm-lock.yaml* ./
+COPY apps/mini-app/package.json ./apps/mini-app/
+
+COPY apps/mini-app/package-lock.json ./apps/mini-app/
 
 # 2. Copy frontend package.json
 COPY apps/mini-app/package.json ./apps/mini-app/
@@ -10,12 +12,12 @@ COPY apps/mini-app/package.json ./apps/mini-app/
 # 3. Install dependencies
 RUN npm install -g pnpm 
 
-RUN pnpm install 
+RUN pnpm install --frozen-lockfile 
 # 4. Copy all source files
 COPY . .
 
 # 5. Build project
-RUN pnpm --filter app run build
+RUN pnpm --filter mini-app run build
 
 # 6. Runtime stage
 FROM nginx:alpine
