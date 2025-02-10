@@ -8,8 +8,9 @@ COPY package.json pnpm-lock.yaml* ./
 COPY apps/mini-app/package.json ./apps/mini-app/
 
 # 3. Install dependencies
-RUN npm install -g pnpm && \
-    pnpm install 
+RUN npm install -g pnpm 
+
+RUN npm install 
 # 4. Copy all source files
 COPY . .
 
