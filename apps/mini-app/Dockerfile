@@ -15,8 +15,7 @@ COPY . .
 
 # 5. Build project
 RUN pnpm --filter mini-app run build && \
-    ls -la /app/apps/mini-app/build && \  # or build
-    echo "Build output verified"
+    ls -la /app/apps/mini-app/build &&   # or build
 
 # 6. Runtime stage
 FROM nginx:alpine
