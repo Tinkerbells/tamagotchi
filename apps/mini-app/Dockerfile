@@ -14,8 +14,7 @@ RUN npm install -g pnpm && \
 COPY . .
 
 # 5. Build project
-RUN pnpm --filter mini-app run build && \
-    ls -la /app/apps/mini-app/build &&   # or build
+RUN pnpm run build
 
 # 6. Runtime stage
 FROM nginx:alpine
