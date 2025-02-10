@@ -14,7 +14,7 @@ RUN npm install -g pnpm && \
 COPY . .
 
 # 5. Build project
-RUN pnpm run build
+RUN pnpm --filter app run build
 
 # 6. Runtime stage
 FROM nginx:alpine
