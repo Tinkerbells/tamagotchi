@@ -1,5 +1,5 @@
 import { Image } from '@/shared'
-import petMeditationImage from '@public/images/meditation/image.webp'
+import petMeditationImage from '/images/meditation/image.webp'
 
 export const MeditationWidgetBackground = () => {
   return (

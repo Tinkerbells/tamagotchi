@@ -10,7 +10,6 @@ import {
 
 export const ResourcesWidget = () => {
   const { resources, isLoading } = useResources()
-
   return (
     <section className="absolute bottom-0 flex h-[30vh] w-full items-center justify-center rounded-[18px] bg-white px-2 py-4">
       {isLoading || !resources ? (

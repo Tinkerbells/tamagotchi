@@ -1,8 +1,8 @@
 import { Song } from '../types'
-import songPath1 from '@public/music/meditation-1.mp3'
-import songPath2 from '@public/music/meditation-2.mp3'
-import songPath3 from '@public/music/meditation-3.mp3'
-import songPath4 from '@public/music/meditation-4.mp3'
+import songPath1 from '/music/meditation-1.mp3'
+import songPath2 from '/music/meditation-2.mp3'
+import songPath3 from '/music/meditation-3.mp3'
+import songPath4 from '/music/meditation-4.mp3'
 
 export const songs: Song[] = [
   {

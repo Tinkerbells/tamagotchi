@@ -8,6 +8,10 @@ import { z } from 'zod'
 
 export type FetchedResources = z.infer<typeof getResourcesSchema>
 export type FetchedStatistics = z.infer<typeof getResourcesStatisticsSchema>
+export type ConvertedStatistics = Omit<
+  z.infer<typeof getResourcesStatisticsSchema>,
+  'meditation'
+> & { meditation: string }
 
 export const moodStates = {
   veryBored: 'very_bored', // Айзек очень скучает

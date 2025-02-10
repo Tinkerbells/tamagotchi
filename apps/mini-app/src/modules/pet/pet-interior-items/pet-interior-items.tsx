@@ -10,7 +10,7 @@ export const PetInteriorItems = ({ interiorItems }: PetInteriorItemsProps) => {
   return (
     <>
       {interiorItems?.map((item) => (
-        <PetInteriorItem type={item.type as InteriorType} />
+        <PetInteriorItem key={item.itemId} type={item.type as InteriorType} />
       ))}
     </>
   )

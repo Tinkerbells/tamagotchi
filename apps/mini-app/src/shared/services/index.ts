@@ -1,1 +1,1 @@
-export * from './get-authorization-params-service'
+export * from './authorization'

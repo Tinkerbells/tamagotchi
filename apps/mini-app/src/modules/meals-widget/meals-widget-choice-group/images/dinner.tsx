@@ -1,5 +1,5 @@
 import { Image } from '@/shared'
-import dinner from '@public/images/meals/dinner.webp'
+import dinner from '/images/meals/dinner.webp'
 
 export const Dinner = () => {
   return (

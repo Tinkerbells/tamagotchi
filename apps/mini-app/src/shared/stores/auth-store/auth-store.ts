@@ -1,10 +1,10 @@
-import { VkStorage } from '@/shared/lib'
-import { getAuthorizationParams } from '@/shared/services'
+import { getAuthorizationParams } from '@/shared'
 
 export class AuthStore {
-  private storage: VkStorage
+  private storage: Storage
+
   constructor() {
-    this.storage = new VkStorage()
+    this.storage = localStorage
   }
 
   async init() {
@@ -12,13 +12,13 @@ export class AuthStore {
   }
 
   async get() {
-    const authorization = await this.storage.get(['Authorization'])
-    return authorization[0].value
+    const authorization = this.storage.getItem('Authorization')
+    return authorization ? JSON.parse(authorization) : null
   }
 
   async set() {
     const authorization = await getAuthorizationParams()
-    await this.storage.set('Authorization', authorization)
+    this.storage.setItem('Authorization', JSON.stringify(authorization))
     return authorization
   }
 }

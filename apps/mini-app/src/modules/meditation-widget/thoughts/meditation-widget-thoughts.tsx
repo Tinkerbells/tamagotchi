@@ -28,8 +28,6 @@ export const MeditationWidgetThoughts = () => {
           blurAmount = maxBlur * (1 - progress)
         }
 
-        console.log(blurAmount)
-
         return (
           <motion.div
             key={index}

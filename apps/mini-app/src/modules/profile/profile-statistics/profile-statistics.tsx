@@ -1,9 +1,9 @@
 import { StatisticContainer } from './statistic-container'
-import { FetchedStatistics } from '@/data'
+import { ConvertedStatistics } from '@/data'
 import { Heart, Meditation, Walking } from '@/shared'
 import { FC } from 'react'
 
-type ProfileStatisticsProps = FetchedStatistics
+type ProfileStatisticsProps = ConvertedStatistics
 
 export const ProfileStatistics: FC<ProfileStatisticsProps> = ({
   meditation,

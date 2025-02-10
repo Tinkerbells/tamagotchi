@@ -30,6 +30,13 @@ CREATE TABLE IF NOT EXISTS "user_achievements" (
 	"created_at" timestamp DEFAULT now()
 );
 --> statement-breakpoint
+CREATE TABLE IF NOT EXISTS "user_mood" (
+	"id" serial PRIMARY KEY NOT NULL,
+	"user_id" integer NOT NULL,
+	"mood_status" integer NOT NULL,
+	"created_at" timestamp DEFAULT now() NOT NULL
+);
+--> statement-breakpoint
 CREATE TABLE IF NOT EXISTS "pet" (
 	"id" serial PRIMARY KEY NOT NULL,
 	"name" varchar(50) NOT NULL,
@@ -84,7 +91,7 @@ CREATE TABLE IF NOT EXISTS "walking" (
 	"id" serial PRIMARY KEY NOT NULL,
 	"user_id" integer NOT NULL,
 	"current_value" integer DEFAULT 0 NOT NULL,
-	"date" date NOT NULL,
+	"date" date DEFAULT now() NOT NULL,
 	"finished" boolean DEFAULT false,
 	"created_at" timestamp DEFAULT now() NOT NULL,
 	"updated_at" timestamp DEFAULT now() NOT NULL,
@@ -105,11 +112,12 @@ CREATE TABLE IF NOT EXISTS "water" (
 CREATE TABLE IF NOT EXISTS "meal" (
 	"id" serial PRIMARY KEY NOT NULL,
 	"user_id" integer NOT NULL,
-	"date" date NOT NULL,
+	"date" date DEFAULT now() NOT NULL,
 	"breakfast" boolean DEFAULT false,
 	"lunch" boolean DEFAULT false,
 	"dinner" boolean DEFAULT false,
 	"snack" boolean DEFAULT false,
+	"afternoon_snack" boolean DEFAULT false,
 	"created_at" timestamp DEFAULT now() NOT NULL,
 	"updated_at" timestamp DEFAULT now() NOT NULL,
 	CONSTRAINT "meal_date_unique" UNIQUE("date")
@@ -119,8 +127,7 @@ CREATE TABLE IF NOT EXISTS "sleep" (
 	"id" serial PRIMARY KEY NOT NULL,
 	"user_id" integer NOT NULL,
 	"current_value" integer DEFAULT 0 NOT NULL,
-	"daily_norm" integer NOT NULL,
-	"date" date NOT NULL,
+	"date" date DEFAULT now() NOT NULL,
 	"created_at" timestamp DEFAULT now() NOT NULL,
 	"updated_at" timestamp DEFAULT now() NOT NULL,
 	CONSTRAINT "sleep_date_unique" UNIQUE("date")
@@ -129,16 +136,15 @@ CREATE TABLE IF NOT EXISTS "sleep" (
 CREATE TABLE IF NOT EXISTS "meditation" (
 	"id" serial PRIMARY KEY NOT NULL,
 	"user_id" integer NOT NULL,
-	"date" date NOT NULL,
-	"finished" boolean DEFAULT false,
+	"date" date DEFAULT now() NOT NULL,
 	"created_at" timestamp DEFAULT now() NOT NULL,
-	"updated_at" timestamp DEFAULT now() NOT NULL,
-	CONSTRAINT "meditation_date_unique" UNIQUE("date")
+	"updated_at" timestamp DEFAULT now() NOT NULL
 );
 --> statement-breakpoint
 CREATE TABLE IF NOT EXISTS "gratitude" (
 	"id" serial PRIMARY KEY NOT NULL,
 	"user_id" integer NOT NULL,
+	"date" date DEFAULT now() NOT NULL,
 	"message" text NOT NULL,
 	"created_at" timestamp DEFAULT now() NOT NULL,
 	"updated_at" timestamp DEFAULT now() NOT NULL
@@ -165,6 +171,12 @@ END $$;
 --> statement-breakpoint
 DO $$ BEGIN
  ALTER TABLE "user_achievements" ADD CONSTRAINT "user_achievements_achievement_id_achievements_id_fk" FOREIGN KEY ("achievement_id") REFERENCES "public"."achievements"("id") ON DELETE no action ON UPDATE no action;
+EXCEPTION
+ WHEN duplicate_object THEN null;
+END $$;
+--> statement-breakpoint
+DO $$ BEGIN
+ ALTER TABLE "user_mood" ADD CONSTRAINT "user_mood_user_id_user_id_fk" FOREIGN KEY ("user_id") REFERENCES "public"."user"("id") ON DELETE no action ON UPDATE no action;
 EXCEPTION
  WHEN duplicate_object THEN null;
 END $$;

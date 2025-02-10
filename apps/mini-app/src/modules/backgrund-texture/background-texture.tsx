@@ -1,3 +1,4 @@
+import { Shadows } from './shadows'
 import {
   Bored,
   DefaultBackground,
@@ -21,13 +22,33 @@ export const BackgroundTexture: React.FC<BackgroundTextureProps> = ({
 }) => {
   switch (variant) {
     case 'very_bored':
-      return <VeryBored />
+      return (
+        <>
+          <VeryBored />
+          <Shadows />
+        </>
+      )
     case 'bored':
-      return <Bored />
+      return (
+        <>
+          <Bored />
+          <Shadows />
+        </>
+      )
     case 'happy':
-      return <Happy />
+      return (
+        <>
+          <Happy />
+          <Shadows />
+        </>
+      )
     case 'very_happy':
-      return <VeryHappy />
+      return (
+        <>
+          <VeryHappy />
+          <Shadows />
+        </>
+      )
     case 'highlight':
       return <HighlightBackground />
     case 'water':

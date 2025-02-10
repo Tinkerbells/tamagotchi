@@ -36,7 +36,12 @@ export const useGetUserMood = (
   return useQuery({
     queryKey: GET_USER_MOOD_QUERY_KEY,
     queryFn: () => getUserMood(params),
-    retry: 0,
+    retry: false, // Disable retry
+    refetchOnWindowFocus: false, // Disable refetch on window focus
+    refetchOnMount: false, // Disable refetch on mount
+    refetchInterval: false, // Disable refetch interval
+    retryOnMount: false, // Disable retry on mount
+    retryDelay: 0,
     enabled: !isUserMoodEnabled(),
     ...options,
   })

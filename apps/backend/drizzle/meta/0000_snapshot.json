@@ -1,5 +1,5 @@
 {
-  "id": "2b340df8-9941-4285-ae43-b7d6f4d008b7",
+  "id": "d7ed2742-e480-422a-a131-dd5c0732da90",
   "prevId": "00000000-0000-0000-0000-000000000000",
   "version": "7",
   "dialect": "postgresql",
@@ -209,6 +209,55 @@
           "tableTo": "achievements",
           "columnsFrom": [
             "achievement_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {}
+    },
+    "public.user_mood": {
+      "name": "user_mood",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "serial",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "user_id": {
+          "name": "user_id",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "mood_status": {
+          "name": "mood_status",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "created_at": {
+          "name": "created_at",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "user_mood_user_id_user_id_fk": {
+          "name": "user_mood_user_id_user_id_fk",
+          "tableFrom": "user_mood",
+          "tableTo": "user",
+          "columnsFrom": [
+            "user_id"
           ],
           "columnsTo": [
             "id"
@@ -579,7 +628,8 @@
           "name": "date",
           "type": "date",
           "primaryKey": false,
-          "notNull": true
+          "notNull": true,
+          "default": "now()"
         },
         "finished": {
           "name": "finished",
@@ -741,7 +791,8 @@
           "name": "date",
           "type": "date",
           "primaryKey": false,
-          "notNull": true
+          "notNull": true,
+          "default": "now()"
         },
         "breakfast": {
           "name": "breakfast",
@@ -766,6 +817,13 @@
         },
         "snack": {
           "name": "snack",
+          "type": "boolean",
+          "primaryKey": false,
+          "notNull": false,
+          "default": false
+        },
+        "afternoon_snack": {
+          "name": "afternoon_snack",
           "type": "boolean",
           "primaryKey": false,
           "notNull": false,
@@ -836,17 +894,12 @@
           "notNull": true,
           "default": 0
         },
-        "daily_norm": {
-          "name": "daily_norm",
-          "type": "integer",
-          "primaryKey": false,
-          "notNull": true
-        },
         "date": {
           "name": "date",
           "type": "date",
           "primaryKey": false,
-          "notNull": true
+          "notNull": true,
+          "default": "now()"
         },
         "created_at": {
           "name": "created_at",
@@ -910,14 +963,8 @@
           "name": "date",
           "type": "date",
           "primaryKey": false,
-          "notNull": true
-        },
-        "finished": {
-          "name": "finished",
-          "type": "boolean",
-          "primaryKey": false,
-          "notNull": false,
-          "default": false
+          "notNull": true,
+          "default": "now()"
         },
         "created_at": {
           "name": "created_at",
@@ -951,15 +998,7 @@
         }
       },
       "compositePrimaryKeys": {},
-      "uniqueConstraints": {
-        "meditation_date_unique": {
-          "name": "meditation_date_unique",
-          "nullsNotDistinct": false,
-          "columns": [
-            "date"
-          ]
-        }
-      }
+      "uniqueConstraints": {}
     },
     "public.gratitude": {
       "name": "gratitude",
@@ -976,6 +1015,13 @@
           "type": "integer",
           "primaryKey": false,
           "notNull": true
+        },
+        "date": {
+          "name": "date",
+          "type": "date",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
         },
         "message": {
           "name": "message",

@@ -1,6 +1,6 @@
-import { FetchedStatistics } from '../dto'
+import { ConvertedStatistics } from '../dto'
 
-export const ConvertResources = (fetchedResources: FetchedStatistics) => {
+export const ConvertResources = (fetchedResources: ConvertedStatistics) => {
   const { meal } = fetchedResources
   const countMeals = ['breakfast', 'lunch', 'dinner', 'snack'].reduce(
     (count, key) => {

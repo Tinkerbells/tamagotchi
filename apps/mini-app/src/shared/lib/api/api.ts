@@ -1,4 +1,4 @@
-import { AuthStore } from '@/shared'
+import { AuthStore, env } from '@/shared'
 import { hcWithType } from '@tamagotchi/api/hc'
 import ky from 'ky'
 
@@ -7,7 +7,7 @@ const kyapi = ky.extend({
     beforeRequest: [
       async (request) => {
         const authStore = new AuthStore()
-        const authorization = ''
+        const authorization = await authStore.get()
         if (authorization) {
           request.headers.set('Authorization', authorization)
         } else {
@@ -26,7 +26,6 @@ const kyapi = ky.extend({
           request.headers.set('Authorization', authorization)
           return kyapi(request, options)
         } else {
-          console.log(response)
           throw new Error(response.statusText)
         }
       },
@@ -34,7 +33,7 @@ const kyapi = ky.extend({
   },
 })
 
-export const client = hcWithType('http://localhost:9999', {
+export const client = hcWithType(env.VITE_BACKEND_URL, {
   fetch: (input: RequestInfo | URL, requestInit?: RequestInit) => {
     return kyapi(input, {
       method: requestInit?.method ?? 'get',

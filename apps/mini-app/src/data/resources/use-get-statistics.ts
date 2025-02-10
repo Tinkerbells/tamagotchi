@@ -1,5 +1,6 @@
 import { UserId } from '../user'
-import { FetchedStatistics } from './dto'
+import { ConvertedStatistics } from './dto'
+import { convertStatistics } from './lib'
 import { client } from '@/shared'
 import { QueryObserverOptions, useQuery } from '@tanstack/react-query'
 
@@ -22,7 +23,7 @@ const getStatistics = async (params: GetStatisticsQueryParams) => {
       throw error
     }
     const result = await response.json()
-    return result
+    return convertStatistics(result)
   } catch (error) {
     console.error(error)
     throw error
@@ -32,7 +33,7 @@ const getStatistics = async (params: GetStatisticsQueryParams) => {
 export const useGetStatistics = (
   params: GetStatisticsQueryParams,
   options?: Omit<
-    QueryObserverOptions<FetchedStatistics, Error>,
+    QueryObserverOptions<ConvertedStatistics, Error>,
     'queryKey' | 'queryFn'
   >
 ) => {

@@ -1,6 +1,7 @@
 import { convertResources, getResources } from './lib'
 import type { GetRoute, GetStatisticsRoute } from './resources.routes'
 import { db } from '@/db'
+import { meditation } from '@/hc'
 import type { AppRouteHandler } from '@/lib/types'
 import * as HttpStatusCodes from 'stoker/http-status-codes'
 
@@ -14,7 +15,7 @@ export const get: AppRouteHandler<GetRoute> = async (c) => {
 export const getStatistics: AppRouteHandler<GetStatisticsRoute> = async (c) => {
   const { id } = c.req.valid('param')
 
-  const meditations = await db.query.walking.findMany({
+  const meditations = await db.query.meditation.findMany({
     where(fields, operators) {
       return operators.and(operators.eq(fields.userId, id))
     },
@@ -22,10 +23,7 @@ export const getStatistics: AppRouteHandler<GetStatisticsRoute> = async (c) => {
 
   const walkings = await db.query.walking.findMany({
     where(fields, operators) {
-      return operators.and(
-        operators.eq(fields.userId, id),
-        operators.eq(fields.finished, true)
-      )
+      return operators.and(operators.eq(fields.userId, id))
     },
   })
 
@@ -40,11 +38,9 @@ export const getStatistics: AppRouteHandler<GetStatisticsRoute> = async (c) => {
     0
   )
 
-  const totalMeditationTime = meditations.length
-
   return c.json(
     {
-      meditation: totalMeditationTime,
+      meditation: meditations.length,
       walking: totalWalkingDistance,
       gratitude: gratitudes.length,
     },

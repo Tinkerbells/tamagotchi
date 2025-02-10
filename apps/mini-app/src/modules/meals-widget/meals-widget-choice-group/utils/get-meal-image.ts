@@ -1,8 +1,8 @@
-import afternoon_snack from '@public/images/meals/afternoon_snack.webp'
-import breakfast from '@public/images/meals/breakfast.webp'
-import dinner from '@public/images/meals/dinner.webp'
-import lunch from '@public/images/meals/lunch.webp'
-import snack from '@public/images/meals/snack.webp'
+import afternoon_snack from '/images/meals/afternoon_snack.webp'
+import breakfast from '/images/meals/breakfast.webp'
+import dinner from '/images/meals/dinner.webp'
+import lunch from '/images/meals/lunch.webp'
+import snack from '/images/meals/snack.webp'
 
 export const getMealImage = (
   type?: 'breakfast' | 'snack' | 'afternoon_snack' | 'lunch' | 'dinner'

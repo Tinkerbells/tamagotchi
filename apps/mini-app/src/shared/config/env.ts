@@ -3,12 +3,12 @@ import { z } from 'zod'
 const envSchema = z.object({
   // FLYIMG_URL: z.string().url(),
   NODE_ENV: z.enum(['development', 'production']),
+  VITE_BACKEND_URL: z.string().url(),
 })
 
-// Parse and validate the environment variables
 const parsedEnv = envSchema.safeParse({
   NODE_ENV: import.meta.env.MODE,
-  // FLYIMG_URL: import.meta.env.VITE_FLYIMG_URL,
+  VITE_BACKEND_URL: import.meta.env.VITE_BACKEND_URL,
 })
 
 if (!parsedEnv.success) {

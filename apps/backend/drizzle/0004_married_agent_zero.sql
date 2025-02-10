@@ -1,1 +1,0 @@
-ALTER TABLE "purchased_interior_items" ALTER COLUMN "is_active" SET DEFAULT false;

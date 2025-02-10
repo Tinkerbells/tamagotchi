@@ -21,8 +21,6 @@ const AuthContext = createContext<AuthContextType | null>(null)
 export const AuthProvider: React.FC<PropsWithChildren> = ({ children }) => {
   const [vkUser, setVkUser] = useState<UserInfo | null>(null)
   const navigate = useNavigate()
-  const { data } = useGetPost()
-  console.log(data)
 
   const {
     data: user,
