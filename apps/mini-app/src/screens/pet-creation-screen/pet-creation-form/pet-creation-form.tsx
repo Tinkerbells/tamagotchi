@@ -1,6 +1,6 @@
 import head from '/images/pet-creation/head.webp'
-import { useCreatePet, useCreateUser, User } from '@/data'
-import { Image, useAuth, useNavigate, vkBridge } from '@/shared'
+import { useCreateUser, } from '@/data'
+import { Image, useNavigate, vkBridge } from '@/shared'
 import { Button, Input } from '@tamagotchi/ui'
 import { useForm } from 'react-hook-form'
 

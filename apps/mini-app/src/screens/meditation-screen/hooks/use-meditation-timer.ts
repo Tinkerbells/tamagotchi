@@ -5,7 +5,7 @@ import { useState, useEffect, useCallback, useRef, useMemo } from 'react'
 dayjs.extend(duration)
 
 export const STORAGE_KEY = 'meditation-timer'
-const DEFAULT_TIME = 0.3 * 60
+const DEFAULT_TIME = 0.1 * 60
 
 export const useMeditationTimer = () => {
   const [timeLeft, setTimeLeft] = useState(DEFAULT_TIME)
@@ -19,21 +19,22 @@ export const useMeditationTimer = () => {
     try {
       const saved = localStorage.getItem(STORAGE_KEY)
       if (saved) {
-        const { timeLeft } = JSON.parse(saved)
+        const { timeLeft, isRunning, isFinished } = JSON.parse(saved)
         setTimeLeft(timeLeft)
-        setIsRunning(false)
+        setIsRunning(isRunning)
+        setIsFinished(isFinished)
       }
     } catch (error) {
       console.error('Failed to load meditation state:', error)
     }
   }, [])
 
-  // Save state whenever timeLeft or isRunning changes
+  // Save state whenever timeLeft, isRunning, or isFinished changes
   useEffect(() => {
-    if (timeLeft !== DEFAULT_TIME) {
-      localStorage.setItem(STORAGE_KEY, JSON.stringify({ timeLeft, isRunning }))
+    if (timeLeft !== DEFAULT_TIME || isRunning || isFinished) {
+      localStorage.setItem(STORAGE_KEY, JSON.stringify({ timeLeft, isRunning, isFinished }))
     }
-  }, [timeLeft, isRunning])
+  }, [timeLeft, isRunning, isFinished])
 
   // Timer logic
   useEffect(() => {
@@ -68,6 +69,7 @@ export const useMeditationTimer = () => {
   }, [isRunning, stopTimer, startTimer])
 
   const finishSession = useCallback(() => {
+    localStorage.removeItem(STORAGE_KEY)
     setTimeLeft(DEFAULT_TIME)
     setIsFinished(false)
   }, [])

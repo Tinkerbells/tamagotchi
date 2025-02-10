@@ -7,7 +7,7 @@ export const meditation = pgTable('meditation', {
   userId: integer('user_id')
     .notNull()
     .references(() => user.id),
-  date: date('date').defaultNow().notNull().unique(),
+  date: date('date').defaultNow().notNull(),
   createdAt: timestamp('created_at').defaultNow().notNull(),
   updatedAt: timestamp('updated_at').defaultNow().notNull(),
 })

@@ -8,6 +8,7 @@ export type GratitudeType = Omit<
   updatedAt: string
 }
 
+export type GratitudeId = string
+
 export type FetchedGratitudes = GratitudeType[]
 
-// export type UpdateMeal = typeof gratitude.$inferInsert

@@ -1,4 +1,5 @@
 import { UserId } from '../user'
+import { GratitudeType } from './dto'
 import { convertGratitudes } from './lib'
 import { client, WeekDayProgressType } from '@/shared'
 import { QueryObserverOptions, useQuery } from '@tanstack/react-query'
@@ -9,7 +10,9 @@ type GetGratitudesQueryParams = {
 
 type GetGratitudesQueryType = {
   data: WeekDayProgressType[]
+  current: GratitudeType[]
 }
+
 
 export const GET_GRATITUDES_QUERY_KEY = ['gratitudes']
 
@@ -33,6 +36,8 @@ const getGratitudes = async (params: GetGratitudesQueryParams) => {
   }
 }
 
+
+
 export const useGetGratitudes = (
   params: GetGratitudesQueryParams,
   options?: Omit<
@@ -47,3 +52,4 @@ export const useGetGratitudes = (
     ...options,
   })
 }
+

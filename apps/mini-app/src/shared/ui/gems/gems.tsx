@@ -18,8 +18,8 @@ export const gemsVariants = cva('flex gap-1 relative items-center', {
 
 interface GemsProps
   extends React.HTMLAttributes<HTMLDivElement>,
-    VariantProps<typeof gemsVariants> {
-  count: number
+  VariantProps<typeof gemsVariants> {
+  count?: number
 }
 
 export const Gems: React.FC<GemsProps> = ({ count, size = 'S', className }) => {

@@ -1,8 +1,8 @@
-import type { User, CreateUserDto } from './dto'
+import type { User, UpdateUserDto } from './dto'
 import { client } from '@/shared'
 import { MutationOptions, useMutation } from '@tanstack/react-query'
 
-type CreateUserQueryParams = CreateUserDto
+type CreateUserQueryParams = UpdateUserDto
 
 const createUser = async (params: CreateUserQueryParams) => {
   try {

@@ -8,7 +8,7 @@ import { createErrorSchema, IdParamsSchema } from 'stoker/openapi/schemas'
 const tags = ['Gratitude']
 
 export const getGratitudeParams = z.object({
-  forWeek: z.boolean().default(true).optional(),
+  for_week: z.boolean().default(true).optional(),
 })
 
 export const remove = createRoute({
@@ -16,7 +16,6 @@ export const remove = createRoute({
   method: 'post',
   request: {
     params: IdParamsSchema,
-    body: jsonContentRequired(insertGratitudeSchema, 'The gratitudes update'),
   },
   tags,
   responses: {
@@ -55,10 +54,6 @@ export const get = createRoute({
   method: 'get',
   request: {
     params: IdParamsSchema,
-    body: jsonContentRequired(
-      getGratitudeParams,
-      'The gratitudes fetch variants'
-    ),
   },
   tags,
   responses: {

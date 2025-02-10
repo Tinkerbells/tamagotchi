@@ -23,14 +23,14 @@ const Circles = () => {
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
     >
-      <circle cx="169" cy="169" r="41" stroke="#EB6D26" stroke-opacity="0.24" />
-      <circle cx="166" cy="169" r="98" stroke="#EB6D26" stroke-opacity="0.16" />
+      <circle cx="169" cy="169" r="41" stroke="#EB6D26" strokeOpacity="0.24" />
+      <circle cx="166" cy="169" r="98" stroke="#EB6D26" strokeOpacity="0.16" />
       <circle
         cx="169"
         cy="169"
         r="168"
         stroke="#EB6D26"
-        stroke-opacity="0.12"
+        strokeOpacity="0.12"
       />
     </svg>
   )

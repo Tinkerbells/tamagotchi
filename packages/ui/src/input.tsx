@@ -27,7 +27,7 @@ export const Input = React.forwardRef<HTMLInputElement, InputProps>(
           name={name}
           id={id}
           className={cn(
-            'form-input rounded-2xl bg-[#f4f2f9] px-8 py-2 text-[#7F7C82] focus:ring-0',
+            'form-input rounded-2xl bg-[#f4f2f9] px-8 py-2 text-[#7F7C82] focus:ring-0 outline-none',
             isError ? 'border-3 border-red focus:border-red' : 'border-none',
             className,
             'w-full'

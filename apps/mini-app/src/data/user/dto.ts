@@ -11,6 +11,11 @@ export type CreateUserDto = {
   petName: string
 }
 
+export type UpdateUserDto = {
+  gems: number
+}
+
+
 export type UserMood = Omit<typeof userMood.$inferSelect, 'createdAt'> & {
   createdAt: string
 }

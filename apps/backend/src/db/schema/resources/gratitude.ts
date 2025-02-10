@@ -30,3 +30,4 @@ export const insertGratitudeSchema = createInsertSchema(gratitude)
     createdAt: true,
     updatedAt: true,
   })
+

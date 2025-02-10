@@ -4,6 +4,7 @@ import {
   insertVkUserSchema,
   selectUserMoodSchema,
   selectUserSchema,
+  updateUserSchema,
 } from '@/db/schema'
 import { forbiddenSchema } from '@/lib/constants'
 import { createRoute, z } from '@hono/zod-openapi'
@@ -52,6 +53,25 @@ export const create = createRoute({
     ),
   },
 })
+
+export const update = createRoute({
+  path: '/user/{id}',
+  method: 'patch',
+  request: {
+    params: IdParamsSchema,
+    body: jsonContentRequired(updateUserSchema, 'The pet update'),
+  },
+  tags,
+  responses: {
+    [HttpStatusCodes.OK]: jsonContent(selectUserSchema, 'The updated user'),
+    [HttpStatusCodes.NOT_FOUND]: jsonContent(forbiddenSchema, 'User not found'),
+    [HttpStatusCodes.UNPROCESSABLE_ENTITY]: jsonContent(
+      createErrorSchema(updateUserSchema),
+      'Invalid id error'
+    ),
+  },
+})
+
 
 export const get = createRoute({
   path: '/user/{id}',
@@ -113,5 +133,6 @@ export const createUserMood = createRoute({
 export type ListRoute = typeof list
 export type CreateRoute = typeof create
 export type GetOneRoute = typeof get
+export type UpdateRoute = typeof update
 export type GetUserMood = typeof getUserMood
 export type CreateUserMood = typeof createUserMood

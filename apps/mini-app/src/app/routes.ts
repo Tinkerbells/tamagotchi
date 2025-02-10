@@ -9,6 +9,7 @@ export const routes = {
   sleep: '/sleep',
   meditation: '/meditation',
   meals: '/meals',
+  gratitude: '/gratitude',
 } as const
 
 export type RoutesType = (typeof routes)[keyof typeof routes]

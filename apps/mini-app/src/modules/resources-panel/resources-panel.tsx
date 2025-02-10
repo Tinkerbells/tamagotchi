@@ -2,7 +2,8 @@ import { ResourcesPanelSkeleton } from './resources-panel-skeleton'
 import { Food, Heart, Meditation, Sleep, Walking, WaterDrop } from '@/shared'
 import { ArrowBack, Button } from '@tamagotchi/ui'
 import { cn } from '@tamagotchi/utils'
-import { ReactElement } from 'react'
+import { classNames } from '@vkontakte/vkui'
+import * as React from "react"
 import { useNavigate } from 'react-router-dom'
 
 const styles = {
@@ -27,9 +28,9 @@ const styles = {
     primary: 'text-[#ce766a]',
   },
   gratitude: {
-    backButtonBg: 'bg-[#e9fafe]',
-    buttonBg: 'bg-[#c3f9fc]',
-    primary: 'text-[#0bb5b5]',
+    backButtonBg: 'bg-[#fef5e9]',
+    buttonBg: 'bg-[#fef5e9]',
+    primary: 'text-[#ce9c6a]',
   },
   walking: {
     backButtonBg: 'bg-[#e9fafe]',
@@ -43,16 +44,18 @@ const icons = {
   food: <Food className="h-[100px] w-[100px] text-[#fef0eb]" />,
   sleep: <Sleep className="h-[90px] w-[90px] text-[#FCC3DD]" />,
   meditation: <Meditation className="h-20 w-20 text-[#FCD1C3] opacity-30" />,
-  gratitude: <Heart className="h-[100px] w-[100px] text-[#D9D9D9]" />,
+  gratitude: <Heart className="h-[90px] w-[90px] text-[#fef8ec]" />,
   walking: <Walking className="h-[100px] w-[100px] text-[#D9D9D9]" />,
 }
 
-export interface ResourcesPanelProps {
+export interface ResourcesPanelProps extends React.ComponentProps<"div"> {
+  isBackHidden?: boolean
   isLoading?: boolean
   title: string
   description: string
   variant: 'food' | 'water' | 'sleep' | 'meditation' | 'gratitude' | 'walking'
-  renderPrimaryButton?: () => ReactElement
+  renderPrimaryButton?: () => React.ReactElement
+  size?: 'M' | 'L' // Add size prop
 }
 
 export const ResourcesPanel = ({
@@ -60,15 +63,26 @@ export const ResourcesPanel = ({
   variant,
   title,
   description,
+  isBackHidden,
   renderPrimaryButton,
+  className,
+  size = 'M', // Default size is M
 }: ResourcesPanelProps) => {
   const { backButtonBg, buttonBg, primary } = styles[variant]
   const icon = icons[variant]
-
   const navigate = useNavigate()
 
+  // Determine height based on size prop
+  const heightClass = size === 'M' ? 'h-[30vh]' : 'h-[35vh]'
+
   return (
-    <section className="absolute bottom-0 z-[999] flex h-[30vh] w-full flex-col items-center rounded-tl-[18px] rounded-tr-[18px] bg-white px-4 py-6">
+    <section
+      className={cn(
+        "overflow-hidden absolute bottom-0 z-[999] flex w-full flex-col items-center rounded-tl-[18px] rounded-tr-[18px] bg-white px-4 py-6",
+        heightClass, // Apply height class
+        className
+      )}
+    >
       {isLoading ? (
         <ResourcesPanelSkeleton />
       ) : (
@@ -85,16 +99,18 @@ export const ResourcesPanel = ({
             </div>
           </div>
           <div className="mb-4 mt-auto flex w-full gap-2">
-            <Button
-              className={cn(
-                'aspect-square h-[44px] w-[44px] rounded-[17px] p-0',
-                backButtonBg,
-                primary
-              )}
-              onClick={() => navigate(-1)}
-            >
-              <ArrowBack />
-            </Button>
+            {!isBackHidden && (
+              <Button
+                className={cn(
+                  'aspect-square h-[44px] w-[44px] rounded-[17px] p-0',
+                  backButtonBg,
+                  primary
+                )}
+                onClick={() => navigate(-1)}
+              >
+                <ArrowBack />
+              </Button>
+            )}
             {renderPrimaryButton ? (
               renderPrimaryButton()
             ) : (

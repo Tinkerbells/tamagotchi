@@ -16,6 +16,17 @@ export const convertGratitudes = (gratitudesRecords: FetchedGratitudes) => {
     }
   }).reverse()
 
+  const currentDate = dayjs().format('D')
+  const currentMonth = dayjs().format('MMM').slice(0, 3)
+
+  const currentGratitudes = gratitudesRecords.filter((r) => {
+    const recordDate = dayjs(r.createdAt)
+    return (
+      recordDate.format('D') === currentDate &&
+      recordDate.format('MMM').slice(0, 3) === currentMonth
+    )
+  })
+
   const gratitudesData = lastWeek.map(({ day, month }) => {
     const record = gratitudesRecords.find((r) => {
       const recordDate = dayjs(r.createdAt)
@@ -30,7 +41,5 @@ export const convertGratitudes = (gratitudesRecords: FetchedGratitudes) => {
     return { day, month, progress }
   })
 
-  return {
-    data: gratitudesData,
-  }
+  return { data: gratitudesData, current: currentGratitudes }
 }

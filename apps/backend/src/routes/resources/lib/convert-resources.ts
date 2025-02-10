@@ -9,18 +9,18 @@ export const convertResources = (
 
   const mealValue = meal
     ? (Number(meal.breakfast ?? false) +
-        Number(meal.lunch ?? false) +
-        Number(meal.dinner ?? false) +
-        Number(meal.snack ?? false) +
-        Number(meal.afternoon_snack ?? false)) *
-      20
+      Number(meal.lunch ?? false) +
+      Number(meal.dinner ?? false) +
+      Number(meal.snack ?? false) +
+      Number(meal.afternoon_snack ?? false)) *
+    20
     : 0
   const waterValue =
     ((water?.currentValue ?? 0) / (norms.waterDailyNorm ?? 1)) * 100 // Default to 0 if `water` or `norms.waterDailyNorm` is missing.
   const sleepValue =
     ((sleep?.currentValue ?? 0) / (norms.sleepDailyNorm ?? 1)) * 100 // Default to 0 if `sleep` or `norms.sleepDailyNorm` is missing.
   const meditationValue = meditation ? 100 : 0 // Check if `meditation` exists and is finished.
-  const gratitudeValue = (gratitude?.length ?? 0) / 4 // Default to 0 if `gratitude` is undefined.
+  const gratitudeValue = Boolean(gratitude) ? 100 : 0 // Default to 0 if `gratitude` is undefined.
   const walkingValue = walking?.finished ? 100 : 0 // Check if `walking` exists and is finished.
   return {
     meal: mealValue,

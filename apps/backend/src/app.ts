@@ -13,6 +13,7 @@ import {
   baseRouter,
   mealRouter,
   gratitudeRouter,
+  meditationRouter
 } from '@/routes'
 
 const app = createApp()
@@ -30,6 +31,7 @@ const _app = app
   .route('/', normsRouter)
   .route('/', mealRouter)
   .route('/', gratitudeRouter)
+  .route('/', meditationRouter)
   .route('/', achievementsRouter)
   .route('/vk', vkUserRouter)
 // .route('/telegram', telegramUser)

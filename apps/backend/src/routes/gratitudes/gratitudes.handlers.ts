@@ -9,7 +9,6 @@ import * as HttpStatusPhrases from 'stoker/http-status-phrases'
 
 export const get: AppRouteHandler<GetRoute> = async (c) => {
   const { id } = c.req.valid('param')
-  const { forWeek } = c.req.valid('json')
   const startOfToday = dayjs().startOf('day').format('YYYY-MM-DD')
   const startOfNextDay = dayjs(startOfToday).add(1, 'day').format('YYYY-MM-DD')
   const startOfLast7Days = dayjs(startOfToday)
@@ -20,7 +19,7 @@ export const get: AppRouteHandler<GetRoute> = async (c) => {
     where(fields, operators) {
       return operators.and(
         operators.eq(fields.userId, id),
-        operators.gte(fields.date, forWeek ? startOfLast7Days : startOfToday),
+        operators.gte(fields.date, startOfLast7Days),
         operators.lt(fields.date, startOfNextDay)
       )
     },

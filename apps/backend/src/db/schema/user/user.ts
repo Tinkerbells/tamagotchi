@@ -26,3 +26,5 @@ export const selectUserSchema = createSelectSchema(user)
 export const insertUserSchema = createInsertSchema(user, {
   provider: () => z.enum(['vk', 'telegram']),
 }).required({ provider: true })
+
+export const updateUserSchema = createInsertSchema(user).required({ gems: true }).omit({ provider: true })

@@ -3,6 +3,7 @@
 @tailwind utilities;
 
 @layer base {
+
   /* #region  /**=========== Typography =========== */
   .h0 {
     @apply text-3xl font-light text-black xl:text-5xl;
@@ -31,8 +32,10 @@
   body,
   p,
   .p {
+    font-family: VKSansDisplay sans-serif;
     @apply text-sm font-light text-black 2xl:text-base;
   }
+
   /* For Webkit-based browsers (Chrome, Safari and Opera) */
   .no-scrollbar::-webkit-scrollbar {
     display: none;
@@ -40,21 +43,26 @@
 
   /* For IE, Edge and Firefox */
   .no-scrollbar {
-    -ms-overflow-style: none; /* IE and Edge */
-    scrollbar-width: none; /* Firefox */
+    -ms-overflow-style: none;
+    /* IE and Edge */
+    scrollbar-width: none;
+    /* Firefox */
   }
 }
 
 @layer utilities {
   @variants responsive {
+
     /* Chrome, Safari and Opera */
     .no-scrollbar::-webkit-scrollbar {
       display: none;
     }
 
     .no-scrollbar {
-      -ms-overflow-style: none; /* IE and Edge */
-      scrollbar-width: none; /* Firefox */
+      -ms-overflow-style: none;
+      /* IE and Edge */
+      scrollbar-width: none;
+      /* Firefox */
     }
   }
 }
