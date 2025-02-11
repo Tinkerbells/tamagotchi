@@ -1,30 +1,35 @@
-FROM node:18 AS builder
+FROM node:alpine AS builder
+RUN apk add --no-cache libc6-compat
+RUN apk update
+
 WORKDIR /app
+RUN yarn global add turbo
+COPY . .
+RUN turbo prune --scope=@tamagotchi/api --docker
 
-# 1. Copy root package management files
-COPY package.json pnpm-lock.yaml* ./
+# Installer
+FROM node:alpine AS installer
+RUN apk add --no-cache libc6-compat
+RUN apk update
 
-# 2. Copy backend package.json
-COPY apps/backend/package.json ./apps/backend/
+WORKDIR /app
+RUN yarn global add pnpm
+RUN yarn global add turbo
 
-# 3. Install dependencies (include --prod flag for production)
-RUN npm install -g pnpm && \
-    pnpm install 
+COPY --from=builder /app/out/json/ .
+COPY --from=builder /app/out/pnpm-lock.yaml ./pnpm-lock.yaml
+COPY --from=builder /app/out/pnpm-workspace.yaml ./pnpm-workspace.yaml
+RUN pnpm install
 
-# 4. Copy all source files
+COPY --from=builder /app/out/full/ .
+COPY turbo.json turbo.json
+
 COPY . .
 
-# 5. Build the project (if needed)
-# RUN pnpm run build
+WORKDIR /app/apps/backend
 
-# 6. Runtime stage
-FROM node:18-alpine
-WORKDIR /app
 
-# Copy necessary files from builder
-COPY --from=builder /app/node_modules ./node_modules
-COPY --from=builder /app/apps/backend ./apps/backend
+EXPOSE 8080
 
-# 7. Expose and run
-EXPOSE 5000
-CMD [ "pnpm", "--filter", "backend", "run", "dev" ]
+# Run backend service from the correct directory
+CMD ["pnpm", "start"]

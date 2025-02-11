@@ -1,32 +1,20 @@
-FROM node:18 AS builder
-WORKDIR /app
-
-# 1. Copy root package files
-COPY apps/mini-app/package.json ./apps/mini-app/
-
-COPY apps/mini-app/package-lock.json ./apps/mini-app/
-
-# 2. Copy frontend package.json
-COPY apps/mini-app/package.json ./apps/mini-app/
-
-# 3. Install dependencies
-RUN npm install -g pnpm 
-
-RUN pnpm install --frozen-lockfile 
-# 4. Copy all source files
-COPY . .
-
-# 5. Build project
-RUN pnpm --filter mini-app run build
-
-# 6. Runtime stage
+# Use the nginx alpine image
 FROM nginx:alpine
+
+# Set working directory to nginx asset directory
 WORKDIR /usr/share/nginx/html
 
-# Copy build output and nginx config
-COPY --from=builder /app/apps/mini-app/build .
-COPY apps/mini-app/nginx.conf /etc/nginx/conf.d/default.conf
+# Remove default nginx static assets
+RUN rm -rf ./*
 
-# 7. Expose and run
+# Copy built assets from local dist directory
+COPY apps/mini-app/build/ .
+
+# Copy nginx configuration
+COPY apps/mini-app/nginx.conf /etc/nginx/nginx.conf
+
+# Expose port 80
 EXPOSE 80
+
+# Start nginx
 CMD ["nginx", "-g", "daemon off;"]
