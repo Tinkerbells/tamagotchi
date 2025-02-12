@@ -34,6 +34,8 @@ services:
       - '443:443'
     environment:
       - NGINX_HOST=game.pixelenc.ru
+    networks:
+      - backend # Add nginx to the backend network
 
   # PostgreSQL Database
   db:
