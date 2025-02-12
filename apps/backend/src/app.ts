@@ -13,7 +13,7 @@ import {
   baseRouter,
   mealRouter,
   gratitudeRouter,
-  meditationRouter
+  meditationRouter,
 } from '@/routes'
 
 const app = createApp()
@@ -21,19 +21,19 @@ const app = createApp()
 configureOpenAPI(app)
 
 const _app = app
-  .route('/', baseRouter)
-  .route('/', userRouter)
-  .route('/', petRouter)
-  .route('/', resourcesRouter)
-  .route('/', shopRouter)
-  .route('/', sleepRouter)
-  .route('/', waterRouter)
-  .route('/', normsRouter)
-  .route('/', mealRouter)
-  .route('/', gratitudeRouter)
-  .route('/', meditationRouter)
-  .route('/', achievementsRouter)
-  .route('/vk', vkUserRouter)
+  .route('/api', baseRouter)
+  .route('/api', userRouter)
+  .route('/api', petRouter)
+  .route('/api', resourcesRouter)
+  .route('/api', shopRouter)
+  .route('/api', sleepRouter)
+  .route('/api', waterRouter)
+  .route('/api', normsRouter)
+  .route('/api', mealRouter)
+  .route('/api', gratitudeRouter)
+  .route('/api', meditationRouter)
+  .route('/api', achievementsRouter)
+  .route('/api/vk', vkUserRouter)
 // .route('/telegram', telegramUser)
 
 export type AppType = typeof _app
