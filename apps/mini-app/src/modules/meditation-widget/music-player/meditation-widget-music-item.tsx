@@ -31,7 +31,7 @@ export const MeditationWidgetMusicItem: React.FC<SortableItemProps> = ({
         ref={setNodeRef}
         style={style}
         className={cn(
-          'flex items-center justify-between rounded-3xl bg-white px-4 py-3',
+          'flex touch-auto items-center justify-between rounded-3xl bg-white px-4 py-3',
           isLast && 'pb-5'
         )}
       >
