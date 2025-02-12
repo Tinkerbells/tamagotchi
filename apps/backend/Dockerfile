@@ -29,8 +29,8 @@ COPY . .
 WORKDIR /app/apps/backend
 
 # Run database commands and then start the backend service
-RUN pnpm db:generate
-RUN pnpm db:migrate
+# RUN pnpm db:generate
+# RUN pnpm db:migrate
 
 EXPOSE 8080
 

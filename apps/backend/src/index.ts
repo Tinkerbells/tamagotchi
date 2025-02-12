@@ -5,7 +5,7 @@ import { serve } from '@hono/node-server'
 
 const port = env.PORT
 
-logger.info(`Server is running on port http://localhost:${port}`)
+logger.info(`Server is running on port ${port}`)
 
 serve({
   fetch: app.fetch,
