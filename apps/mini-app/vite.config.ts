@@ -1,5 +1,6 @@
 import legacy from '@vitejs/plugin-legacy'
 import react from '@vitejs/plugin-react'
+import { cpus } from 'os'
 import path from 'path'
 import { defineConfig } from 'vite'
 import { ViteImageOptimizer } from 'vite-plugin-image-optimizer'
@@ -35,10 +36,19 @@ export default defineConfig({
 
   build: {
     outDir: 'build',
+    minify: false,
+    sourcemap: false,
+    chunkSizeWarningLimit: 3000,
     rollupOptions: {
-      maxParallelFileOps: 1,
+      maxParallelFileOps: Math.max(1, cpus().length - 1),
       cache: false,
       output: {
+        globals: {
+          react: 'React',
+          'react-dom': 'ReactDOM',
+        },
+        sourcemap: false,
+        inlineDynamicImports: false,
         manualChunks: (id) => {
           if (id.includes('node_modules')) {
             return 'vendor'
