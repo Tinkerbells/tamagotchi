@@ -35,5 +35,19 @@ export default defineConfig({
 
   build: {
     outDir: 'build',
+    rollupOptions: {
+      maxParallelFileOps: 2,
+      cache: false,
+      external: ['react', 'react-dom'],
+      manualChunks: (id) => {
+        if (id.includes('node_modules')) {
+          return 'vendor'
+        }
+      },
+      sourcemapIgnoreList: (relativeSourcePath) => {
+        const normalizedPath = path.normalize(relativeSourcePath)
+        return normalizedPath.includes('node_modules')
+      },
+    },
   },
 })
