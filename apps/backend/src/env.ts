@@ -10,7 +10,7 @@ const env = createEnv({
       .enum(['development', 'production', 'test'])
       .default('development'),
     DATABASE_URL: z.string().url(),
-    PORT: z.coerce.number().default(9999),
+    PORT: z.coerce.number().default(5000),
     SECRET_KEY: z.string(),
     LOG_LEVEL: z.enum([
       'fatal',
