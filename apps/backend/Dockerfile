@@ -32,4 +32,4 @@ WORKDIR /app/apps/backend
 EXPOSE 8080
 
 # Run backend service from the correct directory
-CMD ["pnpm", "start"]
+CMD ["pnpm", "dev"]
