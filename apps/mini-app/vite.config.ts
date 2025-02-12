@@ -36,9 +36,8 @@ export default defineConfig({
   build: {
     outDir: 'build',
     rollupOptions: {
-      maxParallelFileOps: 2,
+      maxParallelFileOps: 1,
       cache: false,
-      external: ['react', 'react-dom'],
       output: {
         manualChunks: (id) => {
           if (id.includes('node_modules')) {
