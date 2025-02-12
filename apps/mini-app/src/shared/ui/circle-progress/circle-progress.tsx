@@ -1,6 +1,6 @@
 import { WaterProgressBackground } from './backgrounds'
 import { motion } from 'framer-motion'
-import React, { useRef } from 'react'
+import React, { useRef, useState } from 'react'
 
 const styles = {
   water: {
@@ -26,6 +26,7 @@ export const CircleProgress: React.FC<CircleProgressProps> = ({
 }) => {
   const { trackStroke, progressStroke } = styles[variant]
   const svgRef = useRef<SVGSVGElement | null>(null)
+  const [isDragging, setIsDragging] = useState(false)
   const radius = 130
   const center = 134
   const circumference = 2 * Math.PI * radius
@@ -38,44 +39,55 @@ export const CircleProgress: React.FC<CircleProgressProps> = ({
     return pt.matrixTransform(svgRef.current.getScreenCTM()?.inverse())
   }
 
-  const handleDrag = (event: DragEvent) => {
-    const { clientX, clientY } = event
+  const handleDragStart = (event: React.TouchEvent | React.MouseEvent) => {
+    event.preventDefault() // Prevent default behavior (like text selection)
+    setIsDragging(true)
+    handleMove(event) // Handle immediate move on touch start or mouse down
+  }
+
+  const handleDragMove = (event: React.TouchEvent | React.MouseEvent) => {
+    if (!isDragging) return
+    handleMove(event)
+  }
+
+  const handleMove = (event: React.TouchEvent | React.MouseEvent) => {
+    const { clientX, clientY } =
+      event.type === 'touchmove'
+        ? (event as React.TouchEvent).touches[0]
+        : (event as React.MouseEvent)
+
     const { x: svgX, y: svgY } = getSVGPoint(clientX, clientY)
 
     const relX = svgX - center
     const relY = center - svgY
-    const standardAngle = Math.atan2(relY, relX)
+    const angle = Math.atan2(relY, relX) // Get angle relative to the center
 
-    // Convert angle so that 0° is at the top.
-    let theta = (Math.PI / 2 - standardAngle + 2 * Math.PI) % (2 * Math.PI)
+    let theta = (Math.PI / 2 - angle + 2 * Math.PI) % (2 * Math.PI) // Normalize angle to 0 at the top
+    let newProgress = (theta / (2 * Math.PI)) * 100 // Convert angle to percentage
 
-    let newProgress = (theta / (2 * Math.PI)) * 100
-
-    // Use the externally controlled progress (passed as a prop) for comparison.
+    // Wrap around the progress value if needed
     const diff = newProgress - progress
     const isWrapAround = Math.abs(diff) > 50
 
     if (isWrapAround) {
-      // If the difference is large, assume the user has crossed the 0/100 boundary.
       newProgress = diff > 0 ? 0 : 100
     }
 
-    // If we're at one of the boundaries and the drag starts moving away,
-    // constrain the new value to remain near that boundary.
+    // Constrain progress near boundaries
     if (progress === 100 && newProgress < 100) {
       newProgress = Math.max(98, newProgress)
     } else if (progress === 0 && newProgress > 0) {
       newProgress = Math.min(2, newProgress)
     }
 
-    // Clamp the new progress between 0 and 100.
     const clampedProgress = Math.min(100, Math.max(0, newProgress))
-
-    // Notify the parent of the new progress.
     onProgressChange(clampedProgress)
   }
 
-  // Calculate knob position
+  const handleDragEnd = () => {
+    setIsDragging(false)
+  }
+
   const angle = (progress / 100) * 2 * Math.PI
   const knobX = center + radius * Math.sin(angle)
   const knobY = center - radius * Math.cos(angle)
@@ -87,13 +99,17 @@ export const CircleProgress: React.FC<CircleProgressProps> = ({
       height={268}
       viewBox="0 0 268 268"
       className="overflow-visible"
+      onMouseDown={handleDragStart}
+      onTouchStart={handleDragStart}
+      onMouseMove={handleDragMove}
+      onTouchMove={handleDragMove}
+      onMouseUp={handleDragEnd}
+      onTouchEnd={handleDragEnd}
     >
-      {/* Background circle */}
       {variant === 'water' && (
         <WaterProgressBackground x={center - 131.5} y={center - 127.5} />
       )}
 
-      {/* Track */}
       <circle
         cx={center}
         cy={center}
@@ -103,7 +119,6 @@ export const CircleProgress: React.FC<CircleProgressProps> = ({
         strokeWidth="8"
       />
 
-      {/* Progress */}
       <circle
         cx={center}
         cy={center}
@@ -126,7 +141,6 @@ export const CircleProgress: React.FC<CircleProgressProps> = ({
           r="16"
           fill="white"
           drag
-          onDrag={handleDrag}
           dragConstraints={{
             left: 0,
             right: 0,
