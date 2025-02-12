@@ -37,7 +37,7 @@ services:
     environment:
       - NGINX_HOST=game.pixelenc.ru
     depends_on:
-      - backned
+      - backend
     networks:
       - backend # Add nginx to the backend network
 
