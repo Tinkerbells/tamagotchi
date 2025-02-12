@@ -1,5 +1,5 @@
 FROM node:alpine AS builder
-RUN apk add --no-cache libc7-compat
+RUN apk add --no-cache libc6-compat
 RUN apk update
 
 WORKDIR /app
