@@ -1,4 +1,4 @@
-export const isUserMoodEnabled = () => {
+export function isUserMoodEnabled() {
   const moodCreatedDate = localStorage.getItem('mood_created')
 
   if (!moodCreatedDate) {
@@ -10,8 +10,8 @@ export const isUserMoodEnabled = () => {
 
   // Check if the year, month, and date are the same
   return (
-    today.getFullYear() === createdDate.getFullYear() &&
-    today.getMonth() === createdDate.getMonth() &&
-    today.getDate() === createdDate.getDate()
+    today.getFullYear() === createdDate.getFullYear()
+    && today.getMonth() === createdDate.getMonth()
+    && today.getDate() === createdDate.getDate()
   )
 }

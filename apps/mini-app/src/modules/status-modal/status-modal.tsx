@@ -1,3 +1,3 @@
-export const StatusDialog = () => {
+export function StatusDialog() {
   return <div></div>
 }

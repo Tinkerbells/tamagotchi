@@ -1,10 +1,12 @@
-import * as React from "react"
-import { useGratitudesWidgetContext } from "../gratitude-widget-context"
-import { useRemoveGratitude } from "@/data"
+import * as React from 'react'
+
+import { useRemoveGratitude } from '@/data'
+
+import { useGratitudesWidgetContext } from '../gratitude-widget-context'
 
 const OFFSET = 100 // 100px offset
 
-export const useGratitudesWidgetMessages = () => {
+export function useGratitudesWidgetMessages() {
   const { current } = useGratitudesWidgetContext()
 
   const { mutate: removeItemMutatation, isPending: isItemRemoving } = useRemoveGratitude()
@@ -15,7 +17,7 @@ export const useGratitudesWidgetMessages = () => {
 
   const removeItem = React.useCallback((id: number) => {
     // Add the item to the "removing" set
-    setRemovingItems((prev) => new Set(prev.add(id.toString())))
+    setRemovingItems(prev => new Set(prev.add(id.toString())))
     removeItemMutatation({ id: id.toString() })
   }, [removeItemMutatation])
 
@@ -37,20 +39,22 @@ export const useGratitudesWidgetMessages = () => {
     const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
-          const messageId = entry.target.getAttribute("data-message-id")
+          const messageId = entry.target.getAttribute('data-message-id')
           if (messageId) {
             setVisibleMessages((prev) => {
               const newSet = new Set(prev)
               if (entry.isIntersecting) {
                 newSet.add(messageId)
-              } else {
+              }
+              else {
                 // Check if the item is fully outside the container (including offset)
                 const containerRect = containerRef.current?.getBoundingClientRect()
                 const itemRect = entry.target.getBoundingClientRect()
                 if (containerRect) {
                   if (itemRect.bottom < containerRect.top + OFFSET || itemRect.top > containerRect.bottom - OFFSET) {
                     newSet.delete(messageId)
-                  } else {
+                  }
+                  else {
                     newSet.add(messageId)
                   }
                 }
@@ -68,8 +72,8 @@ export const useGratitudesWidgetMessages = () => {
     )
 
     // Observe all message elements
-    const messageElements = containerRef.current?.querySelectorAll(".message-item")
-    messageElements?.forEach((el) => observer.observe(el))
+    const messageElements = containerRef.current?.querySelectorAll('.message-item')
+    messageElements?.forEach(el => observer.observe(el))
 
     return () => observer.disconnect()
   }, [current]) // Dependency updated to current for real-time message tracking

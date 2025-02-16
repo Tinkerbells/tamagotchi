@@ -1,10 +1,13 @@
-import { useNormsWidgetContext } from '../norms-widget-context'
-import { useUpdateNorms } from '@/data'
-import { useAuth } from '@/shared'
-import * as React from 'react'
+import type * as React from 'react'
+
 import { useState } from 'react'
 
-export const useNormsWidgetForm = () => {
+import { useAuth } from '@/shared'
+import { useUpdateNorms } from '@/data'
+
+import { useNormsWidgetContext } from '../norms-widget-context'
+
+export function useNormsWidgetForm() {
   const { user } = useAuth()
   const { mutate, isPending } = useUpdateNorms()
   const { dailyNorm, variant } = useNormsWidgetContext()
@@ -13,18 +16,19 @@ export const useNormsWidgetForm = () => {
   const step = variant === 'water' ? 50 : 1
 
   const handleIncrement = () => {
-    setNorm((prev) => prev + step)
+    setNorm(prev => prev + step)
   }
 
   const handleDecrement = () => {
-    setNorm((prev) => Math.max(0, prev - step))
+    setNorm(prev => Math.max(0, prev - step))
   }
 
   const onInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const value = parseInt(e.target.value)
+    const value = Number.parseInt(e.target.value)
     if (!isNaN(value)) {
       setNorm(value)
-    } else {
+    }
+    else {
       setNorm(0)
     }
   }
@@ -37,7 +41,8 @@ export const useNormsWidgetForm = () => {
     e.preventDefault()
     if (variant === 'water') {
       mutate({ userId: user.id, waterDailyNorm: norm })
-    } else {
+    }
+    else {
       mutate({ userId: user.id, sleepDailyNorm: norm })
     }
   }

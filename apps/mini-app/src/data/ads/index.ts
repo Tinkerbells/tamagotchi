@@ -1,1 +1,1 @@
-export * from "./use-show-ad"
+export * from './use-show-ad'

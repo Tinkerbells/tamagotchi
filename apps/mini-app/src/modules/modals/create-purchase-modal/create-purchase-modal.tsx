@@ -1,20 +1,22 @@
+import type { PropsWithChildren } from 'react'
+
+import * as React from 'react'
+import { useToggle } from '@uidotdev/usehooks'
+import {
+  Button,
+  DialogClose,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogTitle,
+} from '@tamagotchi/ui'
+
+import { Gems, useAuth, useConfetti } from '@/shared'
 import {
   useCreatePurchase,
   useUpdateAccessory,
   useUpdateInteriorItem,
 } from '@/data'
-import { Gems, useAuth, useConfetti } from '@/shared'
-import {
-  DialogContent,
-  DialogDescription,
-  DialogTitle,
-  DialogHeader,
-  Button,
-  DialogClose,
-} from '@tamagotchi/ui'
-import { useToggle } from '@uidotdev/usehooks'
-import * as React from 'react'
-import { PropsWithChildren } from 'react'
 
 interface CreatePurchaseDialogProps extends PropsWithChildren {
   price: number
@@ -33,22 +35,22 @@ export const CreatePurchaseDialog: React.FC<CreatePurchaseDialogProps> = ({
   const confetti = useConfetti()
   const closeRef = React.useRef<HTMLButtonElement>(null)
 
-  const { mutate: updateAccessory, isPending: accessoryPending } =
-    useUpdateAccessory({
+  const { mutate: updateAccessory, isPending: accessoryPending }
+    = useUpdateAccessory({
       onSuccess: () => {
         closeRef.current?.click()
       },
     })
 
-  const { mutate: updateInteriorItem, isPending: interiorItemPending } =
-    useUpdateInteriorItem({
+  const { mutate: updateInteriorItem, isPending: interiorItemPending }
+    = useUpdateInteriorItem({
       onSuccess: () => {
         closeRef.current?.click()
       },
     })
 
-  const { mutate: createPurchase, isPending: purchasePending } =
-    useCreatePurchase({
+  const { mutate: createPurchase, isPending: purchasePending }
+    = useCreatePurchase({
       onSuccess: () => {
         setPurchased(true)
         confetti()
@@ -61,7 +63,7 @@ export const CreatePurchaseDialog: React.FC<CreatePurchaseDialogProps> = ({
     const itemData = {
       userId: user.id,
       itemId: itemId.toString(),
-      itemType: itemType,
+      itemType,
     }
 
     if (isPurchased) {
@@ -71,7 +73,8 @@ export const CreatePurchaseDialog: React.FC<CreatePurchaseDialogProps> = ({
       if (itemType === 'interior') {
         updateInteriorItem({ itemId: itemId.toString(), userId: user.id })
       }
-    } else {
+    }
+    else {
       createPurchase(itemData)
     }
   }
@@ -93,21 +96,23 @@ export const CreatePurchaseDialog: React.FC<CreatePurchaseDialogProps> = ({
         isLoading={isLoading}
         disabled={isLoading}
       >
-        {isPurchased ? (
-          'Применить покупку'
-        ) : (
-          <>
-            Купить за
-            <Gems
-              size={'L'}
-              className="text-primary flex-row-reverse text-base font-normal"
-              count={price}
-            />
-          </>
-        )}
+        {isPurchased
+          ? (
+              'Применить покупку'
+            )
+          : (
+              <>
+                Купить за
+                <Gems
+                  size="L"
+                  className="text-primary flex-row-reverse text-base font-normal"
+                  count={price}
+                />
+              </>
+            )}
       </Button>
       <DialogClose className="w-full" asChild ref={closeRef}>
-        <Button variant={'outline'}>
+        <Button variant="outline">
           {isPurchased ? 'Закрыть' : 'Отменить'}
         </Button>
       </DialogClose>

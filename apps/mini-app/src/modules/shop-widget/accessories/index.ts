@@ -1,2 +1,2 @@
 export { Accessories } from './accessories'
-export { AccessoriesPlaceholder } from './accessories-placeholder'
+export { AccessoriesSkeleton } from './accessories-skeleton'

@@ -1,7 +1,8 @@
-import { WithNavbarScreen } from '../screen'
-import { Achievements, BackgroundTexture } from '@/modules'
+import { Achievements } from '@/modules'
 
-export const AchievementsScreen = () => {
+import { WithNavbarScreen } from '../screen'
+
+export function AchievementsScreen() {
   return (
     <WithNavbarScreen texture="highlight">
       <Achievements />

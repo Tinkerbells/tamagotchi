@@ -1,9 +1,11 @@
-import { SelectedMeals } from '../types'
-import { useGetPet, useGetMeals, useUpdateMeal } from '@/data'
-import { getFormatToday, useAuth } from '@/shared'
 import * as React from 'react'
 
-export const useMeals = () => {
+import { getFormatToday, useAuth } from '@/shared'
+import { useGetMeals, useGetPet, useUpdateMeal } from '@/data'
+
+import type { SelectedMeals } from '../types'
+
+export function useMeals() {
   const today = getFormatToday()
 
   const { user } = useAuth()
@@ -12,11 +14,11 @@ export const useMeals = () => {
     userId: user.id,
   })
 
-  const title = 'Приём пищи с ' + petData?.pet.name
+  const title = `Приём пищи с ${petData?.pet.name}`
   const description = 'Регулярное правильное питание - залог вашего здоровья!'
 
-  const { mutate: updateMealsMutation, isPending: isMealUpdating } =
-    useUpdateMeal()
+  const { mutate: updateMealsMutation, isPending: isMealUpdating }
+    = useUpdateMeal()
 
   const {
     data: meals,
@@ -38,13 +40,12 @@ export const useMeals = () => {
     if (meals) {
       if (isSuccess) {
         setSelectedMeals(meals.currentMeals)
-        return
       }
     }
   }, [meals, isSuccess])
 
   const toggleMeal = (meal: keyof SelectedMeals) => {
-    setSelectedMeals((prev) => ({
+    setSelectedMeals(prev => ({
       ...prev,
       [meal]: !prev[meal],
     }))

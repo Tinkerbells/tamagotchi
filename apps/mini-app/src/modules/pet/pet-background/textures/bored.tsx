@@ -1,4 +1,4 @@
-export const Bored = () => {
+export function Bored() {
   return (
     <>
       <svg

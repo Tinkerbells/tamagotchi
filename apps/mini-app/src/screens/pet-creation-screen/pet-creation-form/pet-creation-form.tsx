@@ -1,14 +1,16 @@
-import head from '/images/pet-creation/head.webp'
-import { useCreateUser, } from '@/data'
-import { Image, useNavigate, vkBridge } from '@/shared'
-import { Button, Input } from '@tamagotchi/ui'
 import { useForm } from 'react-hook-form'
+import { Button, Input } from '@tamagotchi/ui'
+
+import { useCreateUser } from '@/data'
+import { Image, useNavigate, vkBridge } from '@/shared'
+
+import head from '/images/pet-creation/head.webp'
 
 interface PetFormData {
   petName: string
 }
 
-export const PetCreationForm = () => {
+export function PetCreationForm() {
   const navigate = useNavigate()
   const {
     register,
@@ -24,7 +26,7 @@ export const PetCreationForm = () => {
 
   const onSubmit = async (data: PetFormData) => {
     const vkUser = await vkBridge.send('VKWebAppGetUserInfo')
-    createPet({ petName: data.petName, vkUser: vkUser })
+    createPet({ petName: data.petName, vkUser })
   }
 
   return (

@@ -1,10 +1,11 @@
-import { MoodType } from '../../pet-status-text'
+import type { MoodType } from '@/data'
+
 import petBored from '/images/pet/pet-bored.webp'
 import petHappy from '/images/pet/pet-happy.webp'
 import petVeryBored from '/images/pet/pet-very-bored.webp'
 import petVeryHappy from '/images/pet/pet-very-happy.webp'
 
-export const getPetImage = (mood: MoodType) => {
+export function getPetImage(mood: MoodType) {
   switch (mood) {
     case 'very_bored':
       return petVeryBored

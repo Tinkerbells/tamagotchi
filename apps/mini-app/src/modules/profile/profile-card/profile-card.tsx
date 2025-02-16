@@ -1,8 +1,10 @@
-import { ProfileHead } from './head'
-import { PetRenameDialog } from '@/modules/modals'
-import { Clip } from '@/shared'
-import { Dialog, DialogTrigger } from '@tamagotchi/ui'
 import * as React from 'react'
+import { Dialog, DialogTrigger } from '@tamagotchi/ui'
+
+import { Clip } from '@/shared'
+import { PetRenameDialog } from '@/modules/modals'
+
+import { ProfileHead } from './head'
 
 interface ProfileCardProps {
   name: string
@@ -43,12 +45,12 @@ export const ProfileCard: React.FC<ProfileCardProps> = ({
   )
 }
 
-const getDaysCount = (createdDate: string): number => {
+function getDaysCount(createdDate: string): number {
   const created = new Date(createdDate)
   const today = new Date()
 
   if (isNaN(created.getTime())) {
-    throw new Error('Invalid date format')
+    throw new TypeError('Invalid date format')
   }
 
   const diffInMs = today.getTime() - created.getTime()

@@ -1,11 +1,11 @@
-import { useGetPet, useGetStatistics } from '@/data'
 import { useAuth } from '@/shared'
+import { useGetPet, useGetStatistics } from '@/data'
 
-export const useProfile = () => {
+export function useProfile() {
   const { user } = useAuth()
   const { data: pet, isLoading: isPetLoading } = useGetPet({ userId: user.id })
   const { data: statistics, isLoading: isStatisticsLoading } = useGetStatistics(
-    { userId: user.id }
+    { userId: user.id },
   )
 
   return {

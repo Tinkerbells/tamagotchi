@@ -1,10 +1,9 @@
 import { vkBridge } from '@/shared'
-import { useMutation, MutationOptions } from '@tanstack/react-query'
 
-export const showAd = async () => {
+export async function showAd() {
   try {
     // @ts-ignore
-    const response = await vkBridge.send('VKWebAppShowNativeAds', { ad_format: "reward" })
+    const response = await vkBridge.send('VKWebAppShowNativeAds', { ad_format: 'reward' })
     if (!response.result) {
       const error = new Error('Ошибка при показе рекламы')
       error.name = 'ShowAdError'
@@ -12,7 +11,8 @@ export const showAd = async () => {
     }
     console.log('Реклама показана')
     return response
-  } catch (error) {
+  }
+  catch (error) {
     console.error(error)
     throw error
   }

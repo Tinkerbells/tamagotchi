@@ -1,33 +1,26 @@
-import { LoadingScreen } from '@/screens'
-import { vkBridge } from '@/shared'
-import React, {
-  createContext,
-  useContext,
-  useState,
-  ReactNode,
-  useEffect,
-  useMemo,
-} from 'react'
+import * as React from 'react'
 
-type AppProvider = 'vk' | 'telegram' | null
+import { vkBridge } from '@/shared'
+import { LoadingScreen } from '@/screens'
+
+type AppProviderType = 'vk' | 'telegram' | null
 
 interface AppContextType {
-  provider: AppProvider
+  provider: AppProviderType
 }
 
-const AppContext = createContext<AppContextType | undefined>(undefined)
+const AppContext = React.createContext<AppContextType | undefined>(undefined)
 
-interface AppProviderProps {
-  children: ReactNode
-}
+type AppProviderProps = React.PropsWithChildren
 
 export const AppProvider: React.FC<AppProviderProps> = ({ children }) => {
-  const [provider, setProvider] = useState<AppProvider>(null)
+  const [provider, setProvider] = React.useState<AppProviderType>(null)
 
-  useEffect(() => {
+  React.useEffect(() => {
     const checkVkPlatform = async () => {
       const isVk = await vkBridge.send('VKWebAppInit')
-      if (isVk) setProvider('vk')
+      if (isVk)
+        setProvider('vk')
     }
     checkVkPlatform()
     // TODO write telegram provider support
@@ -35,7 +28,7 @@ export const AppProvider: React.FC<AppProviderProps> = ({ children }) => {
     // checkTelegramPlatform()
   }, [])
 
-  const value = useMemo(() => ({ provider }), [provider])
+  const value = React.useMemo(() => ({ provider }), [provider])
 
   if (!provider) {
     return <LoadingScreen />
@@ -44,8 +37,8 @@ export const AppProvider: React.FC<AppProviderProps> = ({ children }) => {
   return <AppContext.Provider value={value}>{children}</AppContext.Provider>
 }
 
-export const useProvider = (): AppContextType => {
-  const context = useContext(AppContext)
+export function useProvider(): AppContextType {
+  const context = React.useContext(AppContext)
   if (!context) {
     throw new Error('useAppContext must be used within an AppProvider')
   }

@@ -1,10 +1,14 @@
-import type { User, UpdateUserDto } from './dto'
+import type { MutationOptions } from '@tanstack/react-query'
+
+import { useMutation } from '@tanstack/react-query'
+
 import { client } from '@/shared'
-import { MutationOptions, useMutation } from '@tanstack/react-query'
 
-type CreateUserQueryParams = UpdateUserDto
+import type { CreateUserDto, User } from './dto'
 
-const createUser = async (params: CreateUserQueryParams) => {
+type CreateUserQueryParams = CreateUserDto
+
+async function createUser(params: CreateUserQueryParams) {
   try {
     if (params.vkUser) {
       const { country, city, ...vkUserInfo } = params.vkUser
@@ -24,7 +28,7 @@ const createUser = async (params: CreateUserQueryParams) => {
       })
       if (!userResponse.ok) {
         const error = new Error(
-          `Failed to fetch user: ${userResponse.status} ${userResponse.statusText}`
+          `Failed to fetch user: ${userResponse.status} ${userResponse.statusText}`,
         )
         error.name = 'FetchUserError'
         throw error
@@ -32,20 +36,20 @@ const createUser = async (params: CreateUserQueryParams) => {
       const user = await userResponse.json()
       return user
     }
-  } catch (error) {
+  }
+  catch (error) {
     console.error(error)
     throw error
   }
 }
 
-export const useCreateUser = (
-  options?: Omit<
-    MutationOptions<User | undefined, Error, CreateUserQueryParams, unknown>,
-    'mutationFn'
-  >
-) => {
+export function useCreateUser(options?: Omit<
+  MutationOptions<User | undefined, Error, CreateUserQueryParams, unknown>,
+  'mutationFn'
+>) {
   return useMutation({
     mutationFn: (params: CreateUserQueryParams) => createUser(params),
+    retry: 3,
     ...options,
   })
 }

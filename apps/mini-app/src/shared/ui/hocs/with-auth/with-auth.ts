@@ -1,5 +1,3 @@
-
-
-export const WithAuth = ()=>{
+export function WithAuth() {
 
 }

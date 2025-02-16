@@ -1,6 +1,6 @@
 import * as React from 'react'
 
-export const Food = ({ ...props }: React.SVGProps<SVGSVGElement>) => {
+export function Food({ ...props }: React.SVGProps<SVGSVGElement>) {
   return (
     <svg
       width="30"

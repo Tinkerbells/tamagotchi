@@ -1,12 +1,12 @@
-import { ConvertedStatistics } from '../dto'
+import type { ConvertedStatistics } from '../dto'
 
-export const ConvertResources = (fetchedResources: ConvertedStatistics) => {
+export function ConvertResources(fetchedResources: ConvertedStatistics) {
   const { meal } = fetchedResources
   const countMeals = ['breakfast', 'lunch', 'dinner', 'snack'].reduce(
     (count, key) => {
       return meal[key as keyof typeof meal] ? count + 1 : count
     },
-    0
+    0,
   )
   const result = {
     meal: countMeals,

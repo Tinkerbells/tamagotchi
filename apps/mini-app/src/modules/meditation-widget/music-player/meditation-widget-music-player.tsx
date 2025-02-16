@@ -1,29 +1,30 @@
-import { useMusicPlayer } from '../hooks'
-import { MeditationWidgetMusicItem } from './meditation-widget-music-item'
-import { MeditationWidgetMusicItemSkeleton } from './meditation-widget-music-item-skeleton'
+import { useClickAway, useToggle } from '@uidotdev/usehooks'
+import { AnimatePresence, easeInOut, motion } from 'framer-motion'
 import {
-  DndContext,
-  closestCenter,
-  KeyboardSensor,
-  PointerSensor,
-  useSensor,
-  useSensors,
-  TouchSensor,
-} from '@dnd-kit/core'
+  CircleChevronDown,
+  CircleChevronUp,
+  PauseCircle,
+  PlayCircle,
+} from 'lucide-react'
 import {
   arrayMove,
   SortableContext,
   sortableKeyboardCoordinates,
   verticalListSortingStrategy,
 } from '@dnd-kit/sortable'
-import { useClickAway, useToggle } from '@uidotdev/usehooks'
-import { motion, AnimatePresence, easeInOut } from 'framer-motion'
 import {
-  PauseCircle,
-  PlayCircle,
-  CircleChevronDown,
-  CircleChevronUp,
-} from 'lucide-react'
+  closestCenter,
+  DndContext,
+  KeyboardSensor,
+  PointerSensor,
+  TouchSensor,
+  useSensor,
+  useSensors,
+} from '@dnd-kit/core'
+
+import { useMusicPlayer } from '../hooks'
+import { MeditationWidgetMusicItem } from './meditation-widget-music-item'
+import { MeditationWidgetMusicItemSkeleton } from './meditation-widget-music-item-skeleton'
 
 const headerVariants = {
   closed: {
@@ -40,7 +41,7 @@ const headerVariants = {
   },
 }
 
-export const MeditationWidgetPlayer = () => {
+export function MeditationWidgetPlayer() {
   const [open, toggleOpen] = useToggle(false)
   const ref = useClickAway<HTMLDivElement>(() => {
     toggleOpen(false)
@@ -59,7 +60,7 @@ export const MeditationWidgetPlayer = () => {
   const sensors = useSensors(
     useSensor(PointerSensor),
     useSensor(TouchSensor),
-    useSensor(KeyboardSensor, { coordinateGetter: sortableKeyboardCoordinates })
+    useSensor(KeyboardSensor, { coordinateGetter: sortableKeyboardCoordinates }),
   )
 
   const handleDragEnd = (event: any) => {
@@ -67,8 +68,8 @@ export const MeditationWidgetPlayer = () => {
     handleProgress()
     if (active.id !== over.id) {
       setQueue((items) => {
-        const oldIndex = items.findIndex((item) => item.id === active.id)
-        const newIndex = items.findIndex((item) => item.id === over.id)
+        const oldIndex = items.findIndex(item => item.id === active.id)
+        const newIndex = items.findIndex(item => item.id === over.id)
         return arrayMove(items, oldIndex, newIndex)
       })
     }
@@ -88,18 +89,20 @@ export const MeditationWidgetPlayer = () => {
         transition={{ duration: 0.2, ease: easeInOut }}
         className="flex h-14 w-[90vw] items-center bg-white px-4 py-3"
       >
-        {isLoading ? (
-          <MeditationWidgetMusicItemSkeleton />
-        ) : (
-          <div className="flex flex-col">
-            <span className="text-sm font-semibold tracking-tighter text-black">
-              {currentPlaying?.title}
-            </span>
-            <span className="text-text-secondary text-xs font-medium tracking-tighter">
-              {currentPlaying?.artist}
-            </span>
-          </div>
-        )}
+        {isLoading
+          ? (
+              <MeditationWidgetMusicItemSkeleton />
+            )
+          : (
+              <div className="flex flex-col">
+                <span className="text-sm font-semibold tracking-tighter text-black">
+                  {currentPlaying?.title}
+                </span>
+                <span className="text-text-secondary text-xs font-medium tracking-tighter">
+                  {currentPlaying?.artist}
+                </span>
+              </div>
+            )}
         <div className="ml-auto flex items-center">
           <button
             className="text-text-secondary flex aspect-square cursor-pointer items-center justify-center rounded-full p-2"
@@ -111,11 +114,13 @@ export const MeditationWidgetPlayer = () => {
             className="text-text-secondary flex aspect-square cursor-pointer items-center justify-center rounded-full p-2"
             onClick={() => toggleOpen()}
           >
-            {open ? (
-              <CircleChevronUp size={25} />
-            ) : (
-              <CircleChevronDown size={25} />
-            )}
+            {open
+              ? (
+                  <CircleChevronUp size={25} />
+                )
+              : (
+                  <CircleChevronDown size={25} />
+                )}
           </button>
         </div>
       </motion.div>

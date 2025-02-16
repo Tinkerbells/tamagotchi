@@ -1,15 +1,17 @@
+import type { InteriorType } from '@tamagotchi/api/hc'
+
+import type { PetInteriorItemType } from '@/data'
+
 import { PetInteriorItem } from './pet-interior-item'
-import { PetInteriorItemType } from '@/data'
-import { InteriorType } from '@tamagotchi/api/hc'
 
 interface PetInteriorItemsProps {
   interiorItems?: PetInteriorItemType[]
 }
 
-export const PetInteriorItems = ({ interiorItems }: PetInteriorItemsProps) => {
+export function PetInteriorItems({ interiorItems }: PetInteriorItemsProps) {
   return (
     <>
-      {interiorItems?.map((item) => (
+      {interiorItems?.map(item => (
         <PetInteriorItem key={item.itemId} type={item.type as InteriorType} />
       ))}
     </>

@@ -1,8 +1,11 @@
-import { ResourceWidgetValue } from './types'
-import { ResourceWidget } from './widget'
+import * as React from 'react'
+
 import { routes } from '@/app/routes'
 import { Meditation } from '@/shared'
-import * as React from 'react'
+
+import type { ResourceWidgetValue } from './types'
+
+import { ResourceWidget } from './widget'
 
 export const MeditationWidget: React.FC<ResourceWidgetValue> = ({ value }) => {
   return (

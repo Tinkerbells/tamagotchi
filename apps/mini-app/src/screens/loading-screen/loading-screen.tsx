@@ -1,6 +1,6 @@
 import { Spinner } from '@tamagotchi/ui'
 
-export const LoadingScreen = () => {
+export function LoadingScreen() {
   return (
     <section className="bg-main relative flex h-screen w-full flex-col items-center justify-center overflow-hidden px-4 bg-blend-multiply">
       <div className="absolute left-1/2 top-1/2 h-[46px] w-[46px] -translate-x-1/2 -translate-y-1/2">

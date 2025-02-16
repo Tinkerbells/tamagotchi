@@ -1,6 +1,6 @@
 import { Skeleton } from '@tamagotchi/ui'
 
-export const ResourcesPanelSkeleton = () => {
+export function ResourcesPanelSkeleton() {
   return (
     <>
       <div className="relative flex w-full flex-col justify-center gap-3 py-14">

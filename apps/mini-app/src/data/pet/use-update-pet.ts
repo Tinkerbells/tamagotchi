@@ -1,20 +1,26 @@
-import { UserId } from '../user'
-import { Pet } from './dto'
-import { GET_PET_QUERY_KEY } from './use-get-pet'
-import { client } from '@/shared'
+import type {
+  MutationOptions,
+} from '@tanstack/react-query'
+
 import { useDismissModal } from '@tamagotchi/ui'
 import {
-  MutationOptions,
   useMutation,
   useQueryClient,
 } from '@tanstack/react-query'
 
-type CreatePetQueryParams = {
+import { client } from '@/shared'
+
+import type { Pet } from './dto'
+import type { UserId } from '../user'
+
+import { GET_PET_QUERY_KEY } from './use-get-pet'
+
+interface CreatePetQueryParams {
   userId: UserId
   petName: string
 }
 
-const updatePet = async (params: CreatePetQueryParams) => {
+async function updatePet(params: CreatePetQueryParams) {
   try {
     const response = await client.pet[':id'].$patch({
       param: { id: params.userId.toString() },
@@ -24,25 +30,24 @@ const updatePet = async (params: CreatePetQueryParams) => {
     })
     if (!response.ok) {
       const error = new Error(
-        `Failed to update pet: ${response.status} ${response.statusText}`
+        `Failed to update pet: ${response.status} ${response.statusText}`,
       )
       error.name = 'UpdatePetError'
       throw error
     }
     const updatedPet = await response.json()
     return updatedPet
-  } catch (error) {
+  }
+  catch (error) {
     console.error(error)
     throw error
   }
 }
 
-export const useUpdatePet = (
-  options?: Omit<
-    MutationOptions<Pet, Error, CreatePetQueryParams, unknown>,
+export function useUpdatePet(options?: Omit<
+  MutationOptions<Pet, Error, CreatePetQueryParams, unknown>,
     'mutationFn' | 'onSuccess'
-  >
-) => {
+>) {
   const { dismiss } = useDismissModal()
   const queryClient = useQueryClient()
   return useMutation({

@@ -1,6 +1,7 @@
-import sharedConfig from '@tamagotchi/tailwind-config'
-import scrollbarHide from 'tailwind-scrollbar-hide'
 import type { Config } from 'tailwindcss'
+
+import scrollbarHide from 'tailwind-scrollbar-hide'
+import sharedConfig from '@tamagotchi/tailwind-config'
 
 const config: Pick<Config, 'content' | 'presets' | 'theme' | 'plugins'> = {
   content: [
@@ -21,7 +22,7 @@ const config: Pick<Config, 'content' | 'presets' | 'theme' | 'plugins'> = {
         'item-border':
           '`0 2px 24px 0 rgba(0, 0, 0, 0.08), 0 0 2px 0 rgba(0, 0, 0, 0.08)`',
         'profile-card': '0 20px 24px 0 rgba(233, 192, 179, 0.2)',
-        achievement: `0 2px 24px 0 rgba(0, 0, 0, 0.08), 0 0 2px 0 rgba(0, 0, 0, 0.08)`,
+        'achievement': `0 2px 24px 0 rgba(0, 0, 0, 0.08), 0 0 2px 0 rgba(0, 0, 0, 0.08)`,
         'gratitude-message': '0 28px 45px 0 rgba(212, 167, 122, 0.24)',
       },
       backgroundImage: {
@@ -29,12 +30,12 @@ const config: Pick<Config, 'content' | 'presets' | 'theme' | 'plugins'> = {
         water: 'linear-gradient(180deg, rgba(255, 255, 255, 0) 0%, #fff 100%)',
       },
       colors: {
-        background: {
+        'background': {
           primary: '#fff',
           secondary: '#f2f3f5',
         },
         'custom-border': 'rgba(0, 0, 0, 0.08)',
-        text: {
+        'text': {
           secondary: '#818c99',
           highlight: '#d48971',
         },
@@ -45,7 +46,7 @@ const config: Pick<Config, 'content' | 'presets' | 'theme' | 'plugins'> = {
     },
   },
   presets: [sharedConfig],
-  plugins: [scrollbarHide],
+  plugins: [scrollbarHide, require('tailwindcss-animate')],
 }
 
 export default config

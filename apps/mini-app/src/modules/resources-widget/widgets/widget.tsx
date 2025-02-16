@@ -1,6 +1,8 @@
-import { cn } from '@tamagotchi/utils'
+import type { To } from 'react-router-dom'
+
 import * as React from 'react'
-import { Link, To } from 'react-router-dom'
+import { cn } from '@tamagotchi/utils'
+import { Link } from 'react-router-dom'
 
 type HexColor = `#${string}`
 
@@ -28,7 +30,7 @@ export const ResourceWidget: React.FC<ResourceWidgetProps> = ({
     <Link to={link || ''} className="flex w-full flex-col items-center">
       <div
         className={cn(
-          'relative z-10 flex h-10 w-[68px] items-center justify-center overflow-hidden rounded-[17px]'
+          'relative z-10 flex h-10 w-[68px] items-center justify-center overflow-hidden rounded-[17px]',
         )}
         style={{
           backgroundColor: bgColor,

@@ -1,4 +1,4 @@
-export const WaterBackground = () => {
+export function WaterBackground() {
   return (
     <>
       <svg

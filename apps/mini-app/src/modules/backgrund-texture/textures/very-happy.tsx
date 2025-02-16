@@ -1,4 +1,4 @@
-export const VeryHappy = () => {
+export function VeryHappy() {
   return (
     <>
       <svg

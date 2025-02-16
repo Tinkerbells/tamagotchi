@@ -1,6 +1,8 @@
-import { moodStates, MoodType } from '@/data'
+import type { MoodType } from '@/data'
 
-export const getPetMood = (mood: MoodType) => {
+import { moodStates } from '@/data'
+
+export function getPetMood(mood: MoodType) {
   switch (mood) {
     case moodStates.veryBored:
       return 'очень скучает'

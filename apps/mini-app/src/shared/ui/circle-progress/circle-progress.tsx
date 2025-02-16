@@ -1,6 +1,7 @@
-import { WaterProgressBackground } from './backgrounds'
 import { motion } from 'framer-motion'
 import React, { useRef, useState } from 'react'
+
+import { WaterProgressBackground } from './backgrounds'
 
 const styles = {
   water: {
@@ -32,7 +33,8 @@ export const CircleProgress: React.FC<CircleProgressProps> = ({
   const circumference = 2 * Math.PI * radius
 
   const getSVGPoint = (clientX: number, clientY: number) => {
-    if (!svgRef.current) return { x: 0, y: 0 }
+    if (!svgRef.current)
+      return { x: 0, y: 0 }
     const pt = svgRef.current.createSVGPoint()
     pt.x = clientX
     pt.y = clientY
@@ -46,13 +48,14 @@ export const CircleProgress: React.FC<CircleProgressProps> = ({
   }
 
   const handleDragMove = (event: React.TouchEvent | React.MouseEvent) => {
-    if (!isDragging) return
+    if (!isDragging)
+      return
     handleMove(event)
   }
 
   const handleMove = (event: React.TouchEvent | React.MouseEvent) => {
-    const { clientX, clientY } =
-      event.type === 'touchmove'
+    const { clientX, clientY }
+      = event.type === 'touchmove'
         ? (event as React.TouchEvent).touches[0]
         : (event as React.MouseEvent)
 
@@ -62,7 +65,7 @@ export const CircleProgress: React.FC<CircleProgressProps> = ({
     const relY = center - svgY
     const angle = Math.atan2(relY, relX) // Get angle relative to the center
 
-    let theta = (Math.PI / 2 - angle + 2 * Math.PI) % (2 * Math.PI) // Normalize angle to 0 at the top
+    const theta = (Math.PI / 2 - angle + 2 * Math.PI) % (2 * Math.PI) // Normalize angle to 0 at the top
     let newProgress = (theta / (2 * Math.PI)) * 100 // Convert angle to percentage
 
     // Wrap around the progress value if needed
@@ -76,7 +79,8 @@ export const CircleProgress: React.FC<CircleProgressProps> = ({
     // Constrain progress near boundaries
     if (progress === 100 && newProgress < 100) {
       newProgress = Math.max(98, newProgress)
-    } else if (progress === 0 && newProgress > 0) {
+    }
+    else if (progress === 0 && newProgress > 0) {
       newProgress = Math.min(2, newProgress)
     }
 

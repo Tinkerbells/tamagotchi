@@ -1,7 +1,9 @@
-import bg from '/images/start-screen/step-bg.webp'
-import { Image } from '@/shared'
-import { cn } from '@tamagotchi/utils'
 import * as React from 'react'
+import { cn } from '@tamagotchi/utils'
+
+import { Image } from '@/shared'
+
+import bg from '/images/start-screen/step-bg.webp'
 
 type StepCardProps = React.HTMLAttributes<HTMLDivElement>
 
@@ -14,7 +16,7 @@ export const StepCard: React.FC<StepCardProps> = ({
     <div
       className={cn(
         'relative flex h-full w-full items-end justify-center overflow-y-hidden py-14',
-        className
+        className,
       )}
       {...props}
     >

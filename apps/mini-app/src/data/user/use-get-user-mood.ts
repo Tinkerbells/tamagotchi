@@ -1,38 +1,41 @@
-import { UserId, UserMood } from './dto'
-import { isUserMoodEnabled } from './lib'
-import { client } from '@/shared'
-import { QueryObserverOptions, useQuery } from '@tanstack/react-query'
+import type { QueryObserverOptions } from '@tanstack/react-query'
 
-type GetUserMoodQueryParams = {
+import { useQuery } from '@tanstack/react-query'
+
+import { client } from '@/shared'
+
+import type { UserId, UserMood } from './dto'
+
+import { isUserMoodEnabled } from './lib'
+
+interface GetUserMoodQueryParams {
   userId: UserId
 }
 
 export const GET_USER_MOOD_QUERY_KEY = ['user-mood']
 
-const getUserMood = async (params: GetUserMoodQueryParams) => {
+async function getUserMood(params: GetUserMoodQueryParams) {
   try {
     const response = await client.user.mood[':id'].$get({
       param: { id: params.userId.toString() },
     })
     if (!response.ok) {
       const error = new Error(
-        `Failed to fetch user mood: ${response.status} ${response.statusText}`
+        `Failed to fetch user mood: ${response.status} ${response.statusText}`,
       )
       error.name = 'FetchUserMoodError'
       throw error
     }
     const result = await response.json()
     return result
-  } catch (error) {
+  }
+  catch (error) {
     console.error(error)
     throw error
   }
 }
 
-export const useGetUserMood = (
-  params: GetUserMoodQueryParams,
-  options?: Omit<QueryObserverOptions<UserMood, Error>, 'queryKey' | 'queryFn'>
-) => {
+export function useGetUserMood(params: GetUserMoodQueryParams, options?: Omit<QueryObserverOptions<UserMood, Error>, 'queryKey' | 'queryFn'>) {
   return useQuery({
     queryKey: GET_USER_MOOD_QUERY_KEY,
     queryFn: () => getUserMood(params),

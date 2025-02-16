@@ -1,8 +1,12 @@
-import { getPetImage, getPetAccessory } from './lib'
-import { MoodType, PetAccessoryType } from '@/data'
-import { Image } from '@/shared'
-import { AccessoryType } from '@tamagotchi/api/hc'
+import type { AccessoryType } from '@tamagotchi/api/hc'
+
 import * as React from 'react'
+
+import type { MoodType, PetAccessoryType } from '@/data'
+
+import { Image } from '@/shared'
+
+import { getPetAccessory, getPetImage } from './lib'
 
 interface PetImageProps {
   accessory?: PetAccessoryType

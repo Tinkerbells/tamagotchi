@@ -1,4 +1,4 @@
-export const HighlightBackground = () => {
+export function HighlightBackground() {
   return (
     <>
       <svg

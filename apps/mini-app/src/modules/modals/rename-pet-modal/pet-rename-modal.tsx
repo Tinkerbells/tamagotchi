@@ -1,12 +1,13 @@
-import { PetRenameForm } from '@/modules/forms'
 import {
   DialogContent,
   DialogDescription,
-  DialogTitle,
   DialogHeader,
+  DialogTitle,
 } from '@tamagotchi/ui'
 
-export const PetRenameDialog = () => {
+import { PetRenameForm } from '@/modules/forms'
+
+export function PetRenameDialog() {
   return (
     <DialogContent className="max-w-[90%]">
       <DialogHeader>

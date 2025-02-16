@@ -1,13 +1,16 @@
-import { songs as localSongs } from '../consts'
-import { useMeditationContext } from '../meditation-widget-context'
-import { Song } from '../types'
-import { rotateArray } from '@/shared'
 import * as React from 'react'
 import { useGlobalAudioPlayer } from 'react-use-audio-player'
 
-export const useMusicPlayer = () => {
+import { rotateArray } from '@/shared'
+
+import type { Song } from '../types'
+
+import { songs as localSongs } from '../consts'
+import { useMeditationContext } from '../meditation-widget-context'
+
+export function useMusicPlayer() {
   const [currentPlaying, setCurrentPlaying] = React.useState<Song>(
-    localSongs[0]
+    localSongs[0],
   )
 
   const { isTimerRunning } = useMeditationContext()

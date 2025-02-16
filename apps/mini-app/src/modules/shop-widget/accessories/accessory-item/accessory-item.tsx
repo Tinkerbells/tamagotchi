@@ -1,14 +1,18 @@
-import { ProductCard, ProductCardProps } from '../../product-card'
-import { useUpdateAccessory } from '@/data'
-import { useAuth } from '@/shared'
-import { DialogTrigger } from '@tamagotchi/ui'
 import * as React from 'react'
+import { DialogTrigger } from '@tamagotchi/ui'
+
+import { useAuth } from '@/shared'
+import { useUpdateAccessory } from '@/data'
+
+import type { ProductCardProps } from '../../product-card'
+
+import { ProductCard } from '../../product-card'
 
 interface AccessoryItemProps extends ProductCardProps {
   itemId: number
 }
 
-//TODO add loading state
+// TODO add loading state
 export const AccessoryItem: React.FC<AccessoryItemProps> = ({
   itemId,
   isPurchased,
@@ -27,8 +31,8 @@ export const AccessoryItem: React.FC<AccessoryItemProps> = ({
         if (isPurchased) {
           e.preventDefault()
         }
-        isPurchased &&
-          updateAccessory({ itemId: itemId.toString(), userId: user.id })
+        isPurchased
+        && updateAccessory({ itemId: itemId.toString(), userId: user.id })
       }}
     >
       <ProductCard

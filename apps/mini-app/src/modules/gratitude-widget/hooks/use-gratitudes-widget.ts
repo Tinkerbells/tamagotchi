@@ -1,16 +1,16 @@
-import { useGetGratitudes } from "@/data"
-import { useAuth } from "@/shared"
+import { useAuth } from '@/shared'
+import { useGetGratitudes } from '@/data'
 
-export const useGratitudesWidget = () => {
+export function useGratitudesWidget() {
   const { user } = useAuth()
   const {
     data,
-    isLoading
+    isLoading,
   } = useGetGratitudes({
     userId: user.id,
   })
   return {
     gratitudes: data?.current,
-    isLoading
+    isLoading,
   }
 }

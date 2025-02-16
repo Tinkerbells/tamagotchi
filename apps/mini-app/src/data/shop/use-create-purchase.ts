@@ -1,20 +1,27 @@
-import { GET_USER_QUERY_KEY, UserId } from '../user'
-import { type Shop } from './dto'
-import { GET_SHOP_QUERY_KEY } from './use-get-shop'
-import { client } from '@/shared'
-import {
+import type {
   MutationOptions,
+} from '@tanstack/react-query'
+
+import {
   useMutation,
   useQueryClient,
 } from '@tanstack/react-query'
 
-type CreatePurchaseParams = {
+import { client } from '@/shared'
+
+import type { Shop } from './dto'
+import type { UserId } from '../user'
+
+import { GET_USER_QUERY_KEY } from '../user'
+import { GET_SHOP_QUERY_KEY } from './use-get-shop'
+
+interface CreatePurchaseParams {
   userId: UserId
   itemId: string
   itemType: 'accessory' | 'interior'
 }
 
-const createPurchase = async (params: CreatePurchaseParams) => {
+async function createPurchase(params: CreatePurchaseParams) {
   try {
     const response = await client.shop.purchase[':id'].$patch({
       param: { id: params.itemId },
@@ -25,25 +32,24 @@ const createPurchase = async (params: CreatePurchaseParams) => {
     })
     if (!response.ok) {
       const error = new Error(
-        `Failed to create purchase: ${response.status} ${response.statusText}`
+        `Failed to create purchase: ${response.status} ${response.statusText}`,
       )
       error.name = 'CreatePurchaseError'
       throw error
     }
     const purchase = await response.json()
     return purchase
-  } catch (error) {
+  }
+  catch (error) {
     console.error(error)
     throw error
   }
 }
 
-export const useCreatePurchase = (
-  options?: Omit<
-    MutationOptions<Shop | undefined, Error, CreatePurchaseParams, unknown>,
-    'mutationFn'
-  >
-) => {
+export function useCreatePurchase(options?: Omit<
+  MutationOptions<Shop | undefined, Error, CreatePurchaseParams, unknown>,
+  'mutationFn'
+>) {
   const queryClient = useQueryClient()
   return useMutation({
     ...options,

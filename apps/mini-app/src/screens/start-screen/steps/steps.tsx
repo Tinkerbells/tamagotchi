@@ -1,9 +1,11 @@
+import * as React from 'react'
+import { cn } from '@tamagotchi/utils'
+
+import { Image } from '@/shared/ui'
+
 import images from './images'
 import { StepCard } from './step-card'
 import { StepTwoSvg } from './step-two-svg'
-import { Image } from '@/shared/ui'
-import { cn } from '@tamagotchi/utils'
-import * as React from 'react'
 
 interface StepProps extends React.HTMLAttributes<HTMLDivElement> {
   currentStep: number
@@ -20,14 +22,14 @@ export const StepDots: React.FC<StepDotsProps> = ({
   const id = React.useId()
   return (
     <div className={cn('flex gap-2', className)} {...props}>
-      {new Array(3).fill(null).map((_, index) => (
+      {Array.from({ length: 3 }).fill(null).map((_, index) => (
         <span
           key={id + index}
           className={cn(
             'h-1 w-6 rounded-full',
             index === currentStep
               ? 'bg-[#252322]'
-              : 'bg-[hsla(213,11%,55%,0.24)]'
+              : 'bg-[hsla(213,11%,55%,0.24)]',
           )}
         />
       ))}

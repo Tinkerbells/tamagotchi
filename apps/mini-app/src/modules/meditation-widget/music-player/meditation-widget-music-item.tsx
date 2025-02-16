@@ -1,10 +1,11 @@
-import { Song } from '../types'
-import { useSortable } from '@dnd-kit/sortable'
+import * as React from 'react'
+import { Menu } from 'lucide-react'
+import { cn } from '@tamagotchi/utils'
 import { CSS } from '@dnd-kit/utilities'
 import { Separator } from '@tamagotchi/ui'
-import { cn } from '@tamagotchi/utils'
-import { Menu } from 'lucide-react'
-import * as React from 'react'
+import { useSortable } from '@dnd-kit/sortable'
+
+import type { Song } from '../types'
 
 interface SortableItemProps {
   id: string
@@ -17,8 +18,8 @@ export const MeditationWidgetMusicItem: React.FC<SortableItemProps> = ({
   song,
   isLast,
 }) => {
-  const { attributes, listeners, setNodeRef, transform, transition } =
-    useSortable({ id })
+  const { attributes, listeners, setNodeRef, transform, transition }
+    = useSortable({ id })
 
   const style = {
     transform: CSS.Transform.toString(transform),
@@ -32,7 +33,7 @@ export const MeditationWidgetMusicItem: React.FC<SortableItemProps> = ({
         style={style}
         className={cn(
           'flex touch-none items-center justify-between rounded-3xl bg-white px-4 py-3',
-          isLast && 'pb-5'
+          isLast && 'pb-5',
         )}
       >
         <div className="flex items-center gap-4">

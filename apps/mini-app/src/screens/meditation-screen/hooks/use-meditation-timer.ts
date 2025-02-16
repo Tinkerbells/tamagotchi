@@ -1,13 +1,13 @@
 import dayjs from 'dayjs'
 import duration from 'dayjs/plugin/duration'
-import { useState, useEffect, useCallback, useRef, useMemo } from 'react'
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 
 dayjs.extend(duration)
 
 export const STORAGE_KEY = 'meditation-timer'
-const DEFAULT_TIME = 0.1 * 60
+const DEFAULT_TIME = 0.5 * 60
 
-export const useMeditationTimer = () => {
+export function useMeditationTimer() {
   const [timeLeft, setTimeLeft] = useState(DEFAULT_TIME)
   const [isRunning, setIsRunning] = useState(false)
   const [isFinished, setIsFinished] = useState(false)
@@ -24,7 +24,8 @@ export const useMeditationTimer = () => {
         setIsRunning(isRunning)
         setIsFinished(isFinished)
       }
-    } catch (error) {
+    }
+    catch (error) {
       console.error('Failed to load meditation state:', error)
     }
   }, [])
@@ -32,7 +33,10 @@ export const useMeditationTimer = () => {
   // Save state whenever timeLeft, isRunning, or isFinished changes
   useEffect(() => {
     if (timeLeft !== DEFAULT_TIME || isRunning || isFinished) {
-      localStorage.setItem(STORAGE_KEY, JSON.stringify({ timeLeft, isRunning, isFinished }))
+      localStorage.setItem(
+        STORAGE_KEY,
+        JSON.stringify({ timeLeft, isRunning, isFinished }),
+      )
     }
   }, [timeLeft, isRunning, isFinished])
 
@@ -76,7 +80,7 @@ export const useMeditationTimer = () => {
 
   const formattedTimeLeft = useMemo(
     () => dayjs.duration(timeLeft, 'seconds').format('mm:ss'),
-    [timeLeft]
+    [timeLeft],
   )
 
   const progress = useMemo(() => {

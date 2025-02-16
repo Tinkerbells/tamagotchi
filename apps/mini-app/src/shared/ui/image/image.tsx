@@ -1,9 +1,10 @@
 'use client'
 
-import { buildThumbnail } from '../lib/build-image'
-import { Skeleton } from '@tamagotchi/ui'
-import { cn } from '@tamagotchi/utils'
 import * as React from 'react'
+import { cn } from '@tamagotchi/utils'
+import { Skeleton } from '@tamagotchi/ui'
+
+import { buildThumbnail } from '../lib/build-image'
 
 type ImagePlaceholderType = 'blur' | 'skeleton'
 
@@ -17,7 +18,7 @@ interface ImageProps extends React.ImgHTMLAttributes<HTMLImageElement> {
 export const Image = React.forwardRef<HTMLImageElement, ImageProps>(
   ({ className, src, width, height, placeholder, ...props }, ref) => {
     const [aspectRatio, setAspectRatio] = React.useState<string | number>(
-      width / height
+      width / height,
     )
     const [isLoading, setIsLoading] = React.useState(true)
 
@@ -40,34 +41,38 @@ export const Image = React.forwardRef<HTMLImageElement, ImageProps>(
     return (
       <picture
         className={cn('overflow-hidden', className)}
-        style={{ aspectRatio: `${aspectRatio}`, width: width, height: height }}
+        style={{ aspectRatio: `${aspectRatio}`, width, height }}
       >
         <source type="image/webp" />
-        {isLoading ? (
-          placeholder === 'blur' ? (
-            <img
-              className={cn(
-                'h-full w-full animate-pulse object-cover blur-sm',
-                className
-              )}
-              src={thumbnail}
-              ref={ref}
-            />
-          ) : (
-            placeholder === 'skeleton' && (
-              <Skeleton className={cn('h-full w-full', className)} />
+        {isLoading
+          ? (
+              placeholder === 'blur'
+                ? (
+                    <img
+                      className={cn(
+                        'h-full w-full animate-pulse object-cover blur-sm',
+                        className,
+                      )}
+                      src={thumbnail}
+                      ref={ref}
+                    />
+                  )
+                : (
+                    placeholder === 'skeleton' && (
+                      <Skeleton className={cn('h-full w-full', className)} />
+                    )
+                  )
             )
-          )
-        ) : (
-          <img
-            className={cn('h-full w-full object-cover', className)}
-            loading="lazy"
-            src={src}
-            ref={ref}
-            {...props}
-          />
-        )}
+          : (
+              <img
+                className={cn('h-full w-full object-cover', className)}
+                loading="lazy"
+                src={src}
+                ref={ref}
+                {...props}
+              />
+            )}
       </picture>
     )
-  }
+  },
 )

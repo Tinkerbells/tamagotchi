@@ -1,10 +1,11 @@
 import confetti from 'canvas-confetti'
 
-export const useConfetti = () => {
+export function useConfetti() {
   const end = Date.now() + 0.1 * 1000 // 30 milliseconds
 
   const frame = () => {
-    if (Date.now() > end) return
+    if (Date.now() > end)
+      return
 
     confetti({
       particleCount: 4,

@@ -1,10 +1,10 @@
-import {
+import type { z } from 'zod'
+import type {
   getResourcesSchema,
   getResourcesStatisticsSchema,
   norms,
   updateNormsSchema,
 } from '@tamagotchi/api/hc'
-import { z } from 'zod'
 
 export type FetchedResources = z.infer<typeof getResourcesSchema>
 export type FetchedStatistics = z.infer<typeof getResourcesStatisticsSchema>

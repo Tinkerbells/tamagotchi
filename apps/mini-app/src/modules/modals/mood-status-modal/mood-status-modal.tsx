@@ -1,12 +1,13 @@
-import { SelectMoodForm } from '@/modules/forms'
 import {
   DialogContent,
   DialogDescription,
-  DialogTitle,
   DialogHeader,
+  DialogTitle,
 } from '@tamagotchi/ui'
 
-export const MoodStatusDialog = () => {
+import { SelectMoodForm } from '@/modules/forms'
+
+export function MoodStatusDialog() {
   return (
     <DialogContent className="max-w-[90%]" withClose={false}>
       <DialogHeader>

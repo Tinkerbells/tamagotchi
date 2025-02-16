@@ -1,1 +1,1 @@
-export { getInteriorItem  } from './get-interior-item'
+export { getInteriorItem } from './get-interior-item'

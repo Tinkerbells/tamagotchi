@@ -1,12 +1,16 @@
+import type { InteriorType } from '@tamagotchi/api/hc'
+
+import * as React from 'react'
+import { Dialog } from '@tamagotchi/ui'
+
+import type { InteriorItemsType } from '@/data'
+
+import { Image } from '@/shared'
+import { CreatePurchaseDialog } from '@/modules'
+
+import { getInteriorItem } from './lib'
 import { ProductCard } from '../product-card'
 import { InteriorItem } from './interior-item'
-import { getInteriorItem } from './lib'
-import { InteriorItemsType } from '@/data'
-import { CreatePurchaseDialog } from '@/modules'
-import { Image } from '@/shared'
-import { InteriorType } from '@tamagotchi/api/hc'
-import { Dialog } from '@tamagotchi/ui'
-import * as React from 'react'
 
 interface InteriorItemsProps {
   data: InteriorItemsType
@@ -18,7 +22,7 @@ export const InteriorItems: React.FC<InteriorItemsProps> = ({ data }) => {
     <div>
       <p className="text-center text-base font-semibold">Предметы интерьера</p>
       <div className="mt-4 grid grid-cols-2 gap-4">
-        {data.map((item) => (
+        {data.map(item => (
           <Dialog key={`${id}-${item.id}`}>
             <InteriorItem
               itemId={item.id}

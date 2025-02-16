@@ -1,5 +1,5 @@
-import eruda from 'eruda';
+import eruda from 'eruda'
 
-eruda.init();
+eruda.init()
 
-export default eruda;
+export default eruda

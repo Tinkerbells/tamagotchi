@@ -1,14 +1,14 @@
-import { AfternoonSnack } from './afternoon-snack'
-import { Breakfast } from './breakfast'
-import { Dinner } from './dinner'
 import { Lunch } from './lunch'
 import { Snack } from './snack'
+import { Dinner } from './dinner'
+import { Breakfast } from './breakfast'
+import { AfternoonSnack } from './afternoon-snack'
 
 interface MealsWidgetImageProps {
   type: 'breakfast' | 'snack' | 'afternoon_snack' | 'lunch' | 'dinner'
 }
 
-export const MealsWidgetImage = ({ type }: MealsWidgetImageProps) => {
+export function MealsWidgetImage({ type }: MealsWidgetImageProps) {
   switch (type) {
     case 'breakfast':
       return <Breakfast />

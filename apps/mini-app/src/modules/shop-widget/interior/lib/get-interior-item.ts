@@ -1,15 +1,18 @@
+import type { InteriorType } from '@tamagotchi/api/hc'
+
+import { INTERIOR_ITEMS_ENUM } from '@tamagotchi/api/hc'
+
+import cup from '/images/shop/interior/cup.webp'
+import lamp from '/images/shop/interior/lamp.webp'
 import books from '/images/shop/interior/books.webp'
 import cookies from '/images/shop/interior/cookies.webp'
-import cup from '/images/shop/interior/cup.webp'
 import garlands from '/images/shop/interior/garlands.webp'
-import lamp from '/images/shop/interior/lamp.webp'
-import paintBird from '/images/shop/interior/paint-bird.webp'
 import paintDog from '/images/shop/interior/paint-dog.webp'
+import paintBird from '/images/shop/interior/paint-bird.webp'
 import paintFlowers from '/images/shop/interior/paint-flowers.webp'
 import paintLandscape from '/images/shop/interior/paint-landscape.webp'
-import { InteriorType, INTERIOR_ITEMS_ENUM } from '@tamagotchi/api/hc'
 
-export const getInteriorItem = (type: InteriorType) => {
+export function getInteriorItem(type: InteriorType) {
   switch (type) {
     case INTERIOR_ITEMS_ENUM.lamp:
       return lamp

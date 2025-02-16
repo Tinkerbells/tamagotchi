@@ -1,19 +1,25 @@
-import { GET_SLEEP_QUERY_KEY } from '../sleep'
-import { UserId } from '../user'
-import { GET_WATER_QUERY_KEY } from '../water'
-import { FetchedNorms, UpdateNormsDto } from './dto'
-import { client } from '@/shared'
+import type {
+  MutationOptions,
+} from '@tanstack/react-query'
+
+import toast from 'react-hot-toast'
 import { useDismissModal } from '@tamagotchi/ui'
 import {
-  MutationOptions,
   useMutation,
   useQueryClient,
 } from '@tanstack/react-query'
-import toast from 'react-hot-toast'
+
+import { client } from '@/shared'
+
+import type { UserId } from '../user'
+import type { FetchedNorms, UpdateNormsDto } from './dto'
+
+import { GET_SLEEP_QUERY_KEY } from '../sleep'
+import { GET_WATER_QUERY_KEY } from '../water'
 
 type UpdateNormsParams = { userId: UserId } & UpdateNormsDto
 
-const updateNorms = async (params: UpdateNormsParams) => {
+async function updateNorms(params: UpdateNormsParams) {
   try {
     const response = await client.norms[':id'].$patch({
       param: { id: params.userId.toString() },
@@ -24,30 +30,29 @@ const updateNorms = async (params: UpdateNormsParams) => {
     })
     if (!response.ok) {
       const error = new Error(
-        `Failed to update norms: ${response.status} ${response.statusText}`
+        `Failed to update norms: ${response.status} ${response.statusText}`,
       )
       error.name = 'UpdateNormsError'
       throw error
     }
     const norms = await response.json()
     return norms
-  } catch (error) {
+  }
+  catch (error) {
     console.error(error)
     throw error
   }
 }
 
-export const useUpdateNorms = (
-  options?: Omit<
-    MutationOptions<
+export function useUpdateNorms(options?: Omit<
+  MutationOptions<
       FetchedNorms | undefined,
-      Error,
-      UpdateNormsParams,
-      unknown
-    >,
-    'mutationFn'
-  >
-) => {
+    Error,
+    UpdateNormsParams,
+    unknown
+  >,
+  'mutationFn'
+>) {
   const queryClient = useQueryClient()
 
   const { dismiss } = useDismissModal()

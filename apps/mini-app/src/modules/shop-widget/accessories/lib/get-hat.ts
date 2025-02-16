@@ -1,14 +1,17 @@
-import angel from '/images/shop/accessories/angel-hat.webp'
-import birthday from '/images/shop/accessories/birthday-hat.webp'
+import type { AccessoryType } from '@tamagotchi/api/hc'
+
+import { ACCESSORIES_ENUM } from '@tamagotchi/api/hc'
+
 import cook from '/images/shop/accessories/cook-hat.webp'
-import joker from '/images/shop/accessories/joker-hat.webp'
 import king from '/images/shop/accessories/king-hat.webp'
-import pirate from '/images/shop/accessories/pirate-hat.webp'
+import angel from '/images/shop/accessories/angel-hat.webp'
+import joker from '/images/shop/accessories/joker-hat.webp'
 import santa from '/images/shop/accessories/santa-hat.webp'
 import witch from '/images/shop/accessories/witch-hat.webp'
-import { AccessoryType, ACCESSORIES_ENUM } from '@tamagotchi/api/hc'
+import pirate from '/images/shop/accessories/pirate-hat.webp'
+import birthday from '/images/shop/accessories/birthday-hat.webp'
 
-export const getHat = (type: AccessoryType) => {
+export function getHat(type: AccessoryType) {
   switch (type) {
     case ACCESSORIES_ENUM.pirate:
       return pirate

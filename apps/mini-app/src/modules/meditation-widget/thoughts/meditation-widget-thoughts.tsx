@@ -1,5 +1,6 @@
-import { useMeditationContext } from '../meditation-widget-context'
 import { motion } from 'framer-motion'
+
+import { useMeditationContext } from '../meditation-widget-context'
 
 const thoughts = [
   { text: 'Концентрируйся на музыке', delay: 25 },
@@ -8,7 +9,7 @@ const thoughts = [
   { text: 'Избавься от лишних мыслей', delay: 100 },
 ]
 
-export const MeditationWidgetThoughts = () => {
+export function MeditationWidgetThoughts() {
   const { timerProgress } = useMeditationContext()
 
   return (
@@ -22,8 +23,8 @@ export const MeditationWidgetThoughts = () => {
           // Calculate blur based on time passed since the thought's delay
           const timePassed = timerProgress - thought.delay
           const totalTime = 100 - thought.delay
-          const progress =
-            totalTime > 0 ? Math.min(timePassed / totalTime, 1) : 1
+          const progress
+            = totalTime > 0 ? Math.min(timePassed / totalTime, 1) : 1
 
           blurAmount = maxBlur * (1 - progress)
         }

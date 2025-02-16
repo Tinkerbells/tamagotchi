@@ -1,4 +1,4 @@
-export const DefaultBackground = () => {
+export function DefaultBackground() {
   return (
     <>
       <svg

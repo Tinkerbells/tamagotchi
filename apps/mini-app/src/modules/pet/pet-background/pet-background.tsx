@@ -1,6 +1,8 @@
-import { MoodType } from '../pet-status-text'
-import { Bored, Happy, VeryBored, VeryHappy } from './textures'
 import * as React from 'react'
+
+import type { MoodType } from '../pet-status-text'
+
+import { Bored, Happy, VeryBored, VeryHappy } from './textures'
 
 interface PetBackgroundProps {
   petMood: MoodType

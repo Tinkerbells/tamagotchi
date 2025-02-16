@@ -1,12 +1,16 @@
-import { WithNavbarScreen } from '../screen'
-import { ShopWidget } from '@/modules'
-import { useAuth } from '@/shared'
+import { useState } from 'react'
 
-export const ShopScreen = () => {
+import { useAuth } from '@/shared'
+import { ShopWidget } from '@/modules'
+
+import { WithNavbarScreen } from '../screen'
+
+export function ShopScreen() {
   const { user } = useAuth()
+  const [isNavbarVisible, setIsNavbarVisible] = useState(true)
   return (
-    <WithNavbarScreen background="sleep">
-      <ShopWidget userId={user.id} />
+    <WithNavbarScreen texture="highlight" isVisible={isNavbarVisible}>
+      <ShopWidget userId={user.id} onScrollChange={setIsNavbarVisible} />
     </WithNavbarScreen>
   )
 }

@@ -1,14 +1,18 @@
-import { User } from './dto'
-import { client } from '@/shared'
-import { QueryObserverOptions, useQuery } from '@tanstack/react-query'
+import type { QueryObserverOptions } from '@tanstack/react-query'
 
-type GetUserQueryParams = {
+import { useQuery } from '@tanstack/react-query'
+
+import { client } from '@/shared'
+
+import type { User } from './dto'
+
+interface GetUserQueryParams {
   userId: string
 }
 
 export const GET_USER_QUERY_KEY = ['user']
 
-const getUser = async (params: GetUserQueryParams) => {
+async function getUser(params: GetUserQueryParams) {
   console.log(`Trying to get user with ${params.userId}`)
   try {
     const response = await client.user[':id'].$get({
@@ -16,28 +20,26 @@ const getUser = async (params: GetUserQueryParams) => {
     })
     if (!response.ok) {
       const error = new Error(
-        `Failed to fetch user: ${response.status} ${response.statusText}`
+        `Failed to fetch user: ${response.status} ${response.statusText}`,
       )
       error.name = 'FetchUserError'
       throw error
     }
     const result = await response.json()
     return result
-  } catch (error) {
+  }
+  catch (error) {
     console.error(error)
     throw error
   }
 }
 
-export const useGetUser = (
-  params: GetUserQueryParams,
-  options?: Omit<QueryObserverOptions<User, Error>, 'queryKey' | 'queryFn'>
-) => {
+export function useGetUser(params: GetUserQueryParams, options?: Omit<QueryObserverOptions<User, Error>, 'queryKey' | 'queryFn'>) {
   return useQuery({
     queryKey: GET_USER_QUERY_KEY,
     queryFn: () => getUser(params),
     refetchInterval: 60000,
-    retry: 0,
+    retry: 3,
     ...options,
   })
 }

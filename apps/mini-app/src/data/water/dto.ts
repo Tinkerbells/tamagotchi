@@ -1,4 +1,4 @@
-import { water } from '@tamagotchi/api/hc'
+import type { water } from '@tamagotchi/api/hc'
 
 export type WaterType = Omit<
   typeof water.$inferSelect,
@@ -10,6 +10,6 @@ export type WaterType = Omit<
 
 export type FetchedWater = WaterType[]
 
-export type UpdateWaterDto = {
+export interface UpdateWaterDto {
   currentValue: WaterType['currentValue']
 }

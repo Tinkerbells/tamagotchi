@@ -1,42 +1,45 @@
-import { UserId } from '../user'
-import { ConvertedStatistics } from './dto'
-import { convertStatistics } from './lib'
-import { client } from '@/shared'
-import { QueryObserverOptions, useQuery } from '@tanstack/react-query'
+import type { QueryObserverOptions } from '@tanstack/react-query'
 
-type GetStatisticsQueryParams = {
+import { useQuery } from '@tanstack/react-query'
+
+import { client } from '@/shared'
+
+import type { UserId } from '../user'
+import type { ConvertedStatistics } from './dto'
+
+import { convertStatistics } from './lib'
+
+interface GetStatisticsQueryParams {
   userId: UserId
 }
 
 export const GET_STATISTICS_QUERY_KEY = ['statistics']
 
-const getStatistics = async (params: GetStatisticsQueryParams) => {
+async function getStatistics(params: GetStatisticsQueryParams) {
   try {
     const response = await client.resources.statistics[':id'].$get({
       param: { id: params.userId.toString() },
     })
     if (!response.ok) {
       const error = new Error(
-        `Failed to statistics: ${response.status} ${response.statusText}`
+        `Failed to statistics: ${response.status} ${response.statusText}`,
       )
       error.name = 'FetchStatisticsError'
       throw error
     }
     const result = await response.json()
     return convertStatistics(result)
-  } catch (error) {
+  }
+  catch (error) {
     console.error(error)
     throw error
   }
 }
 
-export const useGetStatistics = (
-  params: GetStatisticsQueryParams,
-  options?: Omit<
-    QueryObserverOptions<ConvertedStatistics, Error>,
+export function useGetStatistics(params: GetStatisticsQueryParams, options?: Omit<
+  QueryObserverOptions<ConvertedStatistics, Error>,
     'queryKey' | 'queryFn'
-  >
-) => {
+>) {
   return useQuery({
     queryKey: GET_STATISTICS_QUERY_KEY,
     queryFn: () => getStatistics(params),

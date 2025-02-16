@@ -1,7 +1,10 @@
-import { StatisticContainer } from './statistic-container'
-import { ConvertedStatistics } from '@/data'
+import type { FC } from 'react'
+
+import type { ConvertedStatistics } from '@/data'
+
 import { Heart, Meditation, Walking } from '@/shared'
-import { FC } from 'react'
+
+import { StatisticContainer } from './statistic-container'
 
 type ProfileStatisticsProps = ConvertedStatistics
 

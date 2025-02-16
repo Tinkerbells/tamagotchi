@@ -1,7 +1,10 @@
-import { getLowestResources, getPetMood } from './lib'
-import { FetchedResources } from '@/data'
-import { useMoodStore } from '@/modules/resources-widget/store'
 import * as React from 'react'
+
+import type { FetchedResources } from '@/data'
+
+import { useMoodStore } from '@/modules/resources-widget/store'
+
+import { getLowestResources, getPetMood } from './lib'
 
 interface PetStatusTextProps {
   petName: string
@@ -17,17 +20,23 @@ export const PetStatusText: React.FC<PetStatusTextProps> = ({
   return (
     <div className="w-[331px]">
       <h2 className="text-center text-xl font-bold">
-        {petName} {getPetMood(mood)}
+        {petName}
+        {' '}
+        {getPetMood(mood)}
       </h2>
       <p className="text-text-secondary mt-2 text-center">
-        Вы давно не{' '}
+        Вы давно не
+        {' '}
         <span className="text-text-highlight underline">
           {lowestResources[0]}
-        </span>{' '}
-        и не{' '}
+        </span>
+        {' '}
+        и не
+        {' '}
         <span className="text-text-highlight underline">
           {lowestResources[1]}
-        </span>{' '}
+        </span>
+        {' '}
         с вашим питомцем.. Возможно сейчас самое время?
       </p>
     </div>

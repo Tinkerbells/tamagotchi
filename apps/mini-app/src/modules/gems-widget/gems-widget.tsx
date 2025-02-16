@@ -1,6 +1,6 @@
 import { Gems, useAuth } from '@/shared'
 
-export const GemsWidget = () => {
+export function GemsWidget() {
   const { user } = useAuth()
   return (
     <div className="absolute left-8 top-3">

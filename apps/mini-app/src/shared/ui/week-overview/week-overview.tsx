@@ -1,22 +1,29 @@
-import * as React from "react"
-import { WeekDayProgressType } from './types'
-import { DayProgress } from './week-overview-day-progress'
-import { useAutoScroll } from '@/shared/hooks'
 import { useId } from 'react'
-import { cn } from "@tamagotchi/utils"
+import * as React from 'react'
+import { cn } from '@tamagotchi/utils'
 
-export interface WeekOverviewProps extends React.ComponentProps<"div"> {
-  variant: 'water' | 'food' | 'sleep' | "gratitude"
+import { useAutoScroll } from '@/shared/hooks'
+
+import type { WeekDayProgressType } from './types'
+
+import { DayProgress } from './week-overview-day-progress'
+
+export interface WeekOverviewProps extends React.ComponentProps<'div'> {
+  variant: 'water' | 'food' | 'sleep' | 'gratitude'
   values: WeekDayProgressType[]
 }
 
-export const WeekOverview = ({ variant, values, className }: WeekOverviewProps) => {
+export function WeekOverview({
+  variant,
+  values,
+  className,
+}: WeekOverviewProps) {
   const containerRef = useAutoScroll<HTMLDivElement>([values])
   const id = useId()
   return (
-    <div className={cn("mt-12 w-full", className)}>
+    <div className={cn('mt-12 w-full', className)}>
       <div
-        className="scrollbar-hide flex gap-5 overflow-x-scroll pr-6 items-end"
+        className="scrollbar-hide flex items-end gap-5 overflow-x-scroll px-6"
         ref={containerRef}
       >
         {values.map(({ day, month, progress }, index) => (
@@ -27,7 +34,7 @@ export const WeekOverview = ({ variant, values, className }: WeekOverviewProps) 
             day={day}
             month={month}
             hasGratitude={progress === 1}
-            progress={variant === "gratitude" ? 0 : progress}
+            progress={variant === 'gratitude' ? 0 : progress}
           />
         ))}
       </div>
@@ -35,6 +42,6 @@ export const WeekOverview = ({ variant, values, className }: WeekOverviewProps) 
   )
 }
 
-const getIsToday = (i: number, length: number) => {
+function getIsToday(i: number, length: number) {
   return i === length
 }

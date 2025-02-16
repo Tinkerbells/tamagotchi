@@ -5,14 +5,14 @@ export interface MeditationContextProps {
   timerProgress: number
 }
 
-export const MeditationContext =
-  React.createContext<MeditationContextProps | null>(null)
+export const MeditationContext
+  = React.createContext<MeditationContextProps | null>(null)
 
-export const useMeditationContext = () => {
+export function useMeditationContext() {
   const context = React.useContext(MeditationContext)
   if (!context) {
     throw new Error(
-      'useMeditationContext must be used within a MeditationProvider'
+      'useMeditationContext must be used within a MeditationProvider',
     )
   }
   return context

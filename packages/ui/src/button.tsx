@@ -63,7 +63,7 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
         {...props}
       >
         {leftIcon}
-        {isLoading && <Loader2 className="mr-2 h-5 w-5 animate-spin" />}
+        {isLoading && <Loader2 className="mr-2 min-h-5 min-w-5 h-5 w-5 animate-spin" />}
         {children}
         {rightIcon}
       </button>

@@ -1,8 +1,8 @@
-import { useMealsWidgetContext } from '../meals-widget-context'
 import { MealsWidgetImage } from './images'
 import { MealsWidgetChoice } from './meals-widget-choice'
+import { useMealsWidgetContext } from '../meals-widget-context'
 
-export const MealsWidgetChoiceGroup = () => {
+export function MealsWidgetChoiceGroup() {
   const { selectedMeals, toggleMeal } = useMealsWidgetContext()
   return (
     <div className="grid h-full w-full grid-cols-2 place-items-center gap-y-7">

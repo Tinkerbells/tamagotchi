@@ -1,10 +1,10 @@
 import { usePet } from './hooks'
 import { PetImage } from './pet-image'
+import { PetStatusText } from './pet-status-text'
 import { PetInteriorItems } from './pet-interior-items'
 import { PetMessageBubble } from './pet-message-bubble'
-import { PetStatusText } from './pet-status-text'
 
-export const Pet = () => {
+export function Pet() {
   const {
     petData,
     isPetLoading,

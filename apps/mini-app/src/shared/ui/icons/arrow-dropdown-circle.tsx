@@ -1,8 +1,8 @@
 import * as React from 'react'
 
-export const ArrowDropdownCircle = ({
+export function ArrowDropdownCircle({
   ...props
-}: React.SVGProps<SVGSVGElement>) => {
+}: React.SVGProps<SVGSVGElement>) {
   return (
     <svg
       width="32"

@@ -3,7 +3,7 @@ import 'dayjs/locale/ru'
 
 dayjs.locale('ru')
 
-export const getLastWeek = () => {
+export function getLastWeek() {
   return Array.from({ length: 7 }, (_, i) => {
     const date = dayjs().subtract(i, 'day')
     return {

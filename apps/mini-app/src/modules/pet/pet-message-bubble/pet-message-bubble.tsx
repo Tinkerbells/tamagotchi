@@ -1,7 +1,8 @@
-import { MoodStatusDialog } from '@/modules/modals'
-import { Dialog, DialogTrigger } from '@tamagotchi/ui'
-import { motion } from 'framer-motion'
 import * as React from 'react'
+import { motion } from 'framer-motion'
+import { Dialog, DialogTrigger } from '@tamagotchi/ui'
+
+import { MoodStatusDialog } from '@/modules/modals'
 
 interface PetMessageBubble {
   message: string
@@ -43,7 +44,7 @@ export const PetMessageBubble: React.FC<PetMessageBubble> = ({ message }) => {
   )
 }
 
-const LargeBubble = () => {
+function LargeBubble() {
   return (
     <svg
       width="38"
@@ -187,7 +188,7 @@ const LargeBubble = () => {
   )
 }
 
-const SmallBubble = () => {
+function SmallBubble() {
   return (
     <svg
       width="26"

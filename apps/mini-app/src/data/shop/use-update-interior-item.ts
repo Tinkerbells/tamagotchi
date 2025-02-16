@@ -1,20 +1,26 @@
-import { GET_PET_QUERY_KEY } from '../pet'
-import { UserId } from '../user'
-import { type Shop } from './dto'
-import { GET_SHOP_QUERY_KEY } from './use-get-shop'
-import { client } from '@/shared'
-import {
+import type {
   MutationOptions,
+} from '@tanstack/react-query'
+
+import {
   useMutation,
   useQueryClient,
 } from '@tanstack/react-query'
 
-type UpdateInteriorItemParams = {
+import { client } from '@/shared'
+
+import type { Shop } from './dto'
+import type { UserId } from '../user'
+
+import { GET_PET_QUERY_KEY } from '../pet'
+import { GET_SHOP_QUERY_KEY } from './use-get-shop'
+
+interface UpdateInteriorItemParams {
   userId: UserId
   itemId: string
 }
 
-const updateInteriorItem = async (params: UpdateInteriorItemParams) => {
+async function updateInteriorItem(params: UpdateInteriorItemParams) {
   try {
     const response = await client.shop.interior[':id'].$patch({
       param: { id: params.itemId },
@@ -24,25 +30,24 @@ const updateInteriorItem = async (params: UpdateInteriorItemParams) => {
     })
     if (!response.ok) {
       const error = new Error(
-        `Failed to update interior item: ${response.status} ${response.statusText}`
+        `Failed to update interior item: ${response.status} ${response.statusText}`,
       )
       error.name = 'UpdateInteriorItemError'
       throw error
     }
     const updatedItem = await response.json()
     return updatedItem
-  } catch (error) {
+  }
+  catch (error) {
     console.error(error)
     throw error
   }
 }
 
-export const useUpdateInteriorItem = (
-  options?: Omit<
-    MutationOptions<Shop | undefined, Error, UpdateInteriorItemParams, unknown>,
-    'mutationFn'
-  >
-) => {
+export function useUpdateInteriorItem(options?: Omit<
+  MutationOptions<Shop | undefined, Error, UpdateInteriorItemParams, unknown>,
+  'mutationFn'
+>) {
   const queryClient = useQueryClient()
   return useMutation({
     ...options,

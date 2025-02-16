@@ -1,10 +1,13 @@
+import type { InteriorType } from '@tamagotchi/api/hc'
+
+import { INTERIOR_ITEMS_ENUM } from '@tamagotchi/api/hc'
+
 import { Books, Cookies, Cup, Garlands, Lamp, Painting } from './items'
-import { INTERIOR_ITEMS_ENUM, InteriorType } from '@tamagotchi/api/hc'
 
 interface PetInteriorItemProps {
   type: InteriorType
 }
-export const PetInteriorItem = ({ type }: PetInteriorItemProps) => {
+export function PetInteriorItem({ type }: PetInteriorItemProps) {
   switch (type) {
     case INTERIOR_ITEMS_ENUM.books:
       return <Books />

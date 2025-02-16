@@ -1,7 +1,7 @@
-import { Skeleton } from '@tamagotchi/ui'
 import * as React from 'react'
+import { Skeleton } from '@tamagotchi/ui'
 
-export const InteriorItemsPlaceholder = () => {
+export function InteriorItemsSkeleton() {
   const id = React.useId()
   return (
     <div>

@@ -1,7 +1,8 @@
-import { WithNavbarAndResourcesScreen } from '../screen'
 import { Profile } from '@/modules'
 
-export const ProfileScreen = () => {
+import { WithNavbarAndResourcesScreen } from '../screen'
+
+export function ProfileScreen() {
   return (
     <WithNavbarAndResourcesScreen texture="highlight">
       <Profile />

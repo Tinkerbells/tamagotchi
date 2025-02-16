@@ -1,8 +1,11 @@
-import { routes } from '@/app/routes'
-import { ResourceWidgetValue } from './types'
-import { ResourceWidget } from './widget'
-import { Heart } from '@/shared'
 import * as React from 'react'
+
+import { Heart } from '@/shared'
+import { routes } from '@/app/routes'
+
+import type { ResourceWidgetValue } from './types'
+
+import { ResourceWidget } from './widget'
 
 export const GratitudeWidget: React.FC<ResourceWidgetValue> = ({ value }) => {
   return (

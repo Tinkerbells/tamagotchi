@@ -1,22 +1,23 @@
-import { SelectedMeals } from '@/screens/meals-screen/types'
-import { WeekDayProgressType } from '@/shared'
 import * as React from 'react'
 
-export type MealsWidgetContextType = {
+import type { WeekDayProgressType } from '@/shared'
+import type { SelectedMeals } from '@/screens/meals-screen/types'
+
+export interface MealsWidgetContextType {
   today: string
   data: WeekDayProgressType[]
   selectedMeals: SelectedMeals
   toggleMeal: (meal: keyof SelectedMeals) => void
 }
 
-export const MealsWidgetContext =
-  React.createContext<MealsWidgetContextType | null>(null)
+export const MealsWidgetContext
+  = React.createContext<MealsWidgetContextType | null>(null)
 
-export const useMealsWidgetContext = () => {
+export function useMealsWidgetContext() {
   const context = React.useContext(MealsWidgetContext)
   if (!context) {
     throw new Error(
-      'useMealsWidgetContext must be used within a MealsWidgetContext'
+      'useMealsWidgetContext must be used within a MealsWidgetContext',
     )
   }
   return context

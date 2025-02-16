@@ -1,13 +1,14 @@
-import { useUpdatePet } from '@/data'
-import { useAuth } from '@/shared'
-import { Button, Input, useDismissDialog } from '@tamagotchi/ui'
 import { useForm } from 'react-hook-form'
+import { Button, Input } from '@tamagotchi/ui'
+
+import { useAuth } from '@/shared'
+import { useUpdatePet } from '@/data'
 
 interface PetRenameFormData {
   petName: string
 }
 
-export const PetRenameForm = () => {
+export function PetRenameForm() {
   const { user } = useAuth()
   const {
     register,

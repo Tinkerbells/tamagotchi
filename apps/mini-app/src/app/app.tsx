@@ -1,98 +1,109 @@
-import { AppProvider } from './app-provider'
-import { Layout } from './layout'
-import { ProtectedRoute } from './protected-route'
-import { routes } from './routes'
+import { Route, Routes } from 'react-router-dom'
+
+import { AchievementsScreen } from '@/screens/achievements-screen'
 import {
+  GratitudeScreen,
   HomeScreen,
+  MealsScreen,
+  MeditationScreen,
   PetCreationScreen,
   ProfileScreen,
   ShopScreen,
-  MeditationScreen,
-  StartScreen,
   SleepScreen,
+  StartScreen,
+  WalkingScreen,
   WaterScreen,
-  MealsScreen,
-  GratitudeScreen,
 } from '@/screens'
-import { AchievementsScreen } from '@/screens/achievements-screen'
-import { Routes, Route } from 'react-router-dom'
 
-export const App = () => {
+import { Layout } from './layout'
+import { routes } from './routes'
+import { AppProvider } from './app-provider'
+import { ProtectedRoute } from './protected-route'
+
+export function App() {
   return (
     <AppProvider>
       <Routes>
         <Route path="/" element={<Layout />}>
           <Route
             index
-            element={
+            element={(
               <ProtectedRoute>
                 <HomeScreen />
               </ProtectedRoute>
-            }
+            )}
           />
           <Route
             path={routes.profile}
-            element={
+            element={(
               <ProtectedRoute>
                 <ProfileScreen />
               </ProtectedRoute>
-            }
+            )}
           />
           <Route
             path={routes.achievements}
-            element={
+            element={(
               <ProtectedRoute>
                 <AchievementsScreen />
               </ProtectedRoute>
-            }
+            )}
           />
           <Route
             path={routes.shop}
-            element={
+            element={(
               <ProtectedRoute>
                 <ShopScreen />
               </ProtectedRoute>
-            }
+            )}
           />
           <Route
             path={routes.water}
-            element={
+            element={(
               <ProtectedRoute>
                 <WaterScreen />
               </ProtectedRoute>
-            }
+            )}
           />
           <Route
             path={routes.sleep}
-            element={
+            element={(
               <ProtectedRoute>
                 <SleepScreen />
               </ProtectedRoute>
-            }
+            )}
           />
           <Route
             path={routes.meditation}
-            element={
+            element={(
               <ProtectedRoute>
                 <MeditationScreen />
               </ProtectedRoute>
-            }
+            )}
           />
           <Route
             path={routes.meals}
-            element={
+            element={(
               <ProtectedRoute>
                 <MealsScreen />
               </ProtectedRoute>
-            }
+            )}
           />
           <Route
             path={routes.gratitude}
-            element={
+            element={(
               <ProtectedRoute>
                 <GratitudeScreen />
               </ProtectedRoute>
-            }
+            )}
+          />
+          <Route
+            path={routes.walking}
+            element={(
+              <ProtectedRoute>
+                <WalkingScreen />
+              </ProtectedRoute>
+            )}
           />
           <Route path={routes.createPet} element={<PetCreationScreen />} />
           <Route path={routes.onboarding} element={<StartScreen />} />

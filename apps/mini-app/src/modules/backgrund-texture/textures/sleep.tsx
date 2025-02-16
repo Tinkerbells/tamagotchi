@@ -1,4 +1,4 @@
-export const SleepBackground = () => {
+export function SleepBackground() {
   return (
     <>
       <svg

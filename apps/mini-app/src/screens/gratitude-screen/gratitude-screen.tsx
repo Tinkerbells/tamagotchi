@@ -1,29 +1,32 @@
-import * as React from "react";
-import { WithResourcesPanel } from "../screen";
-import { useGratitude } from "./hooks";
-import { Heart } from "@/shared";
-import { GratitudesWidget, GratitudeWidgetSkeleton } from "@/modules";
+import * as React from 'react'
+
+import { Heart } from '@/shared'
+import { GratitudesWidget, GratitudeWidgetSkeleton } from '@/modules'
+
+import { useGratitude } from './hooks'
+import { WithResourcesPanel } from '../screen'
 
 interface MessageInputProps {
-  createGratitude: (message: string) => void;
-  isGratitudeCreating: boolean;
+  createGratitude: (message: string) => void
+  isGratitudeCreating: boolean
 }
 
 const MessageInput: React.FC<MessageInputProps> = ({ createGratitude, isGratitudeCreating }) => {
-  const [message, setMessage] = React.useState("");
+  const [message, setMessage] = React.useState('')
 
   const sendMessage = React.useCallback(() => {
-    if (!message.trim()) return;
-    createGratitude(message);
-    setMessage("");
-  }, [message, createGratitude]);
+    if (!message.trim())
+      return
+    createGratitude(message)
+    setMessage('')
+  }, [message, createGratitude])
 
   const handleKeyDown = (event: React.KeyboardEvent<HTMLInputElement>) => {
-    if (event.key === "Enter" || event.key === "Done") {
-      event.preventDefault();
-      sendMessage();
+    if (event.key === 'Enter' || event.key === 'Done') {
+      event.preventDefault()
+      sendMessage()
     }
-  };
+  }
 
   return (
     <div className="relative flex items-center w-full h-11 rounded-[17px] overflow-hidden bg-[#fef5e9]">
@@ -32,7 +35,7 @@ const MessageInput: React.FC<MessageInputProps> = ({ createGratitude, isGratitud
         placeholder="Введите ваше сообщение"
         disabled={isGratitudeCreating}
         value={message}
-        onChange={(e) => setMessage(e.target.value)}
+        onChange={e => setMessage(e.target.value)}
         onKeyDown={handleKeyDown}
       />
       <button
@@ -43,10 +46,10 @@ const MessageInput: React.FC<MessageInputProps> = ({ createGratitude, isGratitud
         <Heart className="w-[18px] h-4" />
       </button>
     </div>
-  );
-};
+  )
+}
 
-export const GratitudeScreen = () => {
+export function GratitudeScreen() {
   const {
     data,
     isLoading,
@@ -54,23 +57,24 @@ export const GratitudeScreen = () => {
     description,
     isGratitudeCreating,
     createGratitude,
-    currentGratitudes
-  } = useGratitude();
-
+    currentGratitudes,
+  } = useGratitude()
 
   return (
     <WithResourcesPanel
       panel={{
-        variant: "gratitude",
+        variant: 'gratitude',
         title,
         description,
         renderPrimaryButton: () => <MessageInput isGratitudeCreating={isGratitudeCreating} createGratitude={createGratitude} />,
       }}
       texture="meditation"
     >
-      {data && !isLoading ? (
-        <GratitudesWidget data={data} current={currentGratitudes} />
-      ) : <GratitudeWidgetSkeleton />}
+      {data && !isLoading
+        ? (
+            <GratitudesWidget data={data} current={currentGratitudes} />
+          )
+        : <GratitudeWidgetSkeleton />}
     </WithResourcesPanel>
-  );
-};
+  )
+}

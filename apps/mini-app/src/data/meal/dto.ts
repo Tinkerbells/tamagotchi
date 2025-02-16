@@ -1,4 +1,4 @@
-import { meal } from '@tamagotchi/api/hc'
+import type { meal } from '@tamagotchi/api/hc'
 
 export type MealType = Omit<
   typeof meal.$inferSelect,

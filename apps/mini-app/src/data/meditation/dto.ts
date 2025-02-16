@@ -1,4 +1,4 @@
-import { meditation } from '@tamagotchi/api/hc'
+import type { meditation } from '@tamagotchi/api/hc'
 
 export type MeditationType = Omit<
   typeof meditation.$inferSelect,
@@ -11,4 +11,3 @@ export type MeditationType = Omit<
 export type MeditationId = string
 
 export type FetchedMeditations = MeditationType[]
-

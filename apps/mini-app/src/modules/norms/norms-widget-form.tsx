@@ -1,15 +1,16 @@
-import { useNormsWidgetForm } from './hooks'
-import { Button, Input } from '@tamagotchi/ui'
+import { useMemo } from 'react'
 import { cn } from '@tamagotchi/utils'
 import { Minus, Plus } from 'lucide-react'
-import { useMemo } from 'react'
+import { Button, Input } from '@tamagotchi/ui'
+
+import { useNormsWidgetForm } from './hooks'
 
 const styles = {
   sleep: { primary: '#B1556C', presetBorder: '#ecd6dc', buttonBg: '#FCC3DD' },
   water: { primary: '#0BB5B5', presetBorder: '#bde5e5', buttonBg: '#C3F9FC' },
 }
 
-export const NormsWidgetForm = () => {
+export function NormsWidgetForm() {
   const {
     onSubmit,
     handleDecrement,
@@ -24,7 +25,7 @@ export const NormsWidgetForm = () => {
 
   const currentStyles = useMemo(
     () => styles[variant] || styles.sleep,
-    [variant]
+    [variant],
   )
 
   return (
@@ -47,7 +48,7 @@ export const NormsWidgetForm = () => {
       </div>
 
       <div className="flex justify-center gap-2">
-        {presets?.map((presetValue) => (
+        {presets?.map(presetValue => (
           <PresetButton
             key={presetValue}
             presetValue={presetValue}
@@ -74,43 +75,47 @@ export const NormsWidgetForm = () => {
   )
 }
 
-const DecrementButton = ({
+function DecrementButton({
   onClick,
   color,
 }: {
   onClick: () => void
   color: string
-}) => (
-  <Button
-    type="button"
-    variant="outline"
-    onClick={onClick}
-    className="aspect-square h-7 w-7 rounded-full border-none p-0 text-white"
-    style={{ backgroundColor: color }}
-  >
-    <Minus className="h-4 w-4" />
-  </Button>
-)
+}) {
+  return (
+    <Button
+      type="button"
+      variant="outline"
+      onClick={onClick}
+      className="aspect-square h-7 w-7 rounded-full border-none p-0 text-white"
+      style={{ backgroundColor: color }}
+    >
+      <Minus className="h-4 w-4" />
+    </Button>
+  )
+}
 
-const IncrementButton = ({
+function IncrementButton({
   onClick,
   color,
 }: {
   onClick: () => void
   color: string
-}) => (
-  <Button
-    type="button"
-    variant="outline"
-    onClick={onClick}
-    className="aspect-square h-7 w-7 rounded-full border-none p-0 text-white"
-    style={{ backgroundColor: color }}
-  >
-    <Plus className="h-4 w-4" />
-  </Button>
-)
+}) {
+  return (
+    <Button
+      type="button"
+      variant="outline"
+      onClick={onClick}
+      className="aspect-square h-7 w-7 rounded-full border-none p-0 text-white"
+      style={{ backgroundColor: color }}
+    >
+      <Plus className="h-4 w-4" />
+    </Button>
+  )
+}
 
-const PresetButton = ({
+function PresetButton({
   presetValue,
   selectedValue,
   onClick,
@@ -120,9 +125,9 @@ const PresetButton = ({
   presetValue: number
   selectedValue: number
   onClick: (value: number) => void
-  styles: { primary: string; presetBorder: string }
+  styles: { primary: string, presetBorder: string }
   variant: string
-}) => {
+}) {
   const isSelected = presetValue === selectedValue
 
   return (
@@ -130,7 +135,7 @@ const PresetButton = ({
       type="button"
       className={cn(
         'whitespace-nowrap rounded-2xl border bg-white px-3 py-1 text-xs font-semibold tracking-tighter',
-        variant === 'water' ? 'w-16' : 'w-[66px]'
+        variant === 'water' ? 'w-16' : 'w-[66px]',
       )}
       style={{
         borderColor: styles.presetBorder,
@@ -139,7 +144,9 @@ const PresetButton = ({
       }}
       onClick={() => onClick(presetValue)}
     >
-      {presetValue} {variant === 'sleep' && 'часов'}
+      {presetValue}
+      {' '}
+      {variant === 'sleep' && 'часов'}
     </Button>
   )
 }

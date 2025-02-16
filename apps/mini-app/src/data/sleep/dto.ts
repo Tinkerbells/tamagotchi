@@ -1,4 +1,4 @@
-import { sleep } from '@tamagotchi/api/hc'
+import type { sleep } from '@tamagotchi/api/hc'
 
 export type SleepType = Omit<
   typeof sleep.$inferSelect,
@@ -10,6 +10,6 @@ export type SleepType = Omit<
 
 export type FetchedSleep = SleepType[]
 
-export type UpdateSleepDto = {
+export interface UpdateSleepDto {
   currentValue: SleepType['currentValue']
 }

@@ -1,12 +1,13 @@
-import { MoodType } from '@/data'
 import { create } from 'zustand'
 
-type MoodStore = {
+import type { MoodType } from '@/data'
+
+interface MoodStore {
   mood: MoodType | null
   setMood: (mood: MoodType) => void
 }
 
-export const useMoodStore = create<MoodStore>((set) => ({
+export const useMoodStore = create<MoodStore>(set => ({
   mood: null,
-  setMood: (mood) => set({ mood }),
+  setMood: mood => set({ mood }),
 }))

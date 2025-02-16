@@ -1,6 +1,6 @@
 import { Skeleton } from '@tamagotchi/ui'
 
-export const MeditationWidgetMusicItemSkeleton = () => {
+export function MeditationWidgetMusicItemSkeleton() {
   return (
     <div className="flex flex-col">
       <Skeleton className="h-5 w-24" />

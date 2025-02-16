@@ -1,9 +1,11 @@
-import { getCurrentSleepValue } from '../utils'
-import { useGetPet, useGetSleep, useUpdateSleep } from '@/data'
-import { getFormatToday, useAuth } from '@/shared'
 import * as React from 'react'
 
-export const useSleep = () => {
+import { getFormatToday, useAuth } from '@/shared'
+import { useGetPet, useGetSleep, useUpdateSleep } from '@/data'
+
+import { getCurrentSleepValue } from '../utils'
+
+export function useSleep() {
   const today = getFormatToday()
 
   const { user } = useAuth()
@@ -12,12 +14,12 @@ export const useSleep = () => {
     userId: user.id,
   })
 
-  const title = 'Сон с ' + petData?.pet.name
-  const description =
-    'Регулярный полноценный сон укрепляет здоровье и помогает вам чувствовать себя бодрее вместе с питомцем!'
+  const title = `Сон с ${petData?.pet.name}`
+  const description
+    = 'Регулярный полноценный сон укрепляет здоровье и помогает вам чувствовать себя бодрее вместе с питомцем!'
 
-  const { mutate: updateSleepMutation, isPending: isSleepUpdating } =
-    useUpdateSleep()
+  const { mutate: updateSleepMutation, isPending: isSleepUpdating }
+    = useUpdateSleep()
 
   const {
     data: sleep,
@@ -34,7 +36,6 @@ export const useSleep = () => {
       if (isSuccess) {
         const progress = sleep?.sleepData[sleep.sleepData.length - 1].progress
         setCurrentProgress(progress)
-        return
       }
     }
   }, [sleep, isSuccess])
@@ -44,7 +45,7 @@ export const useSleep = () => {
       userId: user.id,
       currentValue: getCurrentSleepValue(
         currentProgress,
-        sleep?.dailyNorm || 8
+        sleep?.dailyNorm || 8,
       ),
     })
   }

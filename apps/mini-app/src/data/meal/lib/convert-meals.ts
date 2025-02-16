@@ -1,6 +1,9 @@
-import { FetchedMeals } from '../dto'
-import { SelectedMeals } from '@/screens/meals-screen/types'
 import dayjs from 'dayjs'
+
+import type { SelectedMeals } from '@/screens/meals-screen/types'
+
+import type { FetchedMeals } from '../dto'
+
 import 'dayjs/locale/ru'
 
 dayjs.locale('ru')
@@ -8,7 +11,7 @@ dayjs.locale('ru')
 const DAYS_IN_WEEK = 7
 const MEAL_SCORE = 20
 
-export const convertMeals = (mealsRecords: FetchedMeals) => {
+export function convertMeals(mealsRecords: FetchedMeals) {
   const lastWeek = Array.from({ length: DAYS_IN_WEEK }, (_, i) => {
     const date = dayjs().subtract(i, 'day')
     return {
@@ -22,8 +25,8 @@ export const convertMeals = (mealsRecords: FetchedMeals) => {
     const record = mealsRecords.find((r) => {
       const recordDate = dayjs(r.createdAt)
       return (
-        recordDate.format('D') === day &&
-        recordDate.format('MMM').slice(0, 3) === month
+        recordDate.format('D') === day
+        && recordDate.format('MMM').slice(0, 3) === month
       )
     })
 
@@ -46,9 +49,10 @@ export const convertMeals = (mealsRecords: FetchedMeals) => {
   }
 }
 
-const getCurrentMeals = (records: FetchedMeals): SelectedMeals => {
+function getCurrentMeals(records: FetchedMeals): SelectedMeals {
   const lastRecord = records[records.length - 1]
-  if (!lastRecord) return emptyMeals()
+  if (!lastRecord)
+    return emptyMeals()
 
   return dayjs(lastRecord.createdAt).isSame(dayjs(), 'day')
     ? {
@@ -61,10 +65,12 @@ const getCurrentMeals = (records: FetchedMeals): SelectedMeals => {
     : emptyMeals()
 }
 
-const emptyMeals = (): SelectedMeals => ({
-  breakfast: false,
-  snack: false,
-  lunch: false,
-  afternoon_snack: false,
-  dinner: false,
-})
+function emptyMeals(): SelectedMeals {
+  return {
+    breakfast: false,
+    snack: false,
+    lunch: false,
+    afternoon_snack: false,
+    dinner: false,
+  }
+}

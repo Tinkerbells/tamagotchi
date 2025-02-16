@@ -1,6 +1,6 @@
-import { Button, Input } from '@tamagotchi/ui'
 import { cn } from '@tamagotchi/utils'
-import { Plus, Minus } from 'lucide-react'
+import { Minus, Plus } from 'lucide-react'
+import { Button, Input } from '@tamagotchi/ui'
 
 export interface ChangeNormsFormOptions {
   value: number
@@ -13,7 +13,7 @@ export interface ChangeNormsFormOptions {
   onSubmit: (event: React.FormEvent<HTMLFormElement>) => void
 }
 
-export const ChangeNormsForm = ({
+export function ChangeNormsForm({
   value,
   isPending,
   presets = [],
@@ -22,7 +22,7 @@ export const ChangeNormsForm = ({
   onInputChange,
   onPresetClick,
   onSubmit,
-}: ChangeNormsFormOptions) => {
+}: ChangeNormsFormOptions) {
   return (
     <div>
       <form onSubmit={onSubmit}>
@@ -51,14 +51,14 @@ export const ChangeNormsForm = ({
           </Button>
         </div>
         <div className="mb-6 flex gap-2">
-          {presets.map((presetValue) => (
+          {presets.map(presetValue => (
             <Button
               key={presetValue}
               type="button"
               className={cn(
                 'w-16 rounded-2xl border border-[#bde5e5] bg-white px-3 py-1 text-xs font-semibold text-[#0bb5b5]',
-                presetValue === value &&
-                  'border-[#0bb5b5] bg-[#0bb5b5] text-white'
+                presetValue === value
+                && 'border-[#0bb5b5] bg-[#0bb5b5] text-white',
               )}
               onClick={() => onPresetClick(presetValue)}
             >

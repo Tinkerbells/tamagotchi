@@ -1,4 +1,4 @@
-export const ShadowRight = () => {
+export function ShadowRight() {
   return (
     <svg
       width="345"

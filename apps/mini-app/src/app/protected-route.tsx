@@ -1,5 +1,6 @@
-import { AuthProvider } from '@/shared'
 import * as React from 'react'
+
+import { AuthProvider } from '@/shared'
 
 export const ProtectedRoute: React.FC<React.PropsWithChildren> = ({
   children,

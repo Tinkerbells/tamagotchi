@@ -1,37 +1,38 @@
+import * as React from 'react'
+import { cn } from '@tamagotchi/utils'
+import { Toaster } from 'react-hot-toast'
+
+import type { NavbarProps } from '@/shared'
+import type {
+  BackgroundTextureProps,
+  ResourcesPanelProps,
+} from '@/modules'
+
+import { Navbar } from '@/shared'
 import {
   BackgroundTexture,
-  BackgroundTextureProps,
   GemsWidget,
   ResourcesPanel,
-  ResourcesPanelProps,
   ResourcesWidget,
 } from '@/modules'
-import { Navbar } from '@/shared'
-import { cn } from '@tamagotchi/utils'
-import * as React from 'react'
-import { Toaster } from 'react-hot-toast'
 
 interface ScreenProps extends React.ComponentProps<'div'> {
   texture?: BackgroundTextureProps['variant']
 }
 
-const withNavbar = <P extends ScreenProps>(
-  Component: React.ComponentType<P>
-) => {
-  return (props: P) => {
+function withNavbar<P extends ScreenProps>(Component: React.ComponentType<P>) {
+  return ({ isVisible, ...props }: P & NavbarProps) => {
     return (
       <>
-        <Navbar />
-        <Component {...props} />
+        <Navbar isVisible={isVisible} />
+        <Component {...(props as P)} />
         <GemsWidget />
       </>
     )
   }
 }
 
-const withResources = <P extends ScreenProps>(
-  Component: React.ComponentType<P>
-) => {
+function withResources<P extends ScreenProps>(Component: React.ComponentType<P>) {
   return (props: P) => {
     return (
       <>
@@ -43,11 +44,9 @@ const withResources = <P extends ScreenProps>(
   }
 }
 
-const withResourcesPanel = <
+function withResourcesPanel<
   P extends ScreenProps & { panel: ResourcesPanelProps },
->(
-  Component: React.ComponentType<P>
-) => {
+>(Component: React.ComponentType<P>) {
   return (props: P) => {
     return (
       <>
@@ -68,7 +67,7 @@ export const Screen: React.FC<ScreenProps> = ({
     <main
       className={cn(
         'bg-background-primary flex h-screen w-full flex-col items-center overflow-x-hidden overflow-y-scroll px-4 bg-blend-multiply',
-        className
+        className,
       )}
     >
       <Toaster position="top-center" reverseOrder={false} />

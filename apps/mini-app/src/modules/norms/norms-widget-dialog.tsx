@@ -1,5 +1,3 @@
-import { useNormsWidgetContext } from './norms-widget-context'
-import { NormsWidgetForm } from './norms-widget-form'
 import {
   DialogContent,
   DialogDescription,
@@ -7,13 +5,19 @@ import {
   DialogTitle,
 } from '@tamagotchi/ui'
 
-export const NormsDialog = () => {
+import { NormsWidgetForm } from './norms-widget-form'
+import { useNormsWidgetContext } from './norms-widget-context'
+
+export function NormsDialog() {
   const { variant } = useNormsWidgetContext()
   return (
     <DialogContent>
       <DialogHeader>
         <DialogTitle>
-          Дневная норма {variant === 'water' ? 'воды' : 'сна'}:
+          Дневная норма
+          {' '}
+          {variant === 'water' ? 'воды' : 'сна'}
+          :
         </DialogTitle>
         <DialogDescription>
           {variant === 'water'

@@ -1,22 +1,28 @@
-import { UserId } from '../user'
-import { GratitudeType } from './dto'
-import { convertGratitudes } from './lib'
-import { client, WeekDayProgressType } from '@/shared'
-import { QueryObserverOptions, useQuery } from '@tanstack/react-query'
+import type { QueryObserverOptions } from '@tanstack/react-query'
 
-type GetGratitudesQueryParams = {
+import { useQuery } from '@tanstack/react-query'
+
+import type { WeekDayProgressType } from '@/shared'
+
+import { client } from '@/shared'
+
+import type { UserId } from '../user'
+import type { GratitudeType } from './dto'
+
+import { convertGratitudes } from './lib'
+
+interface GetGratitudesQueryParams {
   userId: UserId
 }
 
-type GetGratitudesQueryType = {
+interface GetGratitudesQueryType {
   data: WeekDayProgressType[]
   current: GratitudeType[]
 }
 
-
 export const GET_GRATITUDES_QUERY_KEY = ['gratitudes']
 
-const getGratitudes = async (params: GetGratitudesQueryParams) => {
+async function getGratitudes(params: GetGratitudesQueryParams) {
   try {
     const gratitudesResponse = await client.gratitudes[':id'].$get({
       param: { id: params.userId.toString() },
@@ -24,27 +30,23 @@ const getGratitudes = async (params: GetGratitudesQueryParams) => {
 
     if (!gratitudesResponse.ok) {
       throw new Error(
-        `Failed to fetch gratitudes: ${gratitudesResponse.status} ${gratitudesResponse.statusText}`
+        `Failed to fetch gratitudes: ${gratitudesResponse.status} ${gratitudesResponse.statusText}`,
       )
     }
     const gratitudes = await gratitudesResponse.json()
     const convertedGratitudes = convertGratitudes(gratitudes)
     return convertedGratitudes
-  } catch (error) {
+  }
+  catch (error) {
     console.error(error)
     throw error
   }
 }
 
-
-
-export const useGetGratitudes = (
-  params: GetGratitudesQueryParams,
-  options?: Omit<
-    QueryObserverOptions<GetGratitudesQueryType, Error>,
+export function useGetGratitudes(params: GetGratitudesQueryParams, options?: Omit<
+  QueryObserverOptions<GetGratitudesQueryType, Error>,
     'queryKey' | 'queryFn'
-  >
-) => {
+>) {
   return useQuery({
     queryKey: GET_GRATITUDES_QUERY_KEY,
     queryFn: () => getGratitudes(params),
@@ -52,4 +54,3 @@ export const useGetGratitudes = (
     ...options,
   })
 }
-

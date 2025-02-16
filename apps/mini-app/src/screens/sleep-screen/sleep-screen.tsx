@@ -1,9 +1,11 @@
-import { WithResourcesPanel } from '../screen'
-import { useSleep } from './hooks'
-import { NormsWidget, NormsWidgetSkeleton } from '@/modules'
 import { Button } from '@tamagotchi/ui'
 
-export const SleepScreen = () => {
+import { NormsWidget, NormsWidgetSkeleton } from '@/modules'
+
+import { useSleep } from './hooks'
+import { WithResourcesPanel } from '../screen'
+
+export function SleepScreen() {
   const {
     today,
     data,
@@ -41,19 +43,21 @@ export const SleepScreen = () => {
       }}
       texture="sleep"
     >
-      {!isLoading && data ? (
-        <NormsWidget
-          currentValue={currentValue}
-          currentProgress={currentProgress}
-          today={today}
-          data={data}
-          onProgressChange={setCurrentProgress}
-          dailyNorm={dailyNorm}
-          variant="sleep"
-        />
-      ) : (
-        <NormsWidgetSkeleton />
-      )}
+      {!isLoading && data
+        ? (
+            <NormsWidget
+              currentValue={currentValue}
+              currentProgress={currentProgress}
+              today={today}
+              data={data}
+              onProgressChange={setCurrentProgress}
+              dailyNorm={dailyNorm}
+              variant="sleep"
+            />
+          )
+        : (
+            <NormsWidgetSkeleton />
+          )}
     </WithResourcesPanel>
   )
 }

@@ -1,6 +1,6 @@
 import * as React from 'react'
 
-export const Home = ({ ...props }: React.SVGProps<SVGSVGElement>) => {
+export function Home({ ...props }: React.SVGProps<SVGSVGElement>) {
   return (
     <svg
       width="21"

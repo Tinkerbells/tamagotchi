@@ -1,7 +1,8 @@
 import { Image } from '@/shared'
+
 import petMeditationImage from '/images/meditation/image.webp'
 
-export const MeditationWidgetBackground = () => {
+export function MeditationWidgetBackground() {
   return (
     <div className="absolute -bottom-24 left-1/2 -translate-x-1/2">
       <div className="relative flex h-[336px] w-[336px] items-center justify-center">
@@ -14,7 +15,7 @@ export const MeditationWidgetBackground = () => {
   )
 }
 
-const Circles = () => {
+function Circles() {
   return (
     <svg
       width="338"

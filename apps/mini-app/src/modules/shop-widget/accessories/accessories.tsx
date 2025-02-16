@@ -1,12 +1,16 @@
+import type { AccessoryType } from '@tamagotchi/api/hc'
+
+import * as React from 'react'
+import { Dialog } from '@tamagotchi/ui'
+
+import type { AccessoriesType } from '@/data'
+
+import { Image } from '@/shared'
+import { CreatePurchaseDialog } from '@/modules'
+
+import { getHat } from './lib'
 import { ProductCard } from '../product-card'
 import { AccessoryItem } from './accessory-item'
-import { getHat } from './lib'
-import { AccessoriesType } from '@/data'
-import { CreatePurchaseDialog } from '@/modules'
-import { Image } from '@/shared'
-import { AccessoryType } from '@tamagotchi/api/hc'
-import { Dialog } from '@tamagotchi/ui'
-import * as React from 'react'
 
 interface AccessoriesProps {
   data: AccessoriesType
@@ -20,7 +24,7 @@ export const Accessories: React.FC<AccessoriesProps> = ({ data }) => {
         Аксессуары на питомца
       </p>
       <div className="mt-4 grid grid-cols-2 gap-4">
-        {data.map((item) => (
+        {data.map(item => (
           <Dialog key={`${id}-${item.id}`}>
             <AccessoryItem
               itemId={item.id}

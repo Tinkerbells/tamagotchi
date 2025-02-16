@@ -1,7 +1,7 @@
-import { AchievementsItem } from './achievements-item'
 import { useAchievement } from './hooks'
+import { AchievementsItem } from './achievements-item'
 
-export const Achievements = () => {
+export function Achievements() {
   const { achievements, isLoading } = useAchievement()
 
   if (!achievements && isLoading) {
@@ -13,7 +13,7 @@ export const Achievements = () => {
   }
   return (
     <div className="z-10 mt-32 flex flex-col gap-3">
-      {achievements.map((achievement) => (
+      {achievements.map(achievement => (
         <AchievementsItem key={achievement.title} achievement={achievement} />
       ))}
     </div>

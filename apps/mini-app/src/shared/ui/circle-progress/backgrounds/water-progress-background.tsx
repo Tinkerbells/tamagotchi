@@ -1,4 +1,4 @@
-export const WaterProgressBackground = ({ x, y }: { x: number; y: number }) => {
+export function WaterProgressBackground({ x, y }: { x: number, y: number }) {
   return (
     <svg
       x={x}

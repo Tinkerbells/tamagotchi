@@ -1,2 +1,2 @@
 export { InteriorItems } from './inerior'
-export { InteriorItemsPlaceholder } from './inerior-placeholder'
+export { InteriorItemsSkeleton } from './inerior-placeholder'

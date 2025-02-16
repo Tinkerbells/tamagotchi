@@ -1,25 +1,25 @@
-import { useGetPost, useGetUser, User } from '@/data'
-import { LoadingScreen } from '@/screens'
-import { useNavigate } from '@/shared/hooks'
-import { vkBridge } from '@/shared/lib'
-import { UserInfo } from '@vkontakte/vk-bridge'
-import React, {
-  createContext,
-  useContext,
-  useState,
-  useEffect,
-  useMemo,
+import type {
   PropsWithChildren,
 } from 'react'
+import type { UserInfo } from '@vkontakte/vk-bridge'
+
+import * as React from 'react'
+
+import type { User } from '@/data'
+
+import { useGetUser } from '@/data'
+import { vkBridge } from '@/shared/lib'
+import { LoadingScreen } from '@/screens'
+import { useNavigate } from '@/shared/hooks'
 
 interface AuthContextType {
   user: User
 }
 
-const AuthContext = createContext<AuthContextType | null>(null)
+const AuthContext = React.createContext<AuthContextType | null>(null)
 
 export const AuthProvider: React.FC<PropsWithChildren> = ({ children }) => {
-  const [vkUser, setVkUser] = useState<UserInfo | null>(null)
+  const [vkUser, setVkUser] = React.useState<UserInfo | null>(null)
   const navigate = useNavigate()
 
   const {
@@ -27,37 +27,39 @@ export const AuthProvider: React.FC<PropsWithChildren> = ({ children }) => {
     isLoading,
     isError,
     error,
+    failureCount,
   } = useGetUser(
-    { userId: vkUser?.id.toString()! },
+    { userId: String(vkUser?.id) },
     {
       enabled: vkUser !== null,
-    }
+    },
   )
 
-  useEffect(() => {
+  React.useEffect(() => {
     const fetchVkUser = async () => {
       try {
         const user = await vkBridge.send('VKWebAppGetUserInfo')
         setVkUser(user)
-      } catch (err) {
+      }
+      catch (err) {
         console.error(err)
       }
     }
     fetchVkUser()
   }, [])
 
-  useEffect(() => {
-    if (isError) {
+  React.useEffect(() => {
+    if (isError && failureCount > 3) {
       console.log(error)
       navigate('/onboarding')
     }
   }, [isError, navigate])
 
-  const value = useMemo(
+  const value = React.useMemo(
     () => ({
       user: user!,
     }),
-    [user]
+    [user],
   )
   if (isLoading || !user) {
     return <LoadingScreen />
@@ -66,8 +68,8 @@ export const AuthProvider: React.FC<PropsWithChildren> = ({ children }) => {
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>
 }
 
-export const useAuth = (): AuthContextType => {
-  const context = useContext(AuthContext)
+export function useAuth(): AuthContextType {
+  const context = React.useContext(AuthContext)
   if (!context) {
     throw new Error('useAuth must be used within an AuthProvider')
   }

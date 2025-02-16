@@ -1,7 +1,7 @@
-import {
-  purchasedInteriorItems,
-  purchasedAccessories,
+import type {
   pet,
+  purchasedAccessories,
+  purchasedInteriorItems,
 } from '@tamagotchi/api/hc'
 
 export type PetAccessoryType = Omit<
@@ -20,7 +20,7 @@ export type PetInteriorItemType = Omit<
 
 export type Pet = typeof pet.$inferSelect
 
-export type PetDto = {
+export interface PetDto {
   pet: Pet
   accessory?: PetAccessoryType
   interior_items?: PetInteriorItemType[]

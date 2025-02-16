@@ -1,24 +1,23 @@
-import { Gems } from '@/shared'
-import { WithResourcesPanel } from '../screen'
-import { useMeditation } from './hooks'
-import { getIsTimer } from './utils'
+import { Button, Drawer, DrawerContent } from '@tamagotchi/ui'
+
+import { Gems, Meditation } from '@/shared'
 import { MeditationWidget } from '@/modules'
-import { Button } from '@tamagotchi/ui'
-import { cn } from '@tamagotchi/utils'
+
+import { getIsTimer } from './utils'
+import { useMeditation } from './hooks'
+import { WithResourcesPanel } from '../screen'
 
 interface ControlsProps {
-  isFinished: boolean;
-  buttonText: string;
-  timeLeft: string;
-  isRunning: boolean;
-  progress: number;
-  loadAds: () => void;
-  finishMeditation: () => void;
-  toggleTimer: () => void;
+  title: string
+  description: string
+  loadAds: () => void
+  isOpen: boolean
+  setIsOpen: (value: boolean) => void
+  finishMeditation: () => void
   isFinishingLoading: boolean
 }
 
-export const MeditationScreen = () => {
+export function MeditationScreen() {
   const {
     title,
     description,
@@ -32,6 +31,8 @@ export const MeditationScreen = () => {
     isFinishingLoading,
     progress,
     finishMeditation,
+    handleDrawerOpen,
+    isFinishDrawerOpen,
   } = useMeditation()
 
   return (
@@ -43,84 +44,101 @@ export const MeditationScreen = () => {
         description,
         isBackHidden: isFinished,
         isLoading,
-        size: isFinished ? "L" : "M",
         renderPrimaryButton: () => (
-          <Controls
-            finishMeditation={finishMeditation}
-            isFinishingLoading={isFinishingLoading}
-            loadAds={loadAds}
-            isFinished={isFinished}
-            buttonText={buttonText}
-            timeLeft={timeLeft}
-            isRunning={isRunning}
-            progress={progress}
-            toggleTimer={toggleTimer}
-          />
-
+          <Button
+            onClick={() => {
+              toggleTimer()
+              isRunning && handleDrawerOpen(true)
+            }}
+            isLoading={isFinishingLoading}
+            className="font-vk relative h-11 w-full justify-center overflow-hidden whitespace-nowrap px-4 text-sm font-semibold tracking-tighter text-[#ce766a]"
+          >
+            {getIsTimer() && (
+              <>
+                <span className="z-20 mr-auto flex">{timeLeft}</span>
+                <ButtonDivider />
+              </>
+            )}
+            <span className="z-20">{buttonText}</span>
+            <span
+              className="absolute left-0 z-10 h-full bg-[#fcd1c3] transition-all duration-300"
+              style={{
+                width: `${progress}%`,
+              }}
+            />
+          </Button>
         ),
       }}
       className="bg-background-secondary"
     >
+      <FinishDrawer
+        title={title}
+        description={description}
+        isOpen={isFinishDrawerOpen}
+        setIsOpen={handleDrawerOpen}
+        finishMeditation={finishMeditation}
+        isFinishingLoading={isFinishingLoading}
+        loadAds={loadAds}
+      />
       <MeditationWidget isTimerRunning={isRunning} timerProgress={progress} />
     </WithResourcesPanel>
   )
 }
 
-const Controls = ({
-  isFinished,
-  buttonText,
-  timeLeft,
-  progress,
+function FinishDrawer({
   loadAds,
-  toggleTimer,
   isFinishingLoading,
-  finishMeditation
-}: ControlsProps) => {
-  if (isFinished) {
-    return (
-      <div className='flex flex-col gap-2 w-full items-center mt-4'>
-        <Button
-          isLoading={isFinishingLoading}
-          className="font-vk relative h-11 w-full justify-center overflow-hidden whitespace-nowrap px-4 text-sm gap-1 font-semibold tracking-tighter text-[#ce766a] bg-[#fcd1c3]"
-          onClick={() => loadAds()}
-        >
-          Посмотреть рекламу и завершить <span className="flex items-center"><Gems /> +5</span>
-        </Button>
-        <Button
-          onClick={finishMeditation}
-          isLoading={isFinishingLoading}
-          className="font-vk relative h-11 w-full justify-center overflow-hidden whitespace-nowrap px-4 text-sm font-semibold tracking-tighter text-[#ce766a] bg-white border-[2px] border-[#fcd1c3]"
-        >
-          Просто завершить медитацию
-        </Button>
-      </div>
-    )
-  }
-
+  title,
+  description,
+  finishMeditation,
+  setIsOpen,
+  isOpen,
+}: ControlsProps) {
   return (
-    <Button
-      onClick={() => toggleTimer()}
-      isLoading={isFinishingLoading}
-      className="font-vk relative h-11 w-full justify-center overflow-hidden whitespace-nowrap px-4 text-sm font-semibold tracking-tighter text-[#ce766a]"
-    >
-      {getIsTimer() && (
-        <>
-          <span className="z-20 mr-auto flex">{timeLeft}</span>
-          <ButtonDivider />
-        </>
-      )}
-      <span className="z-20">{buttonText}</span>
-      <span
-        className="absolute left-0 z-10 h-full bg-[#fcd1c3] transition-all duration-300"
-        style={{
-          width: `${progress}%`,
-        }}
-      />
-    </Button>
+    <Drawer open={isOpen} onOpenChange={setIsOpen}>
+      <DrawerContent className="shadow-profile-card mt-0 h-[35vh] gap-3 px-4 py-6">
+        <div className="relative flex flex-col justify-center gap-2">
+          <span className="font-vk z-20 text-xl font-semibold text-black">
+            {title}
+          </span>
+          <span className="font-vk text-text-secondary z-20 text-[15px] font-normal leading-[18px]">
+            {description}
+          </span>
+          <div className="absolute right-0 top-0 z-10 -mr-4 h-[100px] w-[100px] p-2">
+            <Meditation className="h-20 w-20 text-[#FCD1C3] opacity-30" />
+          </div>
+        </div>
+        <div className="mt-4 flex w-full flex-col items-center gap-2">
+          <Button
+            isLoading={isFinishingLoading}
+            className="font-vk relative h-11 w-full justify-center gap-1 overflow-hidden whitespace-nowrap bg-[#fcd1c3] px-4 text-sm font-semibold tracking-tighter text-[#ce766a]"
+            onClick={() => loadAds()}
+          >
+            Посмотреть рекламу и завершить
+            {' '}
+            <span className="flex items-center">
+              <Gems />
+              {' '}
+              +5
+            </span>
+          </Button>
+          <Button
+            onClick={() => {
+              finishMeditation()
+              setIsOpen(false)
+            }}
+            isLoading={isFinishingLoading}
+            className="font-vk relative h-11 w-full justify-center overflow-hidden whitespace-nowrap border-[2px] border-[#fcd1c3] bg-white px-4 text-sm font-semibold tracking-tighter text-[#ce766a]"
+          >
+            Просто завершить медитацию
+          </Button>
+        </div>
+      </DrawerContent>
+    </Drawer>
   )
 }
 
-const ButtonDivider = () => {
+function ButtonDivider() {
   return (
     <svg
       width="3"

@@ -1,6 +1,6 @@
 import * as React from 'react'
 
-export const CheckCircle = ({ ...props }: React.SVGProps<SVGSVGElement>) => {
+export function CheckCircle({ ...props }: React.SVGProps<SVGSVGElement>) {
   return (
     <svg
       width="20"

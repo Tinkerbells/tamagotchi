@@ -1,8 +1,12 @@
-import gem from '/images/gem/gem.webp'
-import { Image } from '@/shared'
-import { cn } from '@tamagotchi/utils'
-import { cva, VariantProps } from 'class-variance-authority'
+import type { VariantProps } from 'class-variance-authority'
+
 import * as React from 'react'
+import { cn } from '@tamagotchi/utils'
+import { cva } from 'class-variance-authority'
+
+import { Image } from '@/shared'
+
+import gem from '/images/gem/gem.webp'
 
 export const gemsVariants = cva('flex gap-1 relative items-center', {
   variants: {

@@ -1,12 +1,14 @@
-import { FetchedGratitudes } from '../dto'
 import dayjs from 'dayjs'
+
+import type { FetchedGratitudes } from '../dto'
+
 import 'dayjs/locale/ru'
 
 dayjs.locale('ru')
 
 const DAYS_IN_WEEK = 7
 
-export const convertGratitudes = (gratitudesRecords: FetchedGratitudes) => {
+export function convertGratitudes(gratitudesRecords: FetchedGratitudes) {
   const lastWeek = Array.from({ length: DAYS_IN_WEEK }, (_, i) => {
     const date = dayjs().subtract(i, 'day')
     return {
@@ -22,8 +24,8 @@ export const convertGratitudes = (gratitudesRecords: FetchedGratitudes) => {
   const currentGratitudes = gratitudesRecords.filter((r) => {
     const recordDate = dayjs(r.createdAt)
     return (
-      recordDate.format('D') === currentDate &&
-      recordDate.format('MMM').slice(0, 3) === currentMonth
+      recordDate.format('D') === currentDate
+      && recordDate.format('MMM').slice(0, 3) === currentMonth
     )
   })
 
@@ -31,12 +33,12 @@ export const convertGratitudes = (gratitudesRecords: FetchedGratitudes) => {
     const record = gratitudesRecords.find((r) => {
       const recordDate = dayjs(r.createdAt)
       return (
-        recordDate.format('D') === day &&
-        recordDate.format('MMM').slice(0, 3) === month
+        recordDate.format('D') === day
+        && recordDate.format('MMM').slice(0, 3) === month
       )
     })
 
-    const progress = Boolean(record) ? 1 : 0
+    const progress = record ? 1 : 0
 
     return { day, month, progress }
   })

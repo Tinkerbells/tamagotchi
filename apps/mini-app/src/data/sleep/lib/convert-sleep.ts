@@ -1,14 +1,14 @@
-import { FetchedSleep } from '../dto'
-import { FetchedNorms } from '@/data/resources'
 import dayjs from 'dayjs'
+
+import type { FetchedNorms } from '@/data/resources'
+
+import type { FetchedSleep } from '../dto'
+
 import 'dayjs/locale/ru'
 
 dayjs.locale('ru')
 
-export const convertSleep = (
-  sleepRecords: FetchedSleep,
-  norms: FetchedNorms
-) => {
+export function convertSleep(sleepRecords: FetchedSleep, norms: FetchedNorms) {
   const lastWeek = Array.from({ length: 7 }, (_, i) => {
     const date = dayjs().subtract(i, 'day')
     return {
@@ -20,9 +20,9 @@ export const convertSleep = (
 
   const sleepData = lastWeek.map((day) => {
     const record = sleepRecords.find(
-      (r) =>
-        dayjs(r.createdAt).format('D') === day.day &&
-        dayjs(r.createdAt).format('MMM').slice(0, 3) === day.month
+      r =>
+        dayjs(r.createdAt).format('D') === day.day
+        && dayjs(r.createdAt).format('MMM').slice(0, 3) === day.month,
     )
 
     return {
@@ -39,7 +39,7 @@ export const convertSleep = (
   }
 }
 
-const getCurrentValue = (records: FetchedSleep) => {
+function getCurrentValue(records: FetchedSleep) {
   if (records.length === 0) {
     return 0
   }

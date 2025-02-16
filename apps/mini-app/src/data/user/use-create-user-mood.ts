@@ -1,19 +1,25 @@
-import type { UserId, UserMood } from './dto'
-import { GET_USER_MOOD_QUERY_KEY } from './use-get-user-mood'
-import { client } from '@/shared'
+import type {
+  MutationOptions,
+} from '@tanstack/react-query'
+
 import { useDismissModal } from '@tamagotchi/ui'
 import {
-  MutationOptions,
   useMutation,
   useQueryClient,
 } from '@tanstack/react-query'
 
-type CreateUserMoodParams = {
+import { client } from '@/shared'
+
+import type { UserId, UserMood } from './dto'
+
+import { GET_USER_MOOD_QUERY_KEY } from './use-get-user-mood'
+
+interface CreateUserMoodParams {
   userId: UserId
   moodStatus: number
 }
 
-const createUserMood = async (params: CreateUserMoodParams) => {
+async function createUserMood(params: CreateUserMoodParams) {
   try {
     const response = await client.user.mood[':id'].$post({
       param: { id: params.userId.toString() },
@@ -23,25 +29,24 @@ const createUserMood = async (params: CreateUserMoodParams) => {
     })
     if (!response.ok) {
       const error = new Error(
-        `Failed to create user mood: ${response.status} ${response.statusText}`
+        `Failed to create user mood: ${response.status} ${response.statusText}`,
       )
       error.name = 'CreateUserMoodError'
       throw error
     }
     const result = await response.json()
     return result
-  } catch (error) {
+  }
+  catch (error) {
     console.error(error)
     throw error
   }
 }
 
-export const useCreateUserMood = (
-  options?: Omit<
-    MutationOptions<UserMood | undefined, Error, CreateUserMoodParams, unknown>,
-    'mutationFn'
-  >
-) => {
+export function useCreateUserMood(options?: Omit<
+  MutationOptions<UserMood | undefined, Error, CreateUserMoodParams, unknown>,
+  'mutationFn'
+>) {
   const { dismiss } = useDismissModal()
   const queryClient = useQueryClient()
   return useMutation({

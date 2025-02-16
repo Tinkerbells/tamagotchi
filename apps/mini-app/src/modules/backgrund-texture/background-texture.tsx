@@ -1,3 +1,7 @@
+import * as React from 'react'
+
+import type { MoodType } from '@/data'
+
 import { Shadows } from './shadows'
 import {
   Bored,
@@ -10,8 +14,6 @@ import {
   VeryHappy,
   WaterBackground,
 } from './textures'
-import { MoodType } from '@/data'
-import * as React from 'react'
 
 export interface BackgroundTextureProps {
   variant?: MoodType | 'highlight' | 'water' | 'sleep' | 'meditation'

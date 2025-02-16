@@ -1,6 +1,6 @@
 import { Skeleton } from '@tamagotchi/ui'
 
-export const WeekOverviewSkeleton = () => {
+export function WeekOverviewSkeleton() {
   return (
     <div className="mt-12 w-full overflow-hidden">
       <div className="scrollbar-hide flex gap-5 overflow-y-scroll px-6">

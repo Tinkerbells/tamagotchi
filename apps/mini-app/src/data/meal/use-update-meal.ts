@@ -1,18 +1,24 @@
-import { GET_RESOURCES_QUERY_KEY } from '../resources'
-import { UserId } from '../user'
-import { MealType, UpdateMeal } from './dto'
-import { GET_MEALS_QUERY_KEY } from './use-get-meals'
-import { client } from '@/shared'
-import {
+import type {
   MutationOptions,
+} from '@tanstack/react-query'
+
+import toast from 'react-hot-toast'
+import {
   useMutation,
   useQueryClient,
 } from '@tanstack/react-query'
-import toast from 'react-hot-toast'
+
+import { client } from '@/shared'
+
+import type { UserId } from '../user'
+import type { MealType, UpdateMeal } from './dto'
+
+import { GET_MEALS_QUERY_KEY } from './use-get-meals'
+import { GET_RESOURCES_QUERY_KEY } from '../resources'
 
 type UpdateMealParams = { userId: UserId } & UpdateMeal
 
-const updateMeal = async (params: UpdateMealParams) => {
+async function updateMeal(params: UpdateMealParams) {
   const { dinner, breakfast, lunch, snack, afternoon_snack } = params
 
   try {
@@ -29,25 +35,24 @@ const updateMeal = async (params: UpdateMealParams) => {
     })
     if (!response.ok) {
       const error = new Error(
-        `Failed to update meal: ${response.status} ${response.statusText}`
+        `Failed to update meal: ${response.status} ${response.statusText}`,
       )
       error.name = 'UpdateMealError'
       throw error
     }
     const meal = await response.json()
     return meal
-  } catch (error) {
+  }
+  catch (error) {
     console.error(error)
     throw error
   }
 }
 
-export const useUpdateMeal = (
-  options?: Omit<
-    MutationOptions<MealType | undefined, Error, UpdateMealParams, unknown>,
-    'mutationFn'
-  >
-) => {
+export function useUpdateMeal(options?: Omit<
+  MutationOptions<MealType | undefined, Error, UpdateMealParams, unknown>,
+  'mutationFn'
+>) {
   const queryClient = useQueryClient()
 
   return useMutation({

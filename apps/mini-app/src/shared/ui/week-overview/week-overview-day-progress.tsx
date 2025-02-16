@@ -1,6 +1,7 @@
 import { Heart } from 'lucide-react'
-import { WeekOverviewProps } from './week-overview'
 import { cn } from '@tamagotchi/utils'
+
+import type { WeekOverviewProps } from './week-overview'
 
 export interface DayProgressProps {
   progress: number
@@ -36,7 +37,7 @@ export const DayProgress: React.FC<DayProgressProps> = ({
   month,
   isToday,
   variant,
-  hasGratitude
+  hasGratitude,
 }) => {
   const radius = 22
   const center = 24
@@ -48,9 +49,9 @@ export const DayProgress: React.FC<DayProgressProps> = ({
   const textColor = `text-[${stroke}]`
 
   return (
-    <div className='flex flex-col items-center'>
+    <div className="flex flex-col items-center">
       {hasGratitude && (
-        <Heart className='text-[#fef5e9] fill-[#fef5e9] w-4 h-[14px] mb-2' />
+        <Heart className="text-[#fef5e9] fill-[#fef5e9] w-4 h-[14px] mb-2" />
       )}
       <div className="relative flex overflow-visible w-12 items-center justify-center">
         <svg width="48" height="48" viewBox="0 0 48 48">
@@ -60,7 +61,7 @@ export const DayProgress: React.FC<DayProgressProps> = ({
             cy={center}
             r={radius}
             fill={isToday ? fill : 'none'}
-            stroke={'#000000'}
+            stroke="#000000"
             fillOpacity={0.8}
             strokeOpacity={0.08}
             strokeWidth={1.5}
@@ -84,7 +85,7 @@ export const DayProgress: React.FC<DayProgressProps> = ({
           <span
             className={cn(
               'text-center text-sm font-semibold',
-              isToday ? textColor : 'text-black'
+              isToday ? textColor : 'text-black',
             )}
           >
             {day}
@@ -92,7 +93,7 @@ export const DayProgress: React.FC<DayProgressProps> = ({
           <span
             className={cn(
               '-mt-0.5 text-center text-xs font-normal',
-              isToday ? textColor : 'text-text-secondary'
+              isToday ? textColor : 'text-text-secondary',
             )}
           >
             {month}

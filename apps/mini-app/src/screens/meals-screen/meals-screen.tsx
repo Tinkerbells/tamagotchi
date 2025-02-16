@@ -1,9 +1,11 @@
-import { WithResourcesPanel } from '../screen'
-import { useMeals } from './hooks'
-import { MealsWidget, MealsWidgetSkeleton } from '@/modules/meals-widget'
 import { Button } from '@tamagotchi/ui'
 
-export const MealsScreen = () => {
+import { MealsWidget, MealsWidgetSkeleton } from '@/modules/meals-widget'
+
+import { useMeals } from './hooks'
+import { WithResourcesPanel } from '../screen'
+
+export function MealsScreen() {
   const {
     today,
     data,
@@ -38,16 +40,18 @@ export const MealsScreen = () => {
         renderPrimaryButton: () => <SaveButton />,
       }}
     >
-      {data && !isLoading ? (
-        <MealsWidget
-          selectedMeals={selectedMeals}
-          toggleMeal={toggleMeal}
-          today={today}
-          data={data}
-        />
-      ) : (
-        <MealsWidgetSkeleton />
-      )}
+      {data && !isLoading
+        ? (
+            <MealsWidget
+              selectedMeals={selectedMeals}
+              toggleMeal={toggleMeal}
+              today={today}
+              data={data}
+            />
+          )
+        : (
+            <MealsWidgetSkeleton />
+          )}
     </WithResourcesPanel>
   )
 }

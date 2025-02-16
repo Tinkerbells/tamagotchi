@@ -1,14 +1,16 @@
-import { MoodButton } from './mood-button'
-import { useCreateUserMood } from '@/data'
-import { useAuth } from '@/shared'
 import { Button } from '@tamagotchi/ui'
-import { useForm, Controller } from 'react-hook-form'
+import { Controller, useForm } from 'react-hook-form'
 
-type MoodFormValues = {
+import { useAuth } from '@/shared'
+import { useCreateUserMood } from '@/data'
+
+import { MoodButton } from './mood-button'
+
+interface MoodFormValues {
   moodStatus: number
 }
 
-export const SelectMoodForm = () => {
+export function SelectMoodForm() {
   const { user } = useAuth()
   const { mutate: createUserMood, isPending } = useCreateUserMood()
   const { control, handleSubmit, setValue } = useForm<MoodFormValues>({

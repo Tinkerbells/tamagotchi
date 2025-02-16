@@ -1,6 +1,6 @@
 import { Skeleton } from '@tamagotchi/ui'
 
-export const NormsWidgetSkeleton = () => {
+export function NormsWidgetSkeleton() {
   return (
     <div className="h-[calc(100% - 30vh)] absolute bottom-[30vh] mb-8 flex w-full flex-col items-center justify-start gap-8 overflow-x-hidden pt-24">
       <Skeleton className="h-10 w-2/3" />

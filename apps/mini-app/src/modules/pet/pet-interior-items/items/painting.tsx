@@ -1,8 +1,10 @@
-import { getPetInterirorItem } from '../lib'
-import { Image } from '@/shared'
 import { INTERIOR_ITEMS_ENUM } from '@tamagotchi/api/hc'
 
-export const Painting = () => {
+import { Image } from '@/shared'
+
+import { getPetInterirorItem } from '../lib'
+
+export function Painting() {
   return (
     <figure className="absolute right-4 top-[12vh] h-[61px] w-[74px]">
       <Image

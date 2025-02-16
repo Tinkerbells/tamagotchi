@@ -1,6 +1,8 @@
-import { cva } from 'class-variance-authority'
+import type { NavLinkProps } from 'react-router-dom'
+
 import * as React from 'react'
-import { NavLink, NavLinkProps } from 'react-router-dom'
+import { NavLink } from 'react-router-dom'
+import { cva } from 'class-variance-authority'
 
 export const navbarItemVariants = cva(
   'inline-flex gap-1 justify-center items-center rounded-lg h-8 transition-all text-[12px] font-medium',
@@ -15,7 +17,7 @@ export const navbarItemVariants = cva(
     defaultVariants: {
       variant: 'default',
     },
-  }
+  },
 )
 
 type NavbarItemProps = NavLinkProps
@@ -30,8 +32,7 @@ export const NavbarItem: React.FC<NavbarItemProps> = ({
       className={({ isActive }) =>
         isActive
           ? navbarItemVariants({ variant: 'active', className })
-          : navbarItemVariants({ variant: 'default', className })
-      }
+          : navbarItemVariants({ variant: 'default', className })}
       {...props}
     >
       {children}

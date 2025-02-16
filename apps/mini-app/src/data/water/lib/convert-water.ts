@@ -1,14 +1,14 @@
-import { FetchedWater } from '../dto'
-import { FetchedNorms } from '@/data/resources'
 import dayjs from 'dayjs'
+
+import type { FetchedNorms } from '@/data/resources'
+
+import type { FetchedWater } from '../dto'
+
 import 'dayjs/locale/ru'
 
 dayjs.locale('ru')
 
-export const convertWater = (
-  waterRecords: FetchedWater,
-  norms: FetchedNorms
-) => {
+export function convertWater(waterRecords: FetchedWater, norms: FetchedNorms) {
   const lastWeek = Array.from({ length: 7 }, (_, i) => {
     const date = dayjs().subtract(i, 'day')
     return {
@@ -20,9 +20,9 @@ export const convertWater = (
 
   const weekWaterData = lastWeek.map((day) => {
     const record = waterRecords.find(
-      (r) =>
-        dayjs(r.createdAt).format('D') === day.day &&
-        dayjs(r.createdAt).format('MMM').slice(0, 3) === day.month
+      r =>
+        dayjs(r.createdAt).format('D') === day.day
+        && dayjs(r.createdAt).format('MMM').slice(0, 3) === day.month,
     )
 
     return {
@@ -39,7 +39,7 @@ export const convertWater = (
   }
 }
 
-const getCurrentValue = (records: FetchedWater) => {
+function getCurrentValue(records: FetchedWater) {
   if (records.length === 0) {
     return 0
   }

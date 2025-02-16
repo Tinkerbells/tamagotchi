@@ -1,18 +1,24 @@
-import { GET_RESOURCES_QUERY_KEY } from '../resources'
-import { UserId } from '../user'
-import { UpdateSleepDto, SleepType } from './dto'
-import { GET_SLEEP_QUERY_KEY } from './use-get-sleep'
-import { client } from '@/shared'
-import {
+import type {
   MutationOptions,
+} from '@tanstack/react-query'
+
+import toast from 'react-hot-toast'
+import {
   useMutation,
   useQueryClient,
 } from '@tanstack/react-query'
-import toast from 'react-hot-toast'
+
+import { client } from '@/shared'
+
+import type { UserId } from '../user'
+import type { SleepType, UpdateSleepDto } from './dto'
+
+import { GET_SLEEP_QUERY_KEY } from './use-get-sleep'
+import { GET_RESOURCES_QUERY_KEY } from '../resources'
 
 type UpdateSleepParams = { userId: UserId } & UpdateSleepDto
 
-const updateSleep = async (params: UpdateSleepParams) => {
+async function updateSleep(params: UpdateSleepParams) {
   try {
     const response = await client.sleep[':id'].$patch({
       param: { id: params.userId.toString() },
@@ -23,25 +29,24 @@ const updateSleep = async (params: UpdateSleepParams) => {
     })
     if (!response.ok) {
       const error = new Error(
-        `Failed to update sleep: ${response.status} ${response.statusText}`
+        `Failed to update sleep: ${response.status} ${response.statusText}`,
       )
       error.name = 'UpdateSleepError'
       throw error
     }
     const sleep = await response.json()
     return sleep
-  } catch (error) {
+  }
+  catch (error) {
     console.error(error)
     throw error
   }
 }
 
-export const useUpdateSleep = (
-  options?: Omit<
-    MutationOptions<SleepType | undefined, Error, UpdateSleepParams, unknown>,
-    'mutationFn'
-  >
-) => {
+export function useUpdateSleep(options?: Omit<
+  MutationOptions<SleepType | undefined, Error, UpdateSleepParams, unknown>,
+  'mutationFn'
+>) {
   const queryClient = useQueryClient()
 
   return useMutation({

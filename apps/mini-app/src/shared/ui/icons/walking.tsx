@@ -1,6 +1,6 @@
 import * as React from 'react'
 
-export const Walking = ({ ...props }: React.SVGProps<SVGSVGElement>) => {
+export function Walking({ ...props }: React.SVGProps<SVGSVGElement>) {
   return (
     <svg
       width="20"

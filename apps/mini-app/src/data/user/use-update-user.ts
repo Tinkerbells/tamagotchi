@@ -1,24 +1,29 @@
-import type { User, UserId } from './dto'
+import type { MutationOptions } from '@tanstack/react-query'
+
+import { useMutation, useQueryClient } from '@tanstack/react-query'
+
 import { client } from '@/shared'
-import { MutationOptions, useMutation, useQueryClient } from '@tanstack/react-query'
+
+import type { User, UserId } from './dto'
+
 import { GET_USER_QUERY_KEY } from './use-get-user'
 
-type UpdateUserQueryParams = {
+interface UpdateUserQueryParams {
   userId: UserId
   gems: number
 }
 
-const updateUser = async (params: UpdateUserQueryParams) => {
+async function updateUser(params: UpdateUserQueryParams) {
   try {
     const response = await client.user[':id'].$patch({
       param: { id: params.userId.toString() },
       json: {
-        gems: params.gems
+        gems: params.gems,
       },
     })
     if (!response.ok) {
       const error = new Error(
-        `Failed to update user: ${response.status} ${response.statusText}`
+        `Failed to update user: ${response.status} ${response.statusText}`,
       )
       error.name = 'UpdateUserError'
       throw error
@@ -32,13 +37,10 @@ const updateUser = async (params: UpdateUserQueryParams) => {
   }
 }
 
-export const useUpdateUser = (
-  options?: Omit<
-    MutationOptions<User | undefined, Error, UpdateUserQueryParams, unknown>,
-    'mutationFn'
-  >
-) => {
-
+export function useUpdateUser(options?: Omit<
+  MutationOptions<User | undefined, Error, UpdateUserQueryParams, unknown>,
+  'mutationFn'
+>) {
   const queryClient = useQueryClient()
   return useMutation({
     mutationFn: (params: UpdateUserQueryParams) => updateUser(params),

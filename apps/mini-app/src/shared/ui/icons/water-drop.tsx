@@ -1,6 +1,6 @@
 import * as React from 'react'
 
-export const WaterDrop = ({ ...props }: React.SVGProps<SVGSVGElement>) => {
+export function WaterDrop({ ...props }: React.SVGProps<SVGSVGElement>) {
   return (
     <svg
       width="18"

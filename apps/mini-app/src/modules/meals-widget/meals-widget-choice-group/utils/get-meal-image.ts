@@ -1,12 +1,10 @@
-import afternoon_snack from '/images/meals/afternoon_snack.webp'
-import breakfast from '/images/meals/breakfast.webp'
-import dinner from '/images/meals/dinner.webp'
 import lunch from '/images/meals/lunch.webp'
 import snack from '/images/meals/snack.webp'
+import dinner from '/images/meals/dinner.webp'
+import breakfast from '/images/meals/breakfast.webp'
+import afternoon_snack from '/images/meals/afternoon_snack.webp'
 
-export const getMealImage = (
-  type?: 'breakfast' | 'snack' | 'afternoon_snack' | 'lunch' | 'dinner'
-) => {
+export function getMealImage(type?: 'breakfast' | 'snack' | 'afternoon_snack' | 'lunch' | 'dinner') {
   switch (type) {
     case 'breakfast':
       return breakfast

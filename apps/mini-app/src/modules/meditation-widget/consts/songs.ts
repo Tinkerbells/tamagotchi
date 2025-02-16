@@ -1,4 +1,5 @@
-import { Song } from '../types'
+import type { Song } from '../types'
+
 import songPath1 from '/music/meditation-1.mp3'
 import songPath2 from '/music/meditation-2.mp3'
 import songPath3 from '/music/meditation-3.mp3'

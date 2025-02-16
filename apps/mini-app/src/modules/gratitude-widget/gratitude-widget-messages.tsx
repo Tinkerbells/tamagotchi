@@ -1,8 +1,9 @@
-import { motion, AnimatePresence } from "framer-motion"
-import { Loader2, X } from "lucide-react"
-import { useGratitudesWidgetMessages } from "./hooks"
+import { Loader2, X } from 'lucide-react'
+import { AnimatePresence, motion } from 'framer-motion'
 
-export const GratitudesWidgetMessages = () => {
+import { useGratitudesWidgetMessages } from './hooks'
+
+export function GratitudesWidgetMessages() {
   const { containerRef, visibleMessages, id, current, removeItem, isItemRemoving, removingItems } = useGratitudesWidgetMessages()
 
   return (
@@ -16,7 +17,7 @@ export const GratitudesWidgetMessages = () => {
             key={id + gratitude.id}
             data-message-id={gratitude.id}
             className={`message-item bg-white rounded-3xl shadow-gratitude-message py-3 px-4 w-fit text-text-secondary text-xs tracking-tighter 
-              ${index % 2 === 0 ? "mr-[30vw]" : "ml-[30vw]"}`}
+              ${index % 2 === 0 ? 'mr-[30vw]' : 'ml-[30vw]'}`}
             initial={{ opacity: 0, y: 50, rotate: index % 2 === 0 ? -5 : 5 }}
             animate={{
               opacity: visibleMessages.has(gratitude.id.toString()) ? 1 : 0,
@@ -36,12 +37,15 @@ export const GratitudesWidgetMessages = () => {
             {gratitude.message}
             <button
               onClick={() => removeItem(gratitude.id)}
-              className="absolute -top-1 -right-1 w-[18px] h-[18px] rounded-full bg-[#fef5e9] text-[#dfbc98] flex items-center justify-center">
-              {removingItems.has(gratitude.id.toString()) && isItemRemoving ? (
-                <Loader2 size={14} className="animate-spin fill-[#dfbc98]" />
-              ) : (
-                <X className="fill-[#dfbc98]" size={14} />
-              )}
+              className="absolute -top-1 -right-1 w-[18px] h-[18px] rounded-full bg-[#fef5e9] text-[#dfbc98] flex items-center justify-center"
+            >
+              {removingItems.has(gratitude.id.toString()) && isItemRemoving
+                ? (
+                    <Loader2 size={14} className="animate-spin fill-[#dfbc98]" />
+                  )
+                : (
+                    <X className="fill-[#dfbc98]" size={14} />
+                  )}
             </button>
           </motion.div>
         ))}

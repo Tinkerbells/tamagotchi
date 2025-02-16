@@ -1,4 +1,4 @@
-export const MeditationBackground = () => {
+export function MeditationBackground() {
   return (
     <>
       <svg

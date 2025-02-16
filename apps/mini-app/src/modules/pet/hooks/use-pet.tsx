@@ -1,9 +1,9 @@
+import { useAuth } from '@/shared'
 import { useGetPet, useGetUserMood } from '@/data'
 import { useResources } from '@/modules/resources-widget'
 import { useMoodStore } from '@/modules/resources-widget/store'
-import { useAuth } from '@/shared'
 
-export const usePet = () => {
+export function usePet() {
   const { user } = useAuth()
 
   const { data: petData, isLoading: isPetLoading } = useGetPet({

@@ -1,9 +1,11 @@
-import { getCurrentWaterValue } from '../utils'
-import { useGetPet, useGetWater, useUpdateWater } from '@/data'
-import { getFormatToday, useAuth } from '@/shared'
 import * as React from 'react'
 
-export const useWater = () => {
+import { getFormatToday, useAuth } from '@/shared'
+import { useGetPet, useGetWater, useUpdateWater } from '@/data'
+
+import { getCurrentWaterValue } from '../utils'
+
+export function useWater() {
   const today = getFormatToday()
 
   const { user } = useAuth()
@@ -12,12 +14,12 @@ export const useWater = () => {
     userId: user.id,
   })
 
-  const title = 'Приём воды с ' + petData?.pet.name
-  const description =
-    'Регулярные совместные приемы воды с питомцем укрепляют его и ваше здоровье.'
+  const title = `Приём воды с ${petData?.pet.name}`
+  const description
+    = 'Регулярные совместные приемы воды с питомцем укрепляют его и ваше здоровье.'
 
-  const { mutate: updateWaterMutation, isPending: isWaterUpdating } =
-    useUpdateWater()
+  const { mutate: updateWaterMutation, isPending: isWaterUpdating }
+    = useUpdateWater()
 
   const {
     data: water,
@@ -34,7 +36,6 @@ export const useWater = () => {
       if (isSuccess) {
         const progress = water?.waterData[water.waterData.length - 1].progress
         setCurrentProgress(progress)
-        return
       }
     }
   }, [water, isSuccess])
@@ -44,7 +45,7 @@ export const useWater = () => {
       userId: user.id,
       currentValue: getCurrentWaterValue(
         currentProgress,
-        water?.dailyNorm || 750
+        water?.dailyNorm || 750,
       ),
     })
   }

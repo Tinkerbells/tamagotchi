@@ -1,4 +1,4 @@
-import { gratitude } from '@tamagotchi/api/hc'
+import type { gratitude } from '@tamagotchi/api/hc'
 
 export type GratitudeType = Omit<
   typeof gratitude.$inferSelect,
@@ -11,4 +11,3 @@ export type GratitudeType = Omit<
 export type GratitudeId = string
 
 export type FetchedGratitudes = GratitudeType[]
-
