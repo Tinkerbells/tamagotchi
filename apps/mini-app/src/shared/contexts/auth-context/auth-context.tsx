@@ -27,7 +27,6 @@ export const AuthProvider: React.FC<PropsWithChildren> = ({ children }) => {
     isLoading,
     isError,
     error,
-    failureCount,
   } = useGetUser(
     { userId: String(vkUser?.id) },
     {
@@ -49,7 +48,7 @@ export const AuthProvider: React.FC<PropsWithChildren> = ({ children }) => {
   }, [])
 
   React.useEffect(() => {
-    if (isError && failureCount > 3) {
+    if (isError) {
       console.log(error)
       navigate('/onboarding')
     }

@@ -11,7 +11,6 @@ import {
   ShopScreen,
   SleepScreen,
   StartScreen,
-  WalkingScreen,
   WaterScreen,
 } from '@/screens'
 

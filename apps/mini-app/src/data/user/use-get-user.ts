@@ -39,7 +39,7 @@ export function useGetUser(params: GetUserQueryParams, options?: Omit<QueryObser
     queryKey: GET_USER_QUERY_KEY,
     queryFn: () => getUser(params),
     refetchInterval: 60000,
-    retry: 3,
+    retry: 0,
     ...options,
   })
 }

@@ -11,18 +11,13 @@ interface PetFormData {
 }
 
 export function PetCreationForm() {
-  const navigate = useNavigate()
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm<PetFormData>()
 
-  const { mutate: createPet, isError } = useCreateUser({
-    onSuccess: () => {
-      navigate('/')
-    },
-  })
+  const { mutate: createPet, isError } = useCreateUser()
 
   const onSubmit = async (data: PetFormData) => {
     const vkUser = await vkBridge.send('VKWebAppGetUserInfo')

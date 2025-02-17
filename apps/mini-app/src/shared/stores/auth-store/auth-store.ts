@@ -7,11 +7,7 @@ export class AuthStore {
     this.storage = localStorage
   }
 
-  async init() {
-    await this.set()
-  }
-
-  async get() {
+  get() {
     const authorization = this.storage.getItem('Authorization')
     return authorization ? JSON.parse(authorization) : null
   }
