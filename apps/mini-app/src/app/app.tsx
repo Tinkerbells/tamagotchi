@@ -97,14 +97,14 @@ export function App() {
               </ProtectedRoute>
             )}
           />
-          <Route
-            path={routes.walking}
-            element={(
-              <ProtectedRoute>
-                <WalkingScreen />
-              </ProtectedRoute>
-            )}
-          />
+          {/* <Route */}
+          {/*   path={routes.walking} */}
+          {/*   element={( */}
+          {/*     <ProtectedRoute> */}
+          {/*       <WalkingScreen /> */}
+          {/*     </ProtectedRoute> */}
+          {/*   )} */}
+          {/* /> */}
           <Route path={routes.createPet} element={<PetCreationScreen />} />
           <Route path={routes.onboarding} element={<StartScreen />} />
           <Route path="*" element={<div>Not found</div>} />
