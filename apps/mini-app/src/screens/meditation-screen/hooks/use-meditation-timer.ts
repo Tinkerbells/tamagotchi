@@ -5,7 +5,7 @@ import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 dayjs.extend(duration)
 
 export const STORAGE_KEY = 'meditation-timer'
-const DEFAULT_TIME = 0.5 * 60
+const DEFAULT_TIME = 0.2 * 60
 
 export function useMeditationTimer() {
   const [timeLeft, setTimeLeft] = useState(DEFAULT_TIME)

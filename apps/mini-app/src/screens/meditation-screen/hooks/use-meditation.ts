@@ -8,18 +8,16 @@ import { useCreateMeditation } from '@/data/meditation'
 import { getIsTimer } from '../utils'
 import { useMeditationTimer } from './use-meditation-timer'
 
-const GEMS_TO_ADD = 5
+export const GEMS_TO_ADD = 5
 
 export function useMeditation() {
   const { user } = useAuth()
   const {
-    timeLeft,
     isRunning,
     isFinished,
-    startTimer,
-    stopTimer,
     toggleTimer,
     finishSession,
+    timeLeft,
     progress,
   } = useMeditationTimer()
 
@@ -34,16 +32,23 @@ export function useMeditation() {
   }
 
   const { mutate: createMeditation, isPending: isMeditationLoading }
-    = useCreateMeditation()
+    = useCreateMeditation({
+      onSuccess: () => {
+        finishSession()
+        setIsFinishDrawerOpen(false)
+      },
+      onError: () => {
+        toast.error('Что-то пошло не так!')
+        finishSession()
+      },
+    })
 
   const { mutate: updateUser, isPending: isUpdateUserLoading } = useUpdateUser({
     onSuccess: () => {
-      finishSession()
       createMeditation({ userId: user.id })
     },
     onError: () => {
       toast.error('Что-то пошло не так!')
-      finishSession()
     },
   })
 
@@ -54,10 +59,14 @@ export function useMeditation() {
   })
 
   const finishMeditation = React.useCallback(() => {
-    updateUser({ userId: user.id, gems: user.gems + GEMS_TO_ADD })
-  }, [updateUser, user])
+    createMeditation({ userId: user.id })
+  }, [createMeditation, user])
 
-  const loadAds = React.useCallback(async () => {
+  const updateUserGems = React.useCallback(() => {
+    updateUser({ userId: user.id, gems: user.gems + GEMS_TO_ADD })
+  }, [createMeditation, user])
+
+  const finishMeditationWithAds = React.useCallback(async () => {
     setAdsState({ isLoading: true, isSuccess: false, error: null })
     try {
       const response = await vkBridge.send('VKWebAppShowNativeAds', {
@@ -69,7 +78,7 @@ export function useMeditation() {
         throw new Error('Ошибка при показе рекламы')
       }
       setAdsState({ isLoading: false, isSuccess: true, error: null })
-      finishMeditation()
+      updateUserGems()
     }
     catch (error) {
       console.error(error)
@@ -77,40 +86,46 @@ export function useMeditation() {
       finishSession()
       setAdsState({ isLoading: false, isSuccess: false, error: null })
     }
-  }, [finishMeditation])
+  }, [updateUser])
+
+  React.useEffect(() => {
+    if (isFinished) {
+      setIsFinishDrawerOpen(true)
+    }
+  }, [isFinished])
 
   const title = `Медитация с ${petData?.pet?.name || 'питомцем'}`
   const description
     = 'Медитируя с питомцем, вы успокаиваете его и себя. Это снижает уровень стресса и улучшает эмоциональное состояние.'
+
   const buttonText = getIsTimer()
-    ? isRunning
+    ? isRunning || isFinished
       ? 'Завершить медитацию'
       : 'Продолжить медитацию'
     : 'Начать медитацию'
 
-  const isFinishingLoading
-    = isUpdateUserLoading || isMeditationLoading || adsState.isLoading
+  const isFinishingWithAdsLoading = adsState.isLoading || isMeditationLoading || isUpdateUserLoading
+
+  const isFinishingLoading = isMeditationLoading
+
+  const isLoading = isPetDataLoading
 
   return {
+    isLoading,
     isFinishDrawerOpen,
     handleDrawerOpen,
     toggleTimer,
     finishMeditation,
-    loadAds,
+    finishMeditationWithAds,
+    isFinishingWithAdsLoading,
     isFinishingLoading,
-    isAdsSuccess: adsState.isSuccess,
-    adsError: adsState.error,
     buttonText,
     title,
     description,
     petData,
-    isLoading: isPetDataLoading,
-    timeLeft,
     isRunning,
     isFinished,
-    startTimer,
-    stopTimer,
-    finishSession,
+    timeLeft,
     progress,
   }
 }

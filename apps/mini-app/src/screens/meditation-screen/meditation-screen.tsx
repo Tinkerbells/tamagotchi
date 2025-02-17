@@ -4,17 +4,18 @@ import { Gems, Meditation } from '@/shared'
 import { MeditationWidget } from '@/modules'
 
 import { getIsTimer } from './utils'
-import { useMeditation } from './hooks'
 import { WithResourcesPanel } from '../screen'
+import { GEMS_TO_ADD, useMeditation } from './hooks'
 
 interface ControlsProps {
   title: string
   description: string
-  loadAds: () => void
   isOpen: boolean
   setIsOpen: (value: boolean) => void
   finishMeditation: () => void
+  finishMeditationWithAds: () => void
   isFinishingLoading: boolean
+  isFinishingWithAdsLoading: boolean
 }
 
 export function MeditationScreen() {
@@ -23,13 +24,14 @@ export function MeditationScreen() {
     description,
     buttonText,
     isLoading,
-    timeLeft,
     isRunning,
-    isFinished,
     toggleTimer,
-    loadAds,
+    isFinishingWithAdsLoading,
+    finishMeditationWithAds,
     isFinishingLoading,
     progress,
+    isFinished,
+    timeLeft,
     finishMeditation,
     handleDrawerOpen,
     isFinishDrawerOpen,
@@ -47,8 +49,13 @@ export function MeditationScreen() {
         renderPrimaryButton: () => (
           <Button
             onClick={() => {
-              toggleTimer()
-              isRunning && handleDrawerOpen(true)
+              if (!isFinished) {
+                toggleTimer()
+              }
+
+              if (isRunning || isFinished) {
+                handleDrawerOpen(true)
+              }
             }}
             isLoading={isFinishingLoading}
             className="font-vk relative h-11 w-full justify-center overflow-hidden whitespace-nowrap px-4 text-sm font-semibold tracking-tighter text-[#ce766a]"
@@ -77,8 +84,9 @@ export function MeditationScreen() {
         isOpen={isFinishDrawerOpen}
         setIsOpen={handleDrawerOpen}
         finishMeditation={finishMeditation}
+        finishMeditationWithAds={finishMeditationWithAds}
         isFinishingLoading={isFinishingLoading}
-        loadAds={loadAds}
+        isFinishingWithAdsLoading={isFinishingWithAdsLoading}
       />
       <MeditationWidget isTimerRunning={isRunning} timerProgress={progress} />
     </WithResourcesPanel>
@@ -86,11 +94,12 @@ export function MeditationScreen() {
 }
 
 function FinishDrawer({
-  loadAds,
+  isFinishingWithAdsLoading,
+  finishMeditationWithAds,
+  finishMeditation,
   isFinishingLoading,
   title,
   description,
-  finishMeditation,
   setIsOpen,
   isOpen,
 }: ControlsProps) {
@@ -110,23 +119,21 @@ function FinishDrawer({
         </div>
         <div className="mt-4 flex w-full flex-col items-center gap-2">
           <Button
-            isLoading={isFinishingLoading}
+            isLoading={isFinishingWithAdsLoading}
             className="font-vk relative h-11 w-full justify-center gap-1 overflow-hidden whitespace-nowrap bg-[#fcd1c3] px-4 text-sm font-semibold tracking-tighter text-[#ce766a]"
-            onClick={() => loadAds()}
+            onClick={finishMeditationWithAds}
           >
             Посмотреть рекламу и завершить
             {' '}
             <span className="flex items-center">
               <Gems />
               {' '}
-              +5
+              +
+              {GEMS_TO_ADD}
             </span>
           </Button>
           <Button
-            onClick={() => {
-              finishMeditation()
-              setIsOpen(false)
-            }}
+            onClick={finishMeditation}
             isLoading={isFinishingLoading}
             className="font-vk relative h-11 w-full justify-center overflow-hidden whitespace-nowrap border-[2px] border-[#fcd1c3] bg-white px-4 text-sm font-semibold tracking-tighter text-[#ce766a]"
           >
