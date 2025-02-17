@@ -5,7 +5,7 @@ import react from '@vitejs/plugin-react'
 import legacy from '@vitejs/plugin-legacy'
 import tsconfigPaths from 'vite-tsconfig-paths'
 import { nodePolyfills } from 'vite-plugin-node-polyfills'
-import { ViteImageOptimizer } from 'vite-plugin-image-optimizer'
+// import { ViteImageOptimizer } from 'vite-plugin-image-optimizer'
 
 export default defineConfig({
   base: './',
@@ -16,7 +16,7 @@ export default defineConfig({
       targets: ['defaults', 'not IE 11'],
     }),
     tsconfigPaths(),
-    ViteImageOptimizer(),
+    // ViteImageOptimizer(),
     nodePolyfills(),
   ],
   resolve: {
