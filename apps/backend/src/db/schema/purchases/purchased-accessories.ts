@@ -16,8 +16,7 @@ export const purchasedAccessories = pgTable('purchased_accessories', {
     .notNull()
     .references(() => user.id),
   itemId: integer('item_id')
-    .references(() => accessories.id)
-    .unique(),
+    .references(() => accessories.id),
   isActive: boolean('is_active').default(false),
   purchasedAt: timestamp('purchased_at').defaultNow(),
   type: integer('item_type').notNull(),
