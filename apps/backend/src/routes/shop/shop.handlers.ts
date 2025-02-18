@@ -49,7 +49,7 @@ export const purchase: AppRouteHandler<PurchaseRoute> = async (c) => {
         return operators.eq(fields.id, id)
       },
     })
-    if (accessory && dbUser && dbUser.gems > accessory.price) {
+    if (accessory && dbUser && dbUser.gems >= accessory.price) {
       await db
         .insert(purchasedAccessories)
         .values({ userId: userId, itemId: id, type: accessory.type })
@@ -73,7 +73,7 @@ export const purchase: AppRouteHandler<PurchaseRoute> = async (c) => {
         return operators.eq(fields.id, id)
       },
     })
-    if (interiorItem && dbUser && dbUser.gems > interiorItem.price) {
+    if (interiorItem && dbUser && dbUser.gems >= interiorItem.price) {
       await db
         .insert(purchasedInteriorItems)
         .values({ userId: userId, itemId: id, type: interiorItem.type })
