@@ -1,4 +1,5 @@
 import * as React from 'react'
+import toast from 'react-hot-toast'
 import { DialogTrigger } from '@tamagotchi/ui'
 
 import { useAuth } from '@/shared'
@@ -28,13 +29,20 @@ export const InteriorItem: React.FC<AccessoryItemProps> = ({
       // disabled={isPurchased}
       className="h-fit w-fit"
       onClick={(e) => {
-        if (isPurchased) {
-          e.preventDefault()
+        if (user.gems >= price) {
+          if (isPurchased) {
+            e.preventDefault()
+          }
+          isPurchased
+          && updateInteriorItem({ itemId: itemId.toString(), userId: user.id })
         }
-        isPurchased
-        && updateInteriorItem({ itemId: itemId.toString(), userId: user.id })
+        else {
+          e.preventDefault()
+          toast('У вас не хватает гемов')
+        }
       }}
     >
+
       <ProductCard
         isPurchased={isPurchased}
         isActive={isActive}

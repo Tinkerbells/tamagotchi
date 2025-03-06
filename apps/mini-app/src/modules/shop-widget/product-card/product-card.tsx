@@ -5,7 +5,7 @@ import { CheckCircle, Gems } from '@/shared'
 
 export interface ProductCardProps extends React.HTMLAttributes<HTMLDivElement> {
   title: string
-  price?: number
+  price: number
   isPurchased?: boolean
   isActive?: boolean
 }

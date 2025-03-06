@@ -1,11 +1,11 @@
 import { Button, Drawer, DrawerContent } from '@tamagotchi/ui'
 
-import { Gems, Meditation } from '@/shared'
 import { MeditationWidget } from '@/modules'
+import { Gems, GEMS_TO_ADD, Meditation } from '@/shared'
 
 import { getIsTimer } from './utils'
+import { useMeditation } from './hooks'
 import { WithResourcesPanel } from '../screen'
-import { GEMS_TO_ADD, useMeditation } from './hooks'
 
 interface ControlsProps {
   title: string

@@ -1,14 +1,12 @@
 import * as React from 'react'
 import toast from 'react-hot-toast'
 
-import { useAuth, vkBridge } from '@/shared'
 import { useGetPet, useUpdateUser } from '@/data'
 import { useCreateMeditation } from '@/data/meditation'
+import { GEMS_TO_ADD, useAuth, vkBridge } from '@/shared'
 
 import { getIsTimer } from '../utils'
 import { useMeditationTimer } from './use-meditation-timer'
-
-export const GEMS_TO_ADD = 5
 
 export function useMeditation() {
   const { user } = useAuth()

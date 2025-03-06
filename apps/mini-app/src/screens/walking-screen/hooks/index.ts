@@ -1,1 +1,1 @@
-export * from './use-walking'
+export * from './use-geo-location'

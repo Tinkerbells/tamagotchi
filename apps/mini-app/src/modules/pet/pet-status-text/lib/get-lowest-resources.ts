@@ -1,8 +1,8 @@
 import type { FetchedResources } from '@/data'
 
 const resourceActions: Record<keyof FetchedResources, string> = {
-  meal: 'ели',
-  water: 'пили',
+  meal: 'принимали пищу',
+  water: 'пили воду',
   meditation: 'медитировали',
   gratitude: 'писали благодарности',
   walking: 'гуляли',

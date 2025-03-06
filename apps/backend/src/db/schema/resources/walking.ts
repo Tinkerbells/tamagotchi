@@ -8,7 +8,6 @@ import {
   boolean,
 } from 'drizzle-orm/pg-core'
 import { createInsertSchema, createSelectSchema } from 'drizzle-zod'
-import { z } from 'zod'
 
 export const walking = pgTable('walking', {
   id: serial('id').primaryKey(),
@@ -16,7 +15,7 @@ export const walking = pgTable('walking', {
     .notNull()
     .references(() => user.id),
   currentValue: integer('current_value').default(0).notNull(),
-  date: date('date').defaultNow().notNull().unique(),
+  date: date('date').defaultNow().notNull(),
   finished: boolean('finished').default(false),
   createdAt: timestamp('created_at').defaultNow().notNull(),
   updatedAt: timestamp('updated_at').defaultNow().notNull(),

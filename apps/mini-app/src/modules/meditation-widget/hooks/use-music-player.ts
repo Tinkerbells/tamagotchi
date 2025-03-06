@@ -1,4 +1,5 @@
 import * as React from 'react'
+import { useLocation } from 'react-router-dom'
 import { useGlobalAudioPlayer } from 'react-use-audio-player'
 
 import { rotateArray } from '@/shared'
@@ -24,15 +25,24 @@ export function useMusicPlayer() {
     play,
     pause,
     seek,
+    stop,
     isReady,
     isLoading,
     paused,
     duration,
   } = useGlobalAudioPlayer()
 
+  const location = useLocation()
+
   const handleProgress = () => {
     setCurrentProgress(getPosition())
   }
+
+  React.useEffect(() => {
+    if (location.pathname !== '/meditation') {
+      stop()
+    }
+  }, [location.state])
 
   React.useEffect(() => {
     isTimerRunning ? play() : pause()

@@ -34,9 +34,9 @@ const styles = {
     primary: 'text-[#ce9c6a]',
   },
   walking: {
-    backButtonBg: 'bg-[#e9fafe]',
-    buttonBg: 'bg-[#c3f9fc]',
-    primary: 'text-[#0bb5b5]',
+    backButtonBg: 'bg-[#FEF8E9]',
+    buttonBg: 'bg-[#fcdec3]',
+    primary: 'text-[#C0774E]',
   },
 }
 
@@ -46,7 +46,7 @@ const icons = {
   sleep: <Sleep className="h-[90px] w-[90px] text-[#FCC3DD]" />,
   meditation: <Meditation className="h-20 w-20 text-[#FCD1C3] opacity-30" />,
   gratitude: <Heart className="h-[90px] w-[90px] text-[#fef8ec]" />,
-  walking: <Walking className="h-[100px] w-[100px] text-[#D9D9D9]" />,
+  walking: <Walking className="h-[100px] w-[100px] text-[#fce4d6]" />,
 }
 
 export interface ResourcesPanelProps extends React.ComponentProps<'div'> {
