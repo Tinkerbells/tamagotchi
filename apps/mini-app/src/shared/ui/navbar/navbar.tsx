@@ -12,7 +12,7 @@ export const Navbar: React.FC<NavbarProps> = ({ isVisible = true }) => {
     <motion.header
       animate={{ opacity: isVisible ? 1 : 0, y: isVisible ? 0 : -20 }}
       transition={{ duration: 0.15, ease: 'easeInOut' }}
-      className="fixed top-16 z-10 flex h-8 w-full justify-center"
+      className="fixed top-[6vh] z-10 flex h-8 w-full justify-center"
     >
       <nav className="flex gap-4 overflow-x-auto">
         <NavbarItem to="/" className="w-[106px]">

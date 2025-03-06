@@ -39,7 +39,7 @@ export const StepDots: React.FC<StepDotsProps> = ({
 
 export const StepOne: React.FC<StepProps> = () => {
   return (
-    <div className="flex flex-col items-center gap-8">
+    <div className="flex flex-col items-center justify-between">
       <StepCard>
         <div className="absolute mr-[3rem] w-[18rem] overflow-hidden rounded-b-[1.5rem]">
           <div className="relative mr-5 h-80 pt-24">
@@ -65,7 +65,7 @@ export const StepOne: React.FC<StepProps> = () => {
 
 export const StepTwo: React.FC<StepProps> = () => {
   return (
-    <div className="flex flex-col items-center gap-8">
+    <div className="flex flex-col items-center justify-between">
       <StepCard>
         <StepTwoSvg />
         <picture className="absolute h-60 w-[18rem] overflow-hidden rounded-br-[1.5rem]">
@@ -91,7 +91,7 @@ export const StepTwo: React.FC<StepProps> = () => {
 
 export const StepThree: React.FC<StepProps> = () => {
   return (
-    <div className="flex flex-col items-center gap-8">
+    <div className="flex flex-col items-center">
       <StepCard>
         <picture className="absolute top-0 flex h-80 w-60 items-center justify-center">
           <Image

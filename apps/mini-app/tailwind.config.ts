@@ -10,6 +10,9 @@ const config: Pick<Config, 'content' | 'presets' | 'theme' | 'plugins'> = {
     '../../packages/ui/src/**/*{.js,.ts,.jsx,.tsx}',
   ],
   theme: {
+    screens: {
+      xss: { raw: '(max-height: 660px),(min-width:375px)' },
+    },
     extend: {
       boxShadow: {
         'bubble-message': `

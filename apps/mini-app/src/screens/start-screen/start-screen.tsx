@@ -26,34 +26,36 @@ export function StartScreen() {
   }, [setStep, step, navigator])
   return (
     <Screen>
-      <AnimatePresence initial={false}>
-        <motion.div
-          className="z-10 mt-10"
-          key={step}
-          initial={{
-            opacity: 0,
-            x: -200,
-          }}
-          transition={{
-            ease: 'easeInOut',
-            duration: 0.2,
-          }}
-          animate={{
-            opacity: 1,
-            x: 0,
-          }}
+      <div className="flex flex-col justify-between items-center w-full h-full pb-2 overflow-hidden">
+        <AnimatePresence initial={false}>
+          <motion.div
+            className="z-10 mt-10 flex flex-col justify-between h-full"
+            key={step}
+            initial={{
+              opacity: 0,
+              x: -200,
+            }}
+            transition={{
+              ease: 'easeInOut',
+              duration: 0.2,
+            }}
+            animate={{
+              opacity: 1,
+              x: 0,
+            }}
+          >
+            {steps[step]}
+          </motion.div>
+        </AnimatePresence>
+        <StepDots className="mb-4" currentStep={step} />
+        <Button
+          className="font-vk w-full"
+          variant="primary"
+          onClick={handleNext}
         >
-          {steps[step]}
-        </motion.div>
-      </AnimatePresence>
-      <StepDots className="absolute mt-[27rem]" currentStep={step} />
-      <Button
-        className="font-vk absolute bottom-8 w-[calc(100%-3rem)]"
-        variant="primary"
-        onClick={handleNext}
-      >
-        {step < 2 ? 'Далее' : 'Вперед'}
-      </Button>
+          {step < 2 ? 'Далее' : 'Вперед'}
+        </Button>
+      </div>
     </Screen>
   )
 }
