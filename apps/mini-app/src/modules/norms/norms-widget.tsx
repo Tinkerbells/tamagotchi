@@ -15,7 +15,7 @@ import {
 function NormsWidgetComponent() {
   const { today, data, variant } = useNormsWidgetContext()
   return (
-    <div className="h-[calc(100% - 30vh)] absolute bottom-[30vh] mb-8 flex w-full flex-col items-center justify-start gap-8 overflow-x-hidden pt-24">
+    <div className="h-[70vh] absolute justify-between flex w-full flex-col items-center overflow-hidden pt-[5vh]">
       <h1
         className={cn(
           'font-vk text-[32px] font-semibold leading-[40px] opacity-[0.16]',

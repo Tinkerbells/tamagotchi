@@ -22,7 +22,7 @@ export const PetStatusText: React.FC<PetStatusTextProps> = ({
       <h2 className="text-center text-xl font-bold">
         {petName}
         {' '}
-        {getPetMood(mood)}
+        {mood && getPetMood(mood)}
       </h2>
       <p className="text-text-secondary mt-2 text-center">
         Вы давно не

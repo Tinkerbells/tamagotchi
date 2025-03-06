@@ -24,7 +24,7 @@ export function Pet() {
   }
 
   return (
-    <div className="absolute bottom-[30vh] mb-4 flex w-full flex-col items-center justify-center">
+    <div className="absolute h-[70vh] flex w-full flex-col items-center justify-center">
       <PetImage accessory={petData.accessory} petMood={petMood!} />
       <PetInteriorItems interiorItems={petData.interior_items} />
       {!userMood && !isUserMoodLoading && (

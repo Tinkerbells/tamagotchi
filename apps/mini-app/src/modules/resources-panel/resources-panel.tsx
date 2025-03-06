@@ -74,7 +74,7 @@ export function ResourcesPanel({
   return (
     <section
       className={cn(
-        'absolute bottom-0 z-[999] flex w-full flex-col items-center overflow-hidden rounded-t-[18px] bg-white px-4 py-6 h-[30vh]',
+        'absolute bottom-0 z-[999] flex w-full flex-col items-center overflow-hidden rounded-t-[18px] bg-white gap-4 px-4 py-6 h-[30vh]',
         className,
       )}
     >

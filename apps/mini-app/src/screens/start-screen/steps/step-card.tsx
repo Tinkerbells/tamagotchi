@@ -15,7 +15,7 @@ export const StepCard: React.FC<StepCardProps> = ({
   return (
     <div
       className={cn(
-        'relative flex h-full w-full items-end justify-center overflow-y-hidden py-14',
+        'relative flex h-full w-full items-end justify-center pt-14 pb-6',
         className,
       )}
       {...props}

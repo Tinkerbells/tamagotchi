@@ -23,7 +23,7 @@ export function WeekOverview({
   return (
     <div className={cn('mt-12 w-full', className)}>
       <div
-        className="scrollbar-hide flex items-end gap-5 overflow-x-scroll px-6"
+        className="scrollbar-hide flex items-end justify-center gap-5 overflow-x-scroll px-6"
         ref={containerRef}
       >
         {values.map(({ day, month, progress }, index) => (
