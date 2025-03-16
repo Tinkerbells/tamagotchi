@@ -46,7 +46,7 @@ export function useMusicPlayer() {
 
   React.useEffect(() => {
     isTimerRunning ? play() : pause()
-  }, [isTimerRunning])
+  }, [isTimerRunning, isLoading])
 
   React.useEffect(() => {
     load(currentPlaying.path, {

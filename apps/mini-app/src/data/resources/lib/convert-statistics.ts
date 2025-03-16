@@ -7,7 +7,7 @@ dayjs.extend(duration)
 
 export function convertStatistics(statistics: FetchedStatistics) {
   // Calculate total meditation time in minutes
-  const totalMinutes = statistics.meditation * 15
+  const totalMinutes = statistics.meditation * 10
 
   if (totalMinutes < 60) {
     return {
