@@ -1,4 +1,5 @@
 import * as React from 'react'
+import { Link } from 'react-router-dom'
 
 import type { FetchedResources } from '@/data'
 
@@ -27,15 +28,15 @@ export const PetStatusText: React.FC<PetStatusTextProps> = ({
       <p className="text-text-secondary mt-2 text-center">
         Вы давно не
         {' '}
-        <span className="text-text-highlight underline">
-          {lowestResources[0]}
-        </span>
+        <Link to={`/${lowestResources[0].key}`} className="text-text-highlight underline">
+          {lowestResources[0].action}
+        </Link>
         {' '}
         и не
         {' '}
-        <span className="text-text-highlight underline">
-          {lowestResources[1]}
-        </span>
+        <Link to={`/${lowestResources[1].key}`} className="text-text-highlight underline">
+          {lowestResources[1].action}
+        </Link>
         {' '}
         с вашим питомцем.. Возможно сейчас самое время?
       </p>
