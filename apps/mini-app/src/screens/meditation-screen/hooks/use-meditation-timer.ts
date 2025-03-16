@@ -5,10 +5,10 @@ import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 dayjs.extend(duration)
 
 export const STORAGE_KEY = 'meditation-timer'
-const DEFAULT_TIME = 10 * 60
+export const DEFAULT_MEDITATION_TIME = 2 * 60
 
 export function useMeditationTimer() {
-  const [timeLeft, setTimeLeft] = useState(DEFAULT_TIME)
+  const [timeLeft, setTimeLeft] = useState(DEFAULT_MEDITATION_TIME)
   const [isRunning, setIsRunning] = useState(false)
   const [isFinished, setIsFinished] = useState(false)
 
@@ -32,7 +32,7 @@ export function useMeditationTimer() {
 
   // Save state whenever timeLeft, isRunning, or isFinished changes
   useEffect(() => {
-    if (timeLeft !== DEFAULT_TIME || isRunning || isFinished) {
+    if (timeLeft !== DEFAULT_MEDITATION_TIME || isRunning || isFinished) {
       localStorage.setItem(
         STORAGE_KEY,
         JSON.stringify({ timeLeft, isRunning, isFinished }),
@@ -74,7 +74,7 @@ export function useMeditationTimer() {
 
   const finishSession = useCallback(() => {
     localStorage.removeItem(STORAGE_KEY)
-    setTimeLeft(DEFAULT_TIME)
+    setTimeLeft(DEFAULT_MEDITATION_TIME)
     setIsFinished(false)
   }, [])
 
@@ -84,7 +84,7 @@ export function useMeditationTimer() {
   )
 
   const progress = useMemo(() => {
-    return Math.max(0, Math.round(100 - (timeLeft / DEFAULT_TIME) * 100))
+    return Math.max(0, Math.round(100 - (timeLeft / DEFAULT_MEDITATION_TIME) * 100))
   }, [timeLeft])
 
   return {

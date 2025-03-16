@@ -1,13 +1,15 @@
 import dayjs from 'dayjs'
 import duration from 'dayjs/plugin/duration'
 
+import { DEFAULT_MEDITATION_TIME } from '@/screens/meditation-screen/hooks/use-meditation-timer'
+
 import type { FetchedStatistics } from '../dto'
 
 dayjs.extend(duration)
 
 export function convertStatistics(statistics: FetchedStatistics) {
   // Calculate total meditation time in minutes
-  const totalMinutes = statistics.meditation * 10
+  const totalMinutes = statistics.meditation * DEFAULT_MEDITATION_TIME
 
   if (totalMinutes < 60) {
     return {
