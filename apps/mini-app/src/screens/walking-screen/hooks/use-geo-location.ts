@@ -93,14 +93,7 @@ export function useWalking(trackingInterval = DEFAULT_TRACKING_INTERVAL) {
         setError('Геолокация недоступна. Проверьте разрешения на доступ к местоположению.')
         return null
       }
-      console.log({
-        lat: geoData.lat,
-        long: geoData.long,
-        accuracy: geoData.accuracy || 0,
-        available: Boolean(geoData.available),
-        timestamp: Date.now(),
-      },
-      )
+      console.log('Geo data полученная от bridge: ', geoData)
       return {
         lat: geoData.lat,
         long: geoData.long,
