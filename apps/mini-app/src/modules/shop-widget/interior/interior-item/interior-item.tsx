@@ -29,17 +29,11 @@ export const InteriorItem: React.FC<AccessoryItemProps> = ({
       // disabled={isPurchased}
       className="h-fit w-fit"
       onClick={(e) => {
-        if (user.gems >= price) {
-          if (isPurchased) {
-            e.preventDefault()
-          }
-          isPurchased
-          && updateInteriorItem({ itemId: itemId.toString(), userId: user.id })
-        }
-        else {
+        if (isPurchased || user.gems < price) {
           e.preventDefault()
-          toast('У вас не хватает гемов')
         }
+        isPurchased
+        && updateInteriorItem({ itemId: itemId.toString(), userId: user.id })
       }}
     >
 

@@ -28,17 +28,11 @@ export const AccessoryItem: React.FC<AccessoryItemProps> = ({
     <DialogTrigger
       className="h-fit w-fit"
       onClick={(e) => {
-        if (user.gems >= price) {
-          if (isPurchased) {
-            e.preventDefault()
-          }
-          isPurchased
-          && updateAccessory({ itemId: itemId.toString(), userId: user.id })
-        }
-        else {
+        if (isPurchased || user.gems < price) {
           e.preventDefault()
-          toast('У вас не хватает гемов')
         }
+        isPurchased
+        && updateAccessory({ itemId: itemId.toString(), userId: user.id })
       }}
     >
       <ProductCard
