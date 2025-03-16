@@ -65,5 +65,40 @@ export const get = createRoute({
   },
 })
 
+// Define the response schema for checking achievements
+const checkAchievementsResponseSchema = z.object({
+  achievements: z.array(
+    selectAchievementsSchema.extend({ 
+      isUnlocked: z.boolean(),
+    })
+  ),
+  newlyEarned: z.array(selectAchievementsSchema).optional()
+})
+
+// Route for checking and potentially awarding achievements
+export const checkAchievements = createRoute({
+  path: '/achievements/check/{id}',
+  method: 'post',
+  request: {
+    params: IdParamsSchema,
+  },
+  tags,
+  responses: {
+    [HttpStatusCodes.OK]: jsonContent(
+      checkAchievementsResponseSchema,
+      'User achievements status with any newly earned achievements'
+    ),
+    [HttpStatusCodes.NOT_FOUND]: jsonContent(
+      forbiddenSchema,
+      'User not found'
+    ),
+    [HttpStatusCodes.UNPROCESSABLE_ENTITY]: jsonContent(
+      createErrorSchema(IdParamsSchema),
+      'Invalid id error'
+    ),
+  },
+})
+
+export type CheckAchievementsRoute = typeof checkAchievements
 export type UpdateRoute = typeof update
 export type GetRoute = typeof get

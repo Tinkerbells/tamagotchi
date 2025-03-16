@@ -1,4 +1,3 @@
-import { useEffect } from 'react'
 import { Button, Drawer, DrawerContent } from '@tamagotchi/ui'
 
 import { WalkingWidget } from '@/modules'

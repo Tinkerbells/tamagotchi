@@ -1,7 +1,7 @@
 import { Route, Routes } from 'react-router-dom'
 
-import { MusicPlayerProvider } from '@/shared'
 import { AchievementsScreen } from '@/screens/achievements-screen'
+import { MusicPlayerProvider, withAchievementCheck } from '@/shared'
 import {
   GratitudeScreen,
   HomeScreen,
@@ -22,6 +22,11 @@ import { AppProvider } from './app-provider'
 import { ProtectedRoute } from './protected-route'
 
 export function App() {
+  // Define which screens should check for achievements
+  const checkAchievements = {
+    checkOnMount: true,
+  }
+
   return (
     <AppProvider>
       <MusicPlayerProvider>
@@ -31,7 +36,8 @@ export function App() {
               index
               element={(
                 <ProtectedRoute>
-                  <HomeScreen />
+                  {/* Check achievements when returning home */}
+                  {withAchievementCheck(HomeScreen, checkAchievements)({})}
                 </ProtectedRoute>
               )}
             />
@@ -47,7 +53,8 @@ export function App() {
               path={routes.achievements}
               element={(
                 <ProtectedRoute>
-                  <AchievementsScreen />
+                  {/* Check achievements when viewing the achievements page */}
+                  {withAchievementCheck(AchievementsScreen, checkAchievements)({})}
                 </ProtectedRoute>
               )}
             />
@@ -63,7 +70,7 @@ export function App() {
               path={routes.water}
               element={(
                 <ProtectedRoute>
-                  <WaterScreen />
+                  {withAchievementCheck(WaterScreen, checkAchievements)({})}
                 </ProtectedRoute>
               )}
             />
@@ -71,7 +78,7 @@ export function App() {
               path={routes.sleep}
               element={(
                 <ProtectedRoute>
-                  <SleepScreen />
+                  {withAchievementCheck(SleepScreen, checkAchievements)({})}
                 </ProtectedRoute>
               )}
             />
@@ -79,7 +86,7 @@ export function App() {
               path={routes.meditation}
               element={(
                 <ProtectedRoute>
-                  <MeditationScreen />
+                  {withAchievementCheck(MeditationScreen, checkAchievements)({})}
                 </ProtectedRoute>
               )}
             />
@@ -87,7 +94,7 @@ export function App() {
               path={routes.meals}
               element={(
                 <ProtectedRoute>
-                  <MealsScreen />
+                  {withAchievementCheck(MealsScreen, checkAchievements)({})}
                 </ProtectedRoute>
               )}
             />
@@ -95,7 +102,7 @@ export function App() {
               path={routes.gratitude}
               element={(
                 <ProtectedRoute>
-                  <GratitudeScreen />
+                  {withAchievementCheck(GratitudeScreen, checkAchievements)({})}
                 </ProtectedRoute>
               )}
             />
@@ -103,7 +110,7 @@ export function App() {
               path={routes.walking}
               element={(
                 <ProtectedRoute>
-                  <WalkingScreen />
+                  {withAchievementCheck(WalkingScreen, checkAchievements)({})}
                 </ProtectedRoute>
               )}
             />
