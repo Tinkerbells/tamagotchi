@@ -55,6 +55,7 @@ export function MeditationWidgetPlayer() {
     isLoading: isMusicLoading,
     isReady,
     handleProgress,
+    switchToSong,
   } = useMusicPlayer()
 
   const sensors = useSensors(
@@ -70,7 +71,19 @@ export function MeditationWidgetPlayer() {
       setQueue((items) => {
         const oldIndex = items.findIndex(item => item.id === active.id)
         const newIndex = items.findIndex(item => item.id === over.id)
-        return arrayMove(items, oldIndex, newIndex)
+
+        // If the currently playing song is being moved, we need to switch to the new first song
+        const newQueue = arrayMove(items, oldIndex, newIndex)
+
+        // If the first item changed, we need to play the new first song
+        if (oldIndex === 0 || newIndex === 0) {
+          // Small delay to allow the state to update
+          setTimeout(() => {
+            switchToSong(newQueue[0])
+          }, 50)
+        }
+
+        return newQueue
       })
     }
   }
@@ -154,6 +167,31 @@ export function MeditationWidgetPlayer() {
                       id={song.id}
                       isLast={index === queue.length - 1}
                       song={song}
+                      isCurrentlyPlaying={index === 0 && !paused}
+                      onPlay={() => {
+                        // When a non-first song is clicked to play, move it to the front of the queue
+                        if (index !== 0) {
+                          const newQueue = [...queue]
+                          // Remove the song from its current position
+                          const [songToMove] = newQueue.splice(index, 1)
+                          // Add it to the front
+                          newQueue.unshift(songToMove)
+
+                          setQueue(newQueue)
+                          // Auto-play the song
+                          setTimeout(() => {
+                            switchToSong(songToMove)
+                            // If paused, start playing
+                            if (paused) {
+                              togglePlayPause()
+                            }
+                          }, 50)
+                        }
+                        else {
+                          // If it's already first, just toggle play/pause
+                          togglePlayPause()
+                        }
+                      }}
                     />
                   ))}
                 </ul>

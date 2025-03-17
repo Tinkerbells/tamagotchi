@@ -47,8 +47,8 @@ export function useCreateWalking(options?: Omit<
     mutationFn: (params: CreateWalkingParams) => createWalking(params),
     onSuccess: (data, variables, context) => {
       // Invalidate queries to refetch data
-      queryClient.invalidateQueries({ queryKey: GET_WALKINGS_QUERY_KEY })
-      queryClient.invalidateQueries({ queryKey: GET_RESOURCES_QUERY_KEY })
+      queryClient.refetchQueries({ queryKey: GET_WALKINGS_QUERY_KEY })
+      queryClient.refetchQueries({ queryKey: GET_RESOURCES_QUERY_KEY })
 
       // Call any additional onSuccess handlers from options
       options?.onSuccess?.(data, variables, context)

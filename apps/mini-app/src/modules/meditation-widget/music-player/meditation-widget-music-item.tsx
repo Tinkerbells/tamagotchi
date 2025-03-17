@@ -1,9 +1,9 @@
 import * as React from 'react'
-import { Menu } from 'lucide-react'
 import { cn } from '@tamagotchi/utils'
 import { CSS } from '@dnd-kit/utilities'
 import { Separator } from '@tamagotchi/ui'
 import { useSortable } from '@dnd-kit/sortable'
+import { Menu, Pause, Play } from 'lucide-react'
 
 import type { Song } from '../types'
 
@@ -11,12 +11,16 @@ interface SortableItemProps {
   id: string
   song: Song
   isLast?: boolean
+  isCurrentlyPlaying?: boolean
+  onPlay?: () => void
 }
 
 export const MeditationWidgetMusicItem: React.FC<SortableItemProps> = ({
   id,
   song,
   isLast,
+  isCurrentlyPlaying = false,
+  onPlay,
 }) => {
   const { attributes, listeners, setNodeRef, transform, transition }
     = useSortable({ id })
@@ -37,6 +41,22 @@ export const MeditationWidgetMusicItem: React.FC<SortableItemProps> = ({
         )}
       >
         <div className="flex items-center gap-4">
+          <button
+            onClick={(e) => {
+              e.stopPropagation()
+              if (onPlay)
+                onPlay()
+            }}
+            className="flex items-center justify-center w-6 h-6 text-[#e0dee8] hover:text-[#ce766a] transition-colors"
+          >
+            {isCurrentlyPlaying
+              ? (
+                  <Pause size={16} className="text-[#ce766a]" />
+                )
+              : (
+                  <Play size={16} />
+                )}
+          </button>
           <div className="flex flex-col gap-1">
             <span className="whitespace-nowrap text-sm font-medium tracking-tighter text-black">
               {song.title}

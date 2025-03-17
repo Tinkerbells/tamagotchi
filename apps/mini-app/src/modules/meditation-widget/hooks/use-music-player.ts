@@ -38,6 +38,13 @@ export function useMusicPlayer() {
     setCurrentProgress(getPosition())
   }
 
+  // Function to explicitly switch to a specific song
+  const switchToSong = (song: Song) => {
+    setCurrentPlaying(song)
+    setCurrentProgress(0)
+    // Load will automatically play the song if isTimerRunning is true
+  }
+
   React.useEffect(() => {
     if (location.pathname !== '/meditation') {
       stop()
@@ -54,10 +61,15 @@ export function useMusicPlayer() {
         if (currentProgress > 0) {
           seek(currentProgress)
         }
+        if (isTimerRunning) {
+          play()
+        }
       },
       onend: () => {
-        setCurrentPlaying(queue[0])
-        setQueue(rotateArray(queue))
+        // When song ends, automatically move to the next one
+        const newQueue = rotateArray([...queue])
+        setQueue(newQueue)
+        setCurrentPlaying(newQueue[0])
       },
     })
   }, [load, currentPlaying, queue])
@@ -73,5 +85,6 @@ export function useMusicPlayer() {
     paused,
     isLoading,
     duration,
+    switchToSong,
   }
 }

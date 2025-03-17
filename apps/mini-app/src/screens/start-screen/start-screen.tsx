@@ -33,11 +33,11 @@ export function StartScreen() {
             key={step}
             initial={{
               opacity: 0,
-              x: -200,
+              x: 200,
             }}
             transition={{
               ease: 'easeInOut',
-              duration: 0.2,
+              duration: 0.5,
             }}
             animate={{
               opacity: 1,
